@@ -1,0 +1,2 @@
+class PresetWord < ApplicationRecord
+end
