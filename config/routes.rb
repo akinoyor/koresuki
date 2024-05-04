@@ -1,27 +1,16 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'bookmarks/index'
-  end
-  namespace :public do
-    get 'comments/new'
-    get 'comments/index'
-    get 'comments/show'
-    get 'comments/edit'
-  end
-  namespace :public do
-    get 'posts/new'
-    get 'posts/index'
-    get 'posts/show'
-    get 'posts/edit'
-  end
-  namespace :public do
-    get 'users/show'
-    get 'users/edit'
-  end
   scope module: :public do
     devise_for :users
     root to: 'homes#top'
+    resource  :user,  only:[:edit, :update, :destroy]
+    get   '/user/may_page', to: 'users#show',   as: 'my_page'
+    post  '/user/confirm',  to: 'users#confirm',as: 'confirm'
+
+    resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy] do
+      resources  :comments,   only: [:new, :create, :index, :show, :edit, :update, :destroy]
+      resources  :bookmarks,  only: [:index, :create, :destroy]
+    end
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
