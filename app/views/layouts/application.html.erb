@@ -34,7 +34,7 @@
               <li class="nav-item">
                 <!--検索ページ未作成のため　ルートで仮置き-->
                 <%= link_to "検索", root_path, class: 'nav-link text-dark' %>
-                
+
               </li>
               <li class="nav-item">
                 <%= link_to 'マイページ', my_page_path, class: 'nav-link text-dark' %>
@@ -42,16 +42,16 @@
               <li class="nav-item">
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-dark' %>
               </li>
-              
+
             <% else %>
-            
+
               <li class="nav-item">
                 <%= link_to "HOME", posts_path, class: 'nav-link text-dark' %>
               </li>
               <li class="nav-item">
                 <!--検索ページ未作成のため　ルートで仮置き-->
                 <%= link_to "検索", root_path, class: 'nav-link text-dark' %>
-                
+
               </li>
               <li class="nav-item">
                 <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-dark' %>
@@ -69,7 +69,9 @@
         </div>
       </nav>
     </header>
-
+    <div>
+    <%= flash[:notice] %>
+    </div>
     <%= yield %>
   </body>
 </html>

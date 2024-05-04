@@ -12,33 +12,33 @@
       <%= form_with model: @user, url: user_registration_path do |f| %>
 
 
-        <div>
-          <%= f.label "ユーザー名:" %>
-          <%= f.text_field :name %>
-        </div>
-        <div>
-          <%= f.label "メールアドレス:" %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-        </div>
+      <div>
+        <%= f.label "ユーザー名:" %>
+        <%= f.text_field :name %>
+      </div>
+      <div>
+        <%= f.label "メールアドレス:" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
 
-        <div>
-          <%= f.label "パスワード" %>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> 文字以上):</em>
-          <% end %>
-          <%= f.password_field :password, autocomplete: "new-password" %>
-        </div>
+      <div>
+        <%= f.label "パスワード" %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> 文字以上):</em>
+        <% end %>
+        <%= f.password_field :password, autocomplete: "new-password" %>
+      </div>
 
-        <div>
-          <%= f.label "パスワード(確認用）:" %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-        </div>
-        <div class="actions text-center m-3">
-          <%= f.submit "登録する" %>
-        </div>
+      <div>
+        <%= f.label "パスワード(確認用）:" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+      <div class = "actions text-center m-3">
+        <%= f.submit "登録する" %>
+      </div>
       <% end %>
 
-      <div class ="text-center">
+      <div class = "text-center">
         <p>アカウントをお持ちの方は
         <%= link_to "こちら","/users/sign_in" %>
         </p>
