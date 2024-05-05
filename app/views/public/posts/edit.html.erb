@@ -1,2 +1,65 @@
-<h1>Public::Posts#edit</h1>
-<p>Find me in app/views/public/posts/edit.html.erb</p>
+<div class = "containar">
+  <div class = "row">
+
+    <%= render "profile",profile_user: @user, newpost: @newpost %>
+
+    <div class = "col-9 m-3">
+
+       <div class = "row m-3">
+
+        <%= form_with model: @post do |f| %>
+        <div class ="position-relative card shadow-sm" style = "width:100%" >
+          <div class = "row m-3">
+            <div class = "col-1">
+            <%= link_to user_page_path(@post.user_id), class: 'position-relative' do %>
+            <%= image_tag @post.user.get_user_image(50,50) %>
+            <% end %>
+            </div>
+
+            <div class = "col-11">
+              <div class = "row">
+                <div class = "col-8">
+                <%= link_to user_page_path(@post.user_id), class: 'position-relative' do %>
+                <%= @post.user.name %>
+                <% end %>
+                </div>
+              </div>
+
+              <div class = "row m-3">
+              <%= f.text_area :body, id: "opinion", style:"width:100%" %>
+              </div>
+
+              <div>
+                <%= f.label :post_image %>
+                <%= f.file_field :post_image　%>
+                <% if @post.post_image.attached? %>
+                <%= image_tag @post.post_image, width:'80%' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class = "row m-3">
+            <div class = "offset-1 col-1">
+              <i class="fa-regular fa-comment"></i> <%= @post.comments.count(:post_id) %>
+            </div>
+
+            <div class = "offset-1 col-1">
+              <i class="fa-regular fa-bookmark position-relative"></i>
+            </div>
+
+            <div class = "col-4">
+              <p>投稿日時: <%= @post.created_at %></p>
+                <% if @post.created_at != @post.updated_at %>
+              <p>更新日時 : <%= @post.updated_at %></p>
+              <% end %>
+            </div>
+
+
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

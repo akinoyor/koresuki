@@ -1,8 +1,7 @@
 <div class = "containar">
   <div class = "row">
-<%= render "profile",profile_user: @user, newpost: @newpost %>
 
-
+    <%= render "profile",profile_user: @user, newpost: @newpost %>
 
     <div class = "col-9 m-3">
 
@@ -62,6 +61,9 @@
 
             <div class = "col-4">
               <p>投稿日時: <%= f.created_at %></p>
+              <% if f.created_at != f.updated_at %>
+              <p>更新日時 : <%= f.updated_at %></p>
+              <% end %>
             </div>
 
             <% if current_user == f.user %>
@@ -71,9 +73,6 @@
             </div>
             <% end %>
 
-            <div class = "offset-1 col-1">
-
-            </div>
           </div>
         </div>
       <% end %>
