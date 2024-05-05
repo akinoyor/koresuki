@@ -1,2 +1,57 @@
-<h1>Public::Posts#index</h1>
-<p>Find me in app/views/public/posts/index.html.erb</p>
+<div class = "containar">
+  <div class = "row">
+    <div class = "col-2 m-3 text-center">
+      <% if user_signed_in? %>
+        <%= image_tag @user.get_user_image(100,100) %>
+        <%= @user.name %>
+
+        <%= link_to edit_user_registration_path do %>
+        <i class="fa-solid fa-gear"></i>
+        <% end %><br>
+
+        <p>フォロー<%= @user.follows.count(:user_id) %> フォロワー <%= @user.follows.count(:following_user_id) %></p><br>
+
+        <%= @user.profile %>
+
+
+
+      <div class ="m-3">
+       <%= form_with model: @newpost do |f| %>
+          <%= f.file_field :image, accept: "image/*", class: "w-100" %>
+          <div class="input-group mb-3 mt-4">
+          <%= f.text_area :body, class: "form-control", placeholder: "内容をここに" %>
+          </div>
+          <hr>
+          <%= f.submit '投稿', class: "btn btn-lg btn-block btn-info mt-4" %>
+        <% end %>
+      </div>
+      <% else %>
+        <div class ="text-center mt-5">
+        <%= image_tag 'logo.png', width: '50%' %>
+        </div>
+      <% end %>
+    </div>
+
+
+
+    <div class = "col-9 m-3">
+      <%= @posts.each do |f| %>
+      <div class = "row">
+      <div class = "col-1">
+      <%= image_tag f.user.get_user_image(50,50) %>
+      </div>
+
+      <div class = "col-11">
+      <%= f.user.name %><br>
+      <%= f.body %>
+        <% if f.post_image.attached? %>
+        <%= image_tag f.post_image, width:'80%' %>
+        <% end %>
+      <% end %><br>
+      </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

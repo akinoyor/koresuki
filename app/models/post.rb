@@ -3,4 +3,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :bookmarks,  dependent: :destroy
   has_many :comments,   dependent: :destroy
+
+validates :post_image, presence: true, if: -> { body.blank? }
+validates :body, presence: true, if: -> { post_image.blank? }
 end

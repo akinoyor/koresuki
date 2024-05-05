@@ -59,4 +59,10 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  
+  
+  # 以下現在のパスワード確認なしでする際に使用
+  # def update_resource(resource, params)
+  #   resource.update_without_password(params)
+  # end
 end

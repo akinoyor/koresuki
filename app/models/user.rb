@@ -5,12 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :user_image
-  def get_profile_image
-    unless profile_image.attached?
+  def get_user_image(width, height)
+    unless user_image.attached?
       file_path = Rails.root.join('app/assets/images/noimage.png')
-      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+      user_image.attach(io: File.open(file_path), filename: 'default-image.png', content_type: 'image/png')
     end
-    profile_image.variant(resize_to_limit: [100, 100]).processed
+    user_image.variant(resize_to_limit: [width,height]).processed
   end
 
   has_many :presets, dependent: :destroy
@@ -20,4 +20,5 @@ class User < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
 
   validates :name, presence: true ,length: {in: 2..20 }
+  validates :password, presence: true, on: :create
 end
