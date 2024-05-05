@@ -1,0 +1,33 @@
+    <!--必要情報　profile_user=表示するユーザー情報　newpost＝新規投稿用の枠-->
+    <div class = "col-2 m-3 text-center">
+      <% if user_signed_in? %>
+        <%= image_tag profile_user.get_user_image(100,100) %>
+        <%= profile_user.name %>
+
+        <%= link_to edit_user_registration_path do %>
+        <i class = "fa-solid fa-gear"></i>
+        <% end %><br>
+
+        <p>フォロー:<%= profile_user.followings.count %> フォロワー:<%= profile_user.followers.count %></p><br>
+
+        <%= profile_user.profile %>
+
+
+        <% if profile_user == current_user %>
+          <div class ="m-3">
+           <%= form_with model: newpost do |f| %>
+              <%= f.file_field :post_image, accept: "image/*", class: "w-100" %>
+              <div class="input-group mb-3 mt-4">
+              <%= f.text_area :body, class: "form-control", placeholder: "内容をここに" %>
+              </div>
+              <hr>
+              <%= f.submit '投稿', class: "btn btn-lg btn-block btn-info mt-4" %>
+            <% end %>
+          </div>
+        <% end %>
+      <% else %>
+        <div class ="text-center mt-5">
+        <%= image_tag 'logo.png', width: '50%' %>
+        </div>
+      <% end %>
+    </div>
