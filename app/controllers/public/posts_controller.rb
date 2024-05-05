@@ -11,7 +11,7 @@ class Public::PostsController < ApplicationController
     else
       @user = current_user
       @newpost = Post.new
-      @posts = Post.all
+      @posts = Post.all.order(udated_at: :desc)
       render :index
     end
   end
@@ -19,7 +19,7 @@ class Public::PostsController < ApplicationController
   def index
     @newpost = Post.new
     @user = current_user
-    @posts = Post.all
+    @posts = Post.all.order(updated_at: :desc)
 
   end
 
@@ -27,6 +27,14 @@ class Public::PostsController < ApplicationController
   end
 
   def edit
+  end
+
+  def destroy
+    post = Post.find(params[:id])
+    if post.user_id == current_user.id
+      post.destroy
+      redirect_to  request.referer
+    end
   end
 
   private

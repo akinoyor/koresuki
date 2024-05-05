@@ -49,22 +49,24 @@
             </div>
 
             <div class = "col-11">
-              <div class = "col-10">
-              <%= link_to user_page_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
-              <%= f.user.name %>
-              <% end %>
-              </div>
-              <div class ="clo-1">
-              <% if user_signed_in? %>
-                <% if current_user != f.user %>
-                  <% if current_user.following?(f.user) %>
-                    <%= link_to "フォロー外す", user_follow_path(f.user.id), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
-                  <% else %>
-                    <%= link_to "フォローする", user_follows_path(f.user.id), method: :post, class: 'position-relative post-box-link__profile btn btn-success' %>
+              <div class = "row">
+                <div class = "col-8">
+                <%= link_to user_page_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
+                <%= f.user.name %>
+                <% end %>
+                </div>
+                <div class ="col-3">
+                <% if user_signed_in? %>
+                  <% if current_user != f.user %>
+                    <% if current_user.following?(f.user) %>
+                      <%= link_to "フォロー外す", user_follows_path(f.user.id), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
+                    <% else %>
+                      <%= link_to "フォローする", user_follows_path(f.user.id), method: :post, class: 'position-relative post-box-link__profile btn btn-success' %>
+                    <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
 
+                </div>
               </div>
 
               <div class = "row m-3">
@@ -79,7 +81,7 @@
             </div>
           </div>
 
-          <div class = "row">
+          <div class = "row m-3">
             <div class = "offset-1 col-1">
               <i class="fa-regular fa-comment"></i> <%= f.comments.count(:post_id) %>
             </div>
@@ -88,9 +90,16 @@
               <i class="fa-regular fa-bookmark position-relative post-box-link__profile"></i>
             </div>
 
-            <div class = "col-6">
+            <div class = "col-4">
               <p>投稿日時: <%= f.created_at %></p>
             </div>
+
+            <% if current_user == f.user %>
+            <div class = "col-2">
+              <%= link_to "削除", post_path(f.id), method: :delete,class: 'position-relative post-box-link__profile btn btn-info', data: {confirm: "削除しますか？"} %>
+
+            </div>
+            <% end %>
 
             <div class = "offset-1 col-1">
 
