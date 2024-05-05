@@ -30,10 +30,10 @@
               </div>
 
               <div>
-                <%= f.label :post_image %>
-                <%= f.file_field :post_image　%>
+                <%= f.file_field :post_image %>
                 <% if @post.post_image.attached? %>
                 <%= image_tag @post.post_image, width:'80%' %>
+                <%= f.submit "更新",class: "btn btn-secondary" %>
                 <% end %>
               </div>
             </div>
