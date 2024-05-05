@@ -60,8 +60,7 @@
                 <%= link_to "ログイン", new_user_session_path, class: 'nav-link text-dark' %>
               </li>
               <li class="nav-item">
-                <!--ゲストログイン未作成のため　ログインべーじで仮置き-->
-                <%= link_to "ゲストログイン", new_user_session_path, class: 'nav-link text-dark' %>
+                <%= link_to "ゲストログイン", guest_sign_in_path, method: :post, class: 'nav-link text-dark' %>
               </li>
             <% end %>
             </ul>
