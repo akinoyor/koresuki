@@ -2,14 +2,18 @@ Rails.application.routes.draw do
 
   scope module: :public do
     devise_for :users
+
     devise_scope :user do
     post  '/users/guest_sign_in', to: 'sessions#guest_sign_in', as: 'guest_sign_in'
     end
     root to: 'homes#top'
-    resource  :user,  only:[:update, :destroy]
-    get   '/user/bookmarks',      to: 'bookmarks#index',        as: 'bookmarks'
-    get   '/user/may_page',       to: 'users#show',             as: 'my_page'
-    post  '/user/confirm',        to: 'users#confirm',          as: 'confirm'
+    resources  :users,only:[] do
+      resources :follows, only: [:create, :destroy]
+    end
+
+    get     '/user/bookmarks',        to: 'bookmarks#index',    as: 'bookmarks'
+    get     '/user/user_page',        to: 'users#show',         as: 'user_page'
+    post    '/user/confirm',          to: 'users#confirm',      as: 'confirm'
 
 
 

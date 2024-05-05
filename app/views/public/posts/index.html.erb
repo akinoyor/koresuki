@@ -9,7 +9,7 @@
         <i class="fa-solid fa-gear"></i>
         <% end %><br>
 
-        <p>フォロー<%= @user.follows.count(:user_id) %> フォロワー <%= @user.follows.count(:following_user_id) %></p><br>
+        <p>フォロー:<%= @user.followings.count %> フォロワー:<%= @user.followers.count %></p><br>
 
         <%= @user.profile %>
 
@@ -17,7 +17,7 @@
 
       <div class ="m-3">
        <%= form_with model: @newpost do |f| %>
-          <%= f.file_field :image, accept: "image/*", class: "w-100" %>
+          <%= f.file_field :post_image, accept: "image/*", class: "w-100" %>
           <div class="input-group mb-3 mt-4">
           <%= f.text_area :body, class: "form-control", placeholder: "内容をここに" %>
           </div>
@@ -35,20 +35,70 @@
 
 
     <div class = "col-9 m-3">
-      <%= @posts.each do |f| %>
-      <div class = "row">
-      <div class = "col-1">
-      <%= image_tag f.user.get_user_image(50,50) %>
-      </div>
 
-      <div class = "col-11">
-      <%= f.user.name %><br>
-      <%= f.body %>
-        <% if f.post_image.attached? %>
-        <%= image_tag f.post_image, width:'80%' %>
-        <% end %>
-      <% end %><br>
-      </div>
+      <div class = "row m-3">
+
+      <% @posts.each do |f| %>
+        <div class ="position-relative card shadow-sm" style = "width:100%" >
+          <div class = "row m-3">
+            <%= link_to '', post_path(f.id), class: 'position-absolute post-box-link' %>
+            <div class = "col-1">
+            <%= link_to user_page_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
+            <%= image_tag f.user.get_user_image(50,50) %>
+            <% end %>
+            </div>
+
+            <div class = "col-11">
+              <div class = "col-10">
+              <%= link_to user_page_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
+              <%= f.user.name %>
+              <% end %>
+              </div>
+              <div class ="clo-1">
+              <% if user_signed_in? %>
+                <% if current_user != f.user %>
+                  <% if current_user.following?(f.user) %>
+                    <%= link_to "フォロー外す", user_follow_path(f.user.id), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
+                  <% else %>
+                    <%= link_to "フォローする", user_follows_path(f.user.id), method: :post, class: 'position-relative post-box-link__profile btn btn-success' %>
+                  <% end %>
+                <% end %>
+              <% end %>
+
+              </div>
+
+              <div class = "row m-3">
+              <%= f.body %>
+              </div>
+
+              <div>
+              <% if f.post_image.attached? %>
+              <%= image_tag f.post_image, width:'40%' %>
+              <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class = "row">
+            <div class = "offset-1 col-1">
+              <i class="fa-regular fa-comment"></i> <%= f.comments.count(:post_id) %>
+            </div>
+
+            <div class = "offset-1 col-1">
+              <i class="fa-regular fa-bookmark position-relative post-box-link__profile"></i>
+            </div>
+
+            <div class = "col-6">
+              <p>投稿日時: <%= f.created_at %></p>
+            </div>
+
+            <div class = "offset-1 col-1">
+
+            </div>
+          </div>
+        </div>
+      <% end %>
+
       </div>
 
     </div>

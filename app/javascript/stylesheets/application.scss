@@ -1,1 +1,17 @@
-@use '~bootstrap/scss/bootstrap';
+// $theme-colors: (
+//   "info": #F0B174,
+// );
+
+@import '~bootstrap/scss/bootstrap';
+
+.post-box-link {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+}
+
+.post-box-link__profile {
+  z-index: 10000;
+}
