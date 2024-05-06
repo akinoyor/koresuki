@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 2024_05_04_014339) do
     t.integer "user_id", null: false
     t.integer "post_id", null: false
     t.integer "parent_comment_id", default: 0, null: false
-    t.string "body"
+    t.string "body", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

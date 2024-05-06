@@ -1,83 +1,14 @@
 <div class = "containar">
   <div class = "row">
+    <div class = "col-2">
 
     <%= render "profile",profile_user: @user, newpost: @newpost %>
+    
+    </div>
 
-    <div class = "col-9 m-3">
+    <div class = "col-9">
+    <%= render "post",posts: @posts %>
 
-      <div class = "row m-3">
-
-      <% @posts.each do |f| %>
-        <div class ="position-relative card shadow-sm" style = "width:100%" >
-          <div class = "row m-3">
-            <%= link_to '', post_path(f.id), class: 'position-absolute post-box-link' %>
-            <div class = "col-1">
-            <%= link_to user_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
-            <%= image_tag f.user.get_user_image(50,50) %>
-            <% end %>
-            </div>
-
-            <div class = "col-11">
-              <div class = "row">
-                <div class = "col-8">
-                <%= link_to user_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
-                <%= f.user.name %>
-                <% end %>
-                </div>
-                <div class ="col-3">
-                <% if user_signed_in? %>
-                  <% if current_user != f.user %>
-                    <% if current_user.following?(f.user) %>
-                      <%= link_to "フォロー外す", user_follows_path(f.user.id), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
-                    <% else %>
-                      <%= link_to "フォローする", user_follows_path(f.user.id), method: :post, class: 'position-relative post-box-link__profile btn btn-success' %>
-                    <% end %>
-                  <% end %>
-                <% end %>
-
-                </div>
-              </div>
-
-              <div class = "row m-3">
-              <%= f.body %>
-              </div>
-
-              <div>
-              <% if f.post_image.attached? %>
-              <%= image_tag f.post_image, width:'40%' %>
-              <% end %>
-              </div>
-            </div>
-          </div>
-
-          <div class = "row m-3">
-            <div class = "offset-1 col-1">
-              <i class="fa-regular fa-comment"></i> <%= f.comments.count(:post_id) %>
-            </div>
-
-            <div class = "offset-1 col-1">
-              <i class="fa-regular fa-bookmark position-relative post-box-link__profile"></i>
-            </div>
-
-            <div class = "col-4">
-              <p>投稿日時: <%= f.created_at %></p>
-              <% if f.created_at != f.updated_at %>
-              <p>更新日時 : <%= f.updated_at %></p>
-              <% end %>
-            </div>
-
-            <% if current_user == f.user %>
-            <div class = "col-2">
-              <%= link_to "削除", post_path(f.id), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
-
-            </div>
-            <% end %>
-
-          </div>
-        </div>
-      <% end %>
-
-      </div>
 
     </div>
   </div>
