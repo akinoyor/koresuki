@@ -7,12 +7,11 @@ Rails.application.routes.draw do
     post  '/users/guest_sign_in', to: 'sessions#guest_sign_in', as: 'guest_sign_in'
     end
     root to: 'homes#top'
-    resources  :users,only:[] do
+    resources  :users,only:[:show] do
       resources :follows, only: [:create, :destroy]
     end
 
     get     '/user/bookmarks',        to: 'bookmarks#index',    as: 'bookmarks'
-    get     '/user/user_page',        to: 'users#show',         as: 'user_page'
     post    '/user/confirm',          to: 'users#confirm',      as: 'confirm'
 
 

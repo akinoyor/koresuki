@@ -12,7 +12,7 @@
           <div class = "row m-3">
             <%= link_to '', post_path(f.id), class: 'position-absolute post-box-link' %>
             <div class = "col-1">
-            <%= link_to user_page_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
+            <%= link_to user_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
             <%= image_tag f.user.get_user_image(50,50) %>
             <% end %>
             </div>
@@ -20,7 +20,7 @@
             <div class = "col-11">
               <div class = "row">
                 <div class = "col-8">
-                <%= link_to user_page_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
+                <%= link_to user_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
                 <%= f.user.name %>
                 <% end %>
                 </div>
@@ -68,7 +68,7 @@
 
             <% if current_user == f.user %>
             <div class = "col-2">
-              <%= link_to "削除", post_path(f.id), method: :delete,class: 'position-relative post-box-link__profile btn btn-info', data: {confirm: "削除しますか？"} %>
+              <%= link_to "削除", post_path(f.id), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
 
             </div>
             <% end %>

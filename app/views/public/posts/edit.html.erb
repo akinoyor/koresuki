@@ -11,7 +11,7 @@
         <div class ="position-relative card shadow-sm" style = "width:100%" >
           <div class = "row m-3">
             <div class = "col-1">
-            <%= link_to user_page_path(@post.user_id), class: 'position-relative' do %>
+            <%= link_to user_path(@post.user_id), class: 'position-relative' do %>
             <%= image_tag @post.user.get_user_image(50,50) %>
             <% end %>
             </div>
@@ -19,7 +19,7 @@
             <div class = "col-11">
               <div class = "row">
                 <div class = "col-8">
-                <%= link_to user_page_path(@post.user_id), class: 'position-relative' do %>
+                <%= link_to user_path(@post.user_id), class: 'position-relative' do %>
                 <%= @post.user.name %>
                 <% end %>
                 </div>
@@ -33,8 +33,7 @@
                 <%= f.file_field :post_image %>
                 <% if @post.post_image.attached? %>
                 <%= image_tag @post.post_image, width:'80%' %>
-                <%= f.submit "更新",class: "btn btn-secondary" %>
-                <% end %>
+
               </div>
             </div>
           </div>
@@ -53,6 +52,10 @@
                 <% if @post.created_at != @post.updated_at %>
               <p>更新日時 : <%= @post.updated_at %></p>
               <% end %>
+            </div>
+            <div class = "col-2">
+            <%= f.submit "更新",class: "btn btn-secondary" %>
+            <% end %>
             </div>
 
 
