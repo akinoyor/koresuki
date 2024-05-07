@@ -14,7 +14,7 @@
           <div class = "row m-3">
             <div class = "col-1">
             <%= link_to user_path(@post.user_id), class: 'position-relative' do %>
-            <%= image_tag @post.user.get_user_image(50,50) %>
+            <%= image_tag @post.user.get_user_image(300,300), class: 'img-fluid'%>
             <% end %>
             </div>
 
@@ -50,9 +50,9 @@
             </div>
 
             <div class = "col-4">
-              <p>投稿日時: <%= @post.created_at %></p>
-                <% if @post.created_at != @post.updated_at %>
-              <p>更新日時 : <%= @post.updated_at %></p>
+              <p>投稿日時: <%= @post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
+                <% if @post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != @post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
+              <p>更新日時 : <%= @post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
               <% end %>
             </div>
             <div class = "col-2">

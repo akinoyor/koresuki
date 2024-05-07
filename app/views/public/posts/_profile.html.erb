@@ -1,7 +1,7 @@
     <!--必要情報　profile_user=表示するユーザー情報　newpost＝新規投稿用の枠-->
     <div class = "m-3 text-center">
       <% if user_signed_in? %>
-        <%= link_to user_path(profile_user.id) do %>
+        <%= link_to user_path(profile_user) do %>
         <%= image_tag profile_user.get_user_image(100,100) %>
         <%= profile_user.name %>
         <% end %>
