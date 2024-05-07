@@ -2,15 +2,26 @@
     <div class = "m-3 text-center">
       <% if user_signed_in? %>
         <%= link_to user_path(profile_user) do %>
-        <%= image_tag profile_user.get_user_image(100,100) %>
-        <%= profile_user.name %>
+          <%= image_tag profile_user.get_user_image(100,100) %>
+        <% end %>  
+        <%= link_to edit_user_registration_path do %>
+          <i class = "fa-solid fa-gear"></i>
+        <% end %>
+        <%= link_to user_path(profile_user) do %>
+          <%= simple_format(profile_user.name, sanitize: true, class: 'm-0') %>
         <% end %>
 
-        <%= link_to edit_user_registration_path do %>
-        <i class = "fa-solid fa-gear"></i>
-        <% end %><br>
 
-        <p>フォロー:<%= profile_user.followings.count %> フォロワー:<%= profile_user.followers.count %></p><br>
+        <div class="form-group">
+          <%= simple_format(profile_user.profile, sanitize: true, class: 'm-0') %>
+        </div>
+
+        <div class="form-group mt-3">
+          <p>フォロー:<%= profile_user.followings.count %> フォロワー:<%= profile_user.followers.count %></p>
+        </div>
+        <div class="form-group">
+          <p>ブックマーク: <%= profile_user.bookmarks.count %></p>
+        </div>
 
         <%= profile_user.profile %>
 
@@ -18,7 +29,10 @@
         <% if profile_user == current_user %>
           <div class ="m-3">
            <%= form_with model: newpost do |f| %>
-              <%= f.file_field :post_image, accept: "image/*", class: "w-100" %>
+            <div class="form-group">
+              <img id="new_post_image-preview" class="img-fluid"></img>
+            </div>
+              <%= f.file_field :post_image, accept: "image/*",id:'new_post_image', class: "w-100" %>
               <div class="input-group mb-3 mt-4">
               <%= f.text_area :body, class: "form-control", placeholder: "内容をここに" %>
               </div>
@@ -33,3 +47,13 @@
         </div>
       <% end %>
     </div>
+
+ <script>
+  $('#new_post_image').on('change', function test(e) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        $("#new_post_image-preview").attr('src', e.target.result);
+    }
+    reader.readAsDataURL(e.target.files[0]);
+  });
+</script>

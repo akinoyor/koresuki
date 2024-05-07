@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
     root to: 'homes#top'
     resources  :users,only:[:show] do
-      resource :follows,  only: [:create, :destroy]
+      resource  :follows, only: [:create, :destroy]
       resources :follows, only: [:index]
     end
 
@@ -18,8 +18,8 @@ Rails.application.routes.draw do
 
 
     resources :posts, only:[:new, :index, :show, :create, :edit, :update, :destroy] do
-      resources  :comments,   only: [:new, :create, :show, :edit, :update, :destroy]
-      resources  :bookmarks,  only: [:create, :destroy]
+      resources :comments,   only: [:new, :create, :show, :edit, :update, :destroy]
+      resource  :bookmark,  only: [:create, :destroy]
     end
   end
 

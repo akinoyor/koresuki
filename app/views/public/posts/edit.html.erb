@@ -7,9 +7,9 @@
 
     <div class = "col-9 m-3">
 
-      <div class = "row m-3">
+      <div class = "m-3">
         <%= form_with model: @post do |f| %>
-        <div class ="position-relative card shadow-sm" style = "width:100%" >
+        <div class ="position-relative card shadow-sm">
           <div class = "card-body m-3">
             <div class="row align-items-center">
 
@@ -35,9 +35,14 @@
             </div>
 
             <div>
-              <%= f.file_field :post_image, accept: "image/*", class: "w-100"%>
+              <%= f.file_field :post_image, accept: "image/*", class: "w-100", id: 'post_image'%>
+
               <% if @post.post_image.attached? %>
-                <%= image_tag @post.post_image, width:'80%' %>
+                <%= image_tag @post.post_image, width:'80%', id: 'post-image-preview' %>
+              <% else %>
+                <div class="form-group">
+                  <img id="post-image-preview" class="img-fluid"></img>
+                </div>
               <% end %>
             </div>
 
@@ -56,14 +61,14 @@
                 <p>更新日時 : <%= @post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
                 <% end %>
               </div>
-              
+
               <div class = "col-2">
               <%= f.submit "更新",class: "btn btn-secondary" %>
               <% end %>
 
               </div>
               <script>
-                $('#post_post_image').on('change', function test(e) {
+                $('#post_image').on('change', function (e) {
                   var reader = new FileReader();
                   reader.onload = function (e) {
                       $("#post-image-preview").attr('src', e.target.result);

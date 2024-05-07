@@ -6,4 +6,8 @@ class Post < ApplicationRecord
 
 validates :post_image, presence: true, if: -> { body.blank? }
 validates :body, presence: true, if: -> { post_image.blank? }
+
+  def bookmarked_by?(user)
+    bookmarks.exists?(user_id: user.id)
+  end
 end

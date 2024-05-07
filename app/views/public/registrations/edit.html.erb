@@ -1,28 +1,26 @@
 <div class = "container">
-  <div class = "row m-3">
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <div class = "form-group">
     <div class ="text-center mt-3">
       <h2>会員情報の変更</h2>
      </div>
   </div>
 
-
-  <div class = "row m-3">
-    <div class ="text-right">
+    <div class = "row justify-content-center">
       <%= form_with model: @user, url: user_registration_path, method: :put do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
 
-      <div>
-        <%= f.label "ユーザー画像：" %></br>
-        <%= image_tag @user.user_image,width: '100px' %></br>
-        <%= f.file_field :user_image %>
+
+      <div class ="text-center">
+        <%= image_tag @user.user_image,width: '100px', id:"user_image-preview" %></br>
+        <%= f.file_field :user_image, id: 'user_user_image' %>
       </div>
 
-      <div>
+      <div class ="text-right">
         <%= f.label "ユーザー名：" %>
         <%= f.text_field :name, autofocus: true %>
       </div>
 
-      <div>
+      <div class ="text-right">
         <%= f.label "メールアドレス : " %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
       </div>
@@ -31,12 +29,12 @@
         <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
       <% end %>
 
-       <div>
+       <div class ="text-right">
         <%= f.label "プロフィール : " %>
         <%= f.text_area :profile, autofocus: true %>
       </div>
 
-      <div>
+      <div class ="text-right">
         <%= f.label :password %> <i>(変更したくない場合は空白のままにしてください)</i>
         <% if @minimum_password_length %>
         </br>
@@ -45,12 +43,12 @@
         <%= f.password_field :password, autocomplete: "new-password" %>
       </div>
 
-      <div>
+      <div class ="text-right">
         <%= f.label :password_confirmation %></br>
         <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
       </div>
 
-      <div>
+      <div class ="text-right">
         <%= f.label :current_password %> <i>(変更には現在のパスワードを入力してください)</i></br>
         <%= f.password_field :current_password, autocomplete: "current-password" %>
       </div>
@@ -58,15 +56,26 @@
       <div class="actions text-center m-3">
         <%= f.submit "更新" %>
       </div>
-    <% end %>
+      <% end %>
+    </div>
 
-    <div class = "text-center">
+    <div class = "form-group text-center">
       <h3>アカウント削除はこちら</h3>
 
       <div class = "m-3"> <%= button_to "退会", registration_path(@user), data: { confirm: "本当に退会しますか?", turbo_confirm: "本当に退会しますか?" }, method: :delete %></div>
 
       <%= link_to "戻る", :back %>
     </div>
-    </div>
-  </div>
+
+
+   <script>
+    $('#user_user_image').on('change', function test(e) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+          $("#user_image-preview").attr('src', e.target.result);
+      }
+      reader.readAsDataURL(e.target.files[0]);
+    });
+  </script>
+
 </div>

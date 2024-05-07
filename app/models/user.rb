@@ -44,7 +44,7 @@ class User < ApplicationRecord
   def following?(user)
     followings.include?(user)
   end
-
+  
   validates :name, presence: true ,length: {in: 2..20 }
   validates :password, presence: true, on: :create
   validates :profile, length: { maximum: 100 }

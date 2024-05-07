@@ -46,9 +46,20 @@
               <div class = "offset-1 col-1">
                 <i class="fa-regular fa-comment"></i> <%= f.comments.count(:post_id) %>
               </div>
-
+              <!--bookmark-->
               <div class = "offset-1 col-1">
-                <i class="fa-regular fa-bookmark position-relative post-box-link__profile"></i>
+                <% if user_signed_in? %>
+                  <% if f.bookmarked_by?(current_user) %>
+                    <%= link_to post_bookmark_path(f),method: :delete,class: 'position-relative post-box-link__profile' do %>
+                      <i class="fa-solid fa-bookmark"></i>
+                    <% end %>
+                  <% else %>
+                    <%= link_to post_bookmark_path(f), method: :post,class: 'position-relative post-box-link__profile' do %>
+                      <i class="fa-regular fa-bookmark position-relative post-box-link__profile"></i>
+                    <% end %>
+                  <% end %>
+                <% end %>
+
               </div>
 
               <div class = "col-4">
