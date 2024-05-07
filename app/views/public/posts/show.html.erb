@@ -7,74 +7,71 @@
 
     <div class = "col-9 m-3">
 
-       <div class = "row mx-3 mt-3">
+      <div class = "row mx-3 mt-3">
+        <div class ="position-relative card shadow-sm mb-1" style = "width:100%" >
+          <div class="card-body m-3">
+            <div class = "row align-items-center">
+              <div class = "col-1">
+                <%= link_to user_path(@post.user_id), class: 'position-relative post-box-link__profile' do %>
+                <%= image_tag @post.user.get_user_image(300,300), class: 'img-fluid'%>
+                <% end %>
+              </div>
 
-        <div class ="position-relative card shadow-sm" style = "width:100%" >
-          <div class = "row m-3">
-            <div class = "col-1">
-            <%= link_to user_path(@post.user_id), class: 'position-relative' do %>
-            <%= image_tag @post.user.get_user_image(300,300), class: 'img-fluid' %>
-            <% end %>
-            </div>
-
-            <div class = "col-11">
-              <div class = "row">
-                <div class = "col-8">
-                <%= link_to user_path(@post.user_id), class: 'position-relative' do %>
+              <div class = "col-8">
+                <%= link_to user_path(@post.user_id), class: 'position-relative post-box-link__profile' do %>
                 <%= @post.user.name %>
                 <% end %>
                 </div>
-                <div class ="col-3">
+              <div class ="col-3">
                 <% if user_signed_in? %>
                   <% if current_user != @post.user %>
                     <% if current_user.following?(@post.user) %>
-                      <%= link_to "フォロー外す", user_follows_path(@post.user), method: :delete,class: 'position-relative btn btn-info' %>
+                      <%= link_to "フォロー外す", user_follows_path(@post.user), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
                     <% else %>
-                      <%= link_to "フォローする", user_follows_path(@post.user), method: :post, class: 'position-relative btn btn-success' %>
+                      <%= link_to "フォローする", user_follows_path(@post.user), method: :post, class: 'position-relative post-box-link__profile btn btn-success' %>
                     <% end %>
                   <% end %>
                 <% end %>
-
-                </div>
-              </div>
-
-              <div class = "row m-3 text-break">
-              <%= simple_format(@post.body, sanitize: true, class: 'm-0') %>
-              </div>
-
-              <div>
-              <% if @post.post_image.attached? %>
-              <%= image_tag @post.post_image, class: 'img-fluid' %>
-              <% end %>
               </div>
             </div>
-          </div>
 
-          <div class = "row m-3">
-            <div class = "offset-1 col-1">
-              <i class="fa-regular fa-comment"></i> <%= @post.comments.count(:post_id) %>
+            <div class = "m-3 text-break">
+            <%= simple_format(@post.body, sanitize: true, class: 'm-0') %>
             </div>
 
-            <div class = "offset-1 col-1">
-              <i class="fa-regular fa-bookmark position-relative"></i>
-            </div>
-
-            <div class = "col-4">
-              <p>投稿日時: <%= @post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
-                <% if @post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != @post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
-              <p>更新日時 : <%= @post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
-              <% end %>
-            </div>
-
-            <% if current_user == @post.user %>
-            <div class = "col-2">
-              <%= link_to "削除", post_path(@post), method: :delete,class: 'position-relative btn btn-danger', data: {confirm: "削除しますか？"} %>
-              <%= link_to "変更", edit_post_path(@post),class: 'position-relative btn btn-info' %>
-            </div>
+            <div class = "m-3">
+            <% if @post.post_image.attached? %>
+            <%= image_tag @post.post_image, class: 'img-fluid' %>
             <% end %>
+            </div>
 
+            </div>
+
+            <div class = "row m-3">
+              <div class = "offset-1 col-1">
+                <i class="fa-regular fa-comment"></i> <%= @post.comments.count(:post_id) %>
+              </div>
+
+              <div class = "offset-1 col-1">
+                <i class="fa-regular fa-bookmark position-relative post-box-link__profile"></i>
+              </div>
+
+              <div class = "col-4">
+                <p>投稿日時: <%= @post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
+                <% if @post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != @post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
+                <p>更新日時 : <%= @post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
+                <% end %>
+              </div>
+
+              <% if current_user == @post.user %>
+              <div class = "col-2">
+                <%= link_to "削除", post_path(@post), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
+                <%= link_to "変更", edit_post_path(@post),class: 'position-relative btn btn-info' %>
+              </div>
+              <% end %>
+
+            </div>
           </div>
-        </div>
       </div>
 
 
