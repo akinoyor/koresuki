@@ -1,9 +1,10 @@
 class Public::UsersController < ApplicationController
 
   def show
-  end
-
-  def edit
+    @user = User.find(params[:id])
+    @newpost = Post.new
+    @bookmarks = Bookmark.where(user_id: params[:id]).order(updated_at: :desc)
+    @bookmarkposts = @bookmarks.map(&:post)
   end
 
   private
