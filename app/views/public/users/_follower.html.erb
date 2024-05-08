@@ -1,0 +1,28 @@
+<!--必要な情報　followed_users-->
+<div class="row">
+
+  <% followed_users.each do |f| %>
+  <div class ="position-relative card shadow-sm col-6" >
+    <div class="card-body d-flex">
+      <div class="col-2">
+        <%= image_tag f.get_user_image(100,100), class: 'img-fluid'%>
+      </div>
+      <div class="col-6 text-break">
+        <%= f.name %>
+      </div>
+      <div class="col-4">
+       <% if user_signed_in? %>
+        <% if current_user != f %>
+          <% if current_user.following?(f) %>
+            <%= link_to "フォロー外す", user_follows_path(f), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
+          <% else %>
+            <%= link_to "フォローする", user_follows_path(f), method: :post, class: 'position-relative post-box-link__profile btn btn-success' %>
+          <% end %>
+        <% end %>
+      <% end %>
+      </div>
+
+    </div>
+  </div>
+  <% end %>
+</div>

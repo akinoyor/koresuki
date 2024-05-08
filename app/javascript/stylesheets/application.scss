@@ -4,6 +4,19 @@
 
 @import '~bootstrap/scss/bootstrap';
 
+body {
+	padding-top: 76px;
+}
+
+.sidebar {
+	top: calc(76px + 1rem);
+}
+
+header {
+	top: 0;
+	left: 0;
+	z-index: 99999;
+}
 
 .post-box-link {
   top: 0;
@@ -40,7 +53,6 @@
 	display: none;/*はじめは非表示*/
 	opacity: 0;/*透過0*/
 	background: #fff;
-	padding:50px 20px;
 }
 
 /*areaにis-activeというクラスがついた時の形状*/
@@ -61,3 +73,8 @@
 }
 
 // ここまでタブ関係
+
+.card-footer-org {
+	border-top: 1px solid #fff !important;
+	background-color: #fff !important;
+}

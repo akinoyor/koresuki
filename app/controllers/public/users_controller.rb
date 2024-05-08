@@ -3,8 +3,11 @@ class Public::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @newpost = Post.new
-    @bookmarks = Bookmark.where(user_id: params[:id]).order(updated_at: :desc)
-    @bookmarkposts = @bookmarks.map(&:post)
+    @user_posts = @user.posts.order(updated_at: :desc)
+    bookmarks = Bookmark.where(user_id: params[:id]).order(updated_at: :desc)
+    @bookmark_posts = bookmarks.map(&:post)
+    follows = Follow.where(follower_id: params[:id])
+    @followed_users = User.where(id: follows.pluck(:followed_id))
   end
 
   private

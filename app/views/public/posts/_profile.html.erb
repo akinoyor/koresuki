@@ -1,9 +1,9 @@
     <!--必要情報　profile_user=表示するユーザー情報　newpost＝新規投稿用の枠-->
-    <div class = "m-3 text-center">
+    <div class="mt-3 text-center position-sticky sidebar">
       <% if user_signed_in? %>
         <%= link_to user_path(profile_user) do %>
           <%= image_tag profile_user.get_user_image(100,100) %>
-        <% end %>  
+        <% end %>
         <%= link_to edit_user_registration_path do %>
           <i class = "fa-solid fa-gear"></i>
         <% end %>

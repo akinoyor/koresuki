@@ -1,11 +1,11 @@
 <div class = "containar">
   <div class = "row">
 
-    <div class = "col-2">
+    <div class = "col-3">
       <%= render "profile", profile_user: @user, newpost: @newpost %>
     </div>
 
-    <div class = "col-9 m-3">
+    <div class = "col-9">
 
       <div class = "row mx-3 mt-3">
         <div class ="position-relative card shadow-sm mb-1" style = "width:100%" >
@@ -88,7 +88,7 @@
 
 
 <!--ここからコメント投稿欄-->
-      <div class = "row mx-3">
+      <div class = "mx-3">
         <div class ="position-relative card shadow-sm mb-3" style = "width:100%" >
           <div class = "row m-3">
             <div class = "col-2 p-3">
@@ -131,6 +131,9 @@
             reader.readAsDataURL(e.target.files[0]);
           });
         </script>
+
+
+
 
 <!--ここからコメント欄-->
         <% @post.comments.each do |post_comment| %>
@@ -187,7 +190,7 @@
                 <% if current_user == post_comment.user %>
                   <div class = "col-2">
                     <%= link_to "削除", post_comment_path(post_comment.post, post_comment), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
-  
+
                   </div>
                 <% end %>
               </div>
