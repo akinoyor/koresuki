@@ -1,8 +1,9 @@
 <!--必要な情報　followed_users-->
 <div class="row">
-
+  
   <% followed_users.each do |f| %>
   <div class ="position-relative card shadow-sm col-6" >
+    <%= link_to '',user_path(f), class: 'position-absolute post-box-link' %>
     <div class="card-body d-flex">
       <div class="col-2">
         <%= image_tag f.get_user_image(100,100), class: 'img-fluid'%>

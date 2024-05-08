@@ -18,10 +18,14 @@ class Public::CommentsController < ApplicationController
 
 
   def show
+    @newpost = Post.new
+    @user = current_user
+    @newcomment = Comment.new
+    @newcomment.parent_comment_id = params[:post_id]
+    @comment = Comment.find(params[:id])
   end
 
-  def edit
-  end
+
 
   private
   def comment_params

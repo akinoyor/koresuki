@@ -176,22 +176,14 @@
               <% end %>
               </div>
 
-              <div class = "row m-3">
-                <div class = "offset-1 col-1">
-                </div>
-                <div class = "offset-2 col-4">
+              <div class = "card-footer card-footer-org d-flex justify-content-between">
                   <p>投稿日時: <%= post_comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
                   <% if post_comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != post_comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
                     <p>更新日時 : <%= post_comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
                   <% end %>
-                </div>
-
-
+              
                 <% if current_user == post_comment.user %>
-                  <div class = "col-2">
                     <%= link_to "削除", post_comment_path(post_comment.post, post_comment), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
-
-                  </div>
                 <% end %>
               </div>
             </div>
