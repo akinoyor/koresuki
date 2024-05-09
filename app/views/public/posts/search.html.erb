@@ -1,0 +1,33 @@
+<div class = "containar">
+  <div class = "row">
+    <div class = "col-3">
+
+    <%= render "profile",profile_user: @user, newpost: @newpost %>
+
+    </div>
+
+    <div class = "col-9">
+      <div class="mt-3">
+        <%= form_tag(search_words_path, method: :get) do %>
+          <%= label_tag :keywords, '検索ワード' %>
+          <%= text_field_tag :keywords, params[:keywords] %>
+          <%= select_tag('type', options_for_select([%w[AND AND], %w[OR OR]], { :selected => params[:type] })) %>
+          <%= submit_tag '検索', class:"btn btn-primary" %>
+        <% end %>
+      </div>
+          <%# @resultsにデータが入っていれば検索結果を表示する %>
+  
+      <% if @keywords.nil? || @keywords.empty? %>
+        <h2>全件表示</h2>
+      <% else %>
+        <% if @results.present? %>
+          <h2><%= @keywords %> を含む検索結果 ( <%= @type %> )</h2>
+        <% else %>
+          <h2>該当の検索結果がありません。</h2>
+        <% end %>
+      <% end %>
+      <%= render "post",posts: @results %>
+
+    </div>
+  </div>
+</div>

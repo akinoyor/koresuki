@@ -10,4 +10,8 @@ validates :body, presence: true, if: -> { post_image.blank? }
   def bookmarked_by?(user)
     bookmarks.exists?(user_id: user.id)
   end
+  
+  def self.search(keyword)
+    where('body LIKE ?', "%#{keyword}%")
+  end
 end

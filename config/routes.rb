@@ -11,11 +11,13 @@ Rails.application.routes.draw do
     end
 
     get     '/user/bookmarks',        to: 'bookmarks#index',    as: 'bookmarks'
-    post    '/user/confirm',          to: 'users#confirm',      as: 'confirm'
+    get     'posts/search',           to: 'posts#search',       as: 'search'
+    get     'posts/serch_words',      to: 'posts#search_words', as: 'search_words'  
     resources :posts, only:[:index, :show, :create, :edit, :update, :destroy] do
       resources :comments,   only: [:create, :show, :destroy]
       resource  :bookmark,  only: [:create, :destroy]
     end
+    
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

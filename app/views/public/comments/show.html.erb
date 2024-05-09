@@ -49,7 +49,7 @@
 
             <div class = "row m-3">
               <div class = "offset-1 col-1">
-                <i class="fa-regular fa-comment"></i> <%= @chiled_comments.count(:parent_comment_id) %>
+                <i class="fa-regular fa-comment"></i> <%= @comment.child_comments.count(:parent_comment_id) %>
               </div>
 
               <div class = "offset-4 col-4">
@@ -120,30 +120,30 @@
 
 
 <!--ここからコメント欄-->
-        <% @chiled_comments.each do |chiled_comment| %>
+        <% @comment.child_comments.each do |child_comment| %>
         <div class ="position-relative card shadow-sm" style = "width:100%" >
           <div class = "row m-3">
-             <%= link_to '', post_comment_path(chiled_comment.post, chiled_comment), class: 'position-absolute post-box-link' %>
+             <%= link_to '', post_comment_path(child_comment.post, child_comment), class: 'position-absolute post-box-link' %>
             <div class = "col-2 text-center">
-            <%= link_to user_path(chiled_comment.user_id), class: 'position-relative post-box-link__profile' do %>
-            <%= image_tag chiled_comment.user.get_user_image(300,300), class: 'img-fluid' %>
+            <%= link_to user_path(child_comment.user_id), class: 'position-relative post-box-link__profile' do %>
+            <%= image_tag child_comment.user.get_user_image(300,300), class: 'img-fluid' %>
             <% end %>
             </div>
 
             <div class = "col-10">
               <div class = "row">
                 <div class = "col-8">
-                <%= link_to user_path(chiled_comment.user_id), class: 'position-relative post-box-link__profile' do %>
-                <%= chiled_comment.user.name %>
+                <%= link_to user_path(child_comment.user_id), class: 'position-relative post-box-link__profile' do %>
+                <%= child_comment.user.name %>
                 <% end %>
                 </div>
                 <div class ="col-3">
                 <% if user_signed_in? %>
-                  <% if current_user != chiled_comment.user %>
-                    <% if current_user.following?(chiled_comment.user) %>
-                      <%= link_to "フォロー外す", user_follows_path(chiled_comment.user), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
+                  <% if current_user != child_comment.user %>
+                    <% if current_user.following?(child_comment.user) %>
+                      <%= link_to "フォロー外す", user_follows_path(child_comment.user), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
                     <% else %>
-                      <%= link_to "フォローする", user_follows_path(chiled_comment.user), method: :post, class: 'position-relative post-box-link__profile btn btn-success' %>
+                      <%= link_to "フォローする", user_follows_path(child_comment.user), method: :post, class: 'position-relative post-box-link__profile btn btn-success' %>
                     <% end %>
                   <% end %>
                 <% end %>
@@ -152,22 +152,25 @@
               </div>
 
               <div class = "row text-break m-3">
-                <%= simple_format(chiled_comment.body, sanitize: true, class: 'm-0') %>
+                <%= simple_format(child_comment.body, sanitize: true, class: 'm-0') %>
               </div>
               <div>
-              <% if chiled_comment.comment_image.attached? %>
-                <%= image_tag chiled_comment.comment_image, width:'40%' %>
+              <% if child_comment.comment_image.attached? %>
+                <%= image_tag child_comment.comment_image, width:'40%' %>
               <% end %>
               </div>
 
               <div class = "card-footer card-footer-org d-flex justify-content-between">
-                  <p>投稿日時: <%= chiled_comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
-                  <% if chiled_comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != chiled_comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
-                    <p>更新日時 : <%= chiled_comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
+                <div class = "offset-1 col-1">
+                  <i class="fa-regular fa-comment"></i> <%= child_comment.child_comments.count(:parent_comment_id) %>
+                </div>
+                  <p>投稿日時: <%= child_comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
+                  <% if child_comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != child_comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
+                    <p>更新日時 : <%= child_comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
                   <% end %>
-              
-                <% if current_user == chiled_comment.user %>
-                    <%= link_to "削除", post_comment_path(chiled_comment.post, chiled_comment), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
+
+                <% if current_user == child_comment.user %>
+                    <%= link_to "削除", post_comment_path(child_comment.post, child_comment), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
                 <% end %>
               </div>
             </div>

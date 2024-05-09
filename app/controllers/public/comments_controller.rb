@@ -26,13 +26,12 @@ class Public::CommentsController < ApplicationController
     @newcomment = Comment.new
     @newcomment.parent_comment_id = params[:id]
     @comment = Comment.find(params[:id])
-    @chiled_comments = Comment.where(parent_comment_id: params[:id])
   end
 
 
 
   private
   def comment_params
-    params.require(:comment).permit(:body,:comment_image)
+    params.require(:comment).permit(:body,:comment_image,:parent_comment_id)
   end
 end

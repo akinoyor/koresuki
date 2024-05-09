@@ -56,6 +56,37 @@ class Public::PostsController < ApplicationController
     end
   end
 
+  def search
+    @newpost = Post.new
+    @user = current_user
+    @results = Post.all.order(updated_at: :desc)
+  end
+
+  def search_words
+    @keywords = params[:keywords].split(/[[:blank:]]+/)
+    @type = params[:type]
+    @results = Post.none
+    
+    if @keywords.empty?
+      @results = Post.all.order(updated_at: :desc)
+    else
+      if @type == 'AND'
+       @keywords.each_with_index do |keyword, i|
+         @results = Post.search(keyword) if i == 0
+         @results = @results.merge(@results.search(keyword))
+       end
+      else
+        @keywords.each do |keyword|
+  
+          @results = @results.or(Post.search(keyword))
+        end
+      end
+    end
+    @newpost = Post.new
+    @user = current_user
+    render :search
+  end
+
   private
 
   def post_params
