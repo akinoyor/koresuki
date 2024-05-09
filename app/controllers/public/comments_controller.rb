@@ -2,7 +2,10 @@ class Public::CommentsController < ApplicationController
 
   def create
     parent_post = Post.find(params[:post_id])
+    parent_comment_id = params[:comment][:parent_comment_id].present? ? params[:comment][:parent_comment_id] : 0
+    puts "parent_comment_id: #{parent_comment_id}"
     comment = current_user.comments.new(comment_params)
+    comment.parent_comment_id = parent_comment_id
     comment.post_id = parent_post.id
     comment.save
     redirect_to post_path(parent_post)
@@ -21,8 +24,9 @@ class Public::CommentsController < ApplicationController
     @newpost = Post.new
     @user = current_user
     @newcomment = Comment.new
-    @newcomment.parent_comment_id = params[:post_id]
+    @newcomment.parent_comment_id = params[:id]
     @comment = Comment.find(params[:id])
+    @chiled_comments = Comment.where(parent_comment_id: params[:id])
   end
 
 
