@@ -59,31 +59,52 @@ class Public::PostsController < ApplicationController
   def search
     @newpost = Post.new
     @user = current_user
-    @results = Post.all.order(updated_at: :desc)
+    @posts_results = Post.all.order(updated_at: :desc)
   end
 
   def search_words
     @keywords = params[:keywords].split(/[[:blank:]]+/)
     @type = params[:type]
-    @results = Post.none
-    
+    @posts_results = Post.none
+    @default_hash_name = "#posts"
+
     if @keywords.empty?
-      @results = Post.all.order(updated_at: :desc)
+      @posts_results = Post.all.order(updated_at: :desc)
     else
       if @type == 'AND'
        @keywords.each_with_index do |keyword, i|
-         @results = Post.search(keyword) if i == 0
-         @results = @results.merge(@results.search(keyword))
+         @posts_results = Post.search(keyword) if i == 0
+         @posts_results = @posts_results.merge(@posts_results.search(keyword))
        end
       else
         @keywords.each do |keyword|
-  
-          @results = @results.or(Post.search(keyword))
+
+          @posts_results = @posts_results.or(Post.search(keyword))
         end
       end
     end
     @newpost = Post.new
     @user = current_user
+    render :search
+  end
+
+  def search_names
+    @keywords = params[:keywords].split(/[[:blank:]]+/)
+    @users_results = User.none
+    @default_hash_name = "#users"
+
+    if @keywords.empty?
+      @users_results = User.all.order(updated_at: :desc)
+    else
+     @keywords.each_with_index do |keyword, i|
+       @users_results = User.search(keyword) if i == 0
+       @users_results = @users_results.merge(@users_results.search(keyword))
+     end
+    end
+    @newpost = Post.new
+    @user = current_user
+    # FIXME posts_results あとで消す
+    @posts_results = Post.all
     render :search
   end
 

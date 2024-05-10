@@ -7,27 +7,97 @@
     </div>
 
     <div class = "col-9">
-      <div class="mt-3">
-        <%= form_tag(search_words_path, method: :get) do %>
-          <%= label_tag :keywords, '検索ワード' %>
-          <%= text_field_tag :keywords, params[:keywords] %>
-          <%= select_tag('type', options_for_select([%w[AND AND], %w[OR OR]], { :selected => params[:type] })) %>
-          <%= submit_tag '検索', class:"btn btn-primary" %>
-        <% end %>
-      </div>
-          <%# @resultsにデータが入っていれば検索結果を表示する %>
-  
-      <% if @keywords.nil? || @keywords.empty? %>
-        <h2>全件表示</h2>
-      <% else %>
-        <% if @results.present? %>
-          <h2><%= @keywords %> を含む検索結果 ( <%= @type %> )</h2>
+       <ul class="tab">
+        <li><a href="#posts">投稿検索</a></li>
+        <li><a href="#users">ユーザー検索</a></li>
+      </ul>
+
+      <div id="posts" class="area">
+        <div class="mt-3">
+          <%= form_tag(search_words_path, method: :get) do %>
+            <%= label_tag :keywords, '投稿検索ワード:' %>
+            <%= text_field_tag :keywords, params[:keywords] %>
+            <%= select_tag('type', options_for_select([%w[AND AND], %w[OR OR]], { :selected => params[:type] })) %>
+            <%= submit_tag '検索', class:"btn btn-primary" %>
+          <% end %>
+        </div>
+            <%# @resultsにデータが入っていれば検索結果を表示する %>
+
+        <% if @keywords.nil? || @keywords.empty? %>
+          <h2>全件表示</h2>
         <% else %>
-          <h2>該当の検索結果がありません。</h2>
+          <% if @posts_results.present? %>
+            <h2><%= @keywords %> を含む検索結果 ( <%= @type %> )</h2>
+          <% else %>
+            <h2>該当の検索結果がありません。</h2>
+          <% end %>
         <% end %>
-      <% end %>
-      <%= render "post",posts: @results %>
+        <%= render "post",posts: @posts_results %>
+
+        <!--/area-->
+      </div>
+
+      <div id="users" class="area">
+        <div class="mt-3">
+          <%= form_tag(search_names_path, method: :get) do %>
+            <%= label_tag :keywords, 'ユーザー検索ワード:' %>
+            <%= text_field_tag :keywords, params[:keywords] %>
+            <%= submit_tag '検索', class:"btn btn-primary" %>
+          <% end %>
+        </div>
+            <%# @resultsにデータが入っていれば検索結果を表示する %>
+
+        <% if @keywords.nil? || @keywords.empty? %>
+          <h2>検索ワードを入力してください</h2>
+        <% else %>
+          <% if @users_results.present? %>
+            <h2><%= @keywords %> を含む検索結果 ( <%= @type %> )</h2>
+             <%= render "public/users/users_index",users: @users_results %>
+          <% else %>
+            <h2>該当の検索結果がありません。</h2>
+          <% end %>
+        <% end %>
+
+
+        <!--/area-->
+      </div>
 
     </div>
   </div>
 </div>
+ <script>
+    // 任意のタブにURLからリンクするための設定
+      function GethashID (hashIDName){
+      	if(hashIDName){
+        // タブ設定
+      		$('.tab li').find('a').each(function() { //タブ内のaタグ全てを取得
+      			var idName = $(this).attr('href'); //タブ内のaタグのリンク名（例）#lunchの値を取得
+      			if(idName == hashIDName){ //リンク元の指定されたURLのハッシュタグ（例）http://example.com/#lunch←この#の値とタブ内のリンク名（例）#lunchが同じかをチェック
+      				var parentElm = $(this).parent(); //タブ内のaタグの親要素（li）を取得
+      				$('.tab li').removeClass("active"); //タブ内のliについているactiveクラスを取り除き
+      				$(parentElm).addClass("active"); //リンク元の指定されたURLのハッシュタグとタブ内のリンク名が同じであれば、liにactiveクラスを追加
+      				//表示させるエリア設定
+      				$(".area").removeClass("is-active"); //もともとついているis-activeクラスを取り除き
+      				$(hashIDName).addClass("is-active"); //表示させたいエリアのタブリンク名をクリックしたら、表示エリアにis-activeクラスを追加
+      			}
+      		});
+      	}
+      }
+
+      //タブをクリックしたら
+      $('.tab a').on('click', function() {
+      	var idName = $(this).attr('href'); //タブ内のリンク名を取得
+      	GethashID (idName);//設定したタブの読み込みと
+      	return false;//aタグを無効にする
+      });
+
+
+
+      // 上記の動きをページが読み込まれたらすぐに動かす
+      $(window).on('load', function () {
+          $('.tab li:first-of-type').addClass("active"); //最初のliにactiveクラスを追加
+          $('.area:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
+      	var hashName = location.hash; //リンク元の指定されたURLのハッシュタグを取得
+      	GethashID (hashName);//設定したタブの読み込み
+      });
+    </script>
