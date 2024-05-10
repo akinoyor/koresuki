@@ -1,14 +1,14 @@
-<div class = "container">
+<div class="container">
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class = "row m-3">
-    <div class ="text-center mt-3">
+  <div class="row m-3">
+    <div class="text-center mt-3">
       <h2>新規登録</h2>
     </div>
   </div>
 
-  <div class = "row m-3">
-    <div class ="text-right">
+  <div class="row m-3">
+    <div class="text-right">
       <%= form_with model: @user, url: user_registration_path do |f| %>
 
 
@@ -33,12 +33,12 @@
         <%= f.label "パスワード(確認用）:" %>
         <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
       </div>
-      <div class = "actions text-center m-3">
+      <div class="actions text-center m-3">
         <%= f.submit "登録する" %>
       </div>
       <% end %>
 
-      <div class = "text-center">
+      <div class="text-center">
         <p>アカウントをお持ちの方は
         <%= link_to "こちら","/users/sign_in" %>
         </p>

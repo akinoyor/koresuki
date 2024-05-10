@@ -32,11 +32,11 @@
                 <%= link_to "HOME", posts_path, class: 'nav-link text-dark' %>
               </li>
               <li class="nav-item">
-                <%= link_to "検索", search_path, class: 'nav-link text-dark' %>
+                <%= link_to "検索", search_path(anchor: 'users'), class: 'nav-link text-dark' %>
 
               </li>
               <li class="nav-item">
-                <%= link_to 'マイページ', user_path(current_user.id), class: 'nav-link text-dark' %>
+                <%= link_to 'マイページ', user_path(current_user, anchor: 'posts'), class: 'nav-link text-dark' %>
               </li>
               <li class="nav-item">
                 <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-dark' %>
@@ -48,8 +48,7 @@
                 <%= link_to "HOME", posts_path, class: 'nav-link text-dark' %>
               </li>
               <li class="nav-item">
-                <!--検索ページ未作成のため　ルートで仮置き-->
-                <%= link_to "検索", root_path, class: 'nav-link text-dark' %>
+                <%= link_to "検索", search_path, class: 'nav-link text-dark' %>
 
               </li>
               <li class="nav-item">

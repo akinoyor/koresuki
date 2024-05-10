@@ -6,12 +6,12 @@
     
     <div class="col-9">
       <ul class="tab">
-        <li><a href="#posts">投稿一覧</a></li>
+        <li class="active"><a href="#posts">投稿一覧</a></li>
         <li><a href="#bookmarks">ブックマーク一覧</a></li>
         <li><a href="#follows">フォロー中</a></li>
       </ul>
       
-      <div id="posts" class="area">
+      <div id="posts" class="area is-active">
         <%= render "public/posts/post",posts: @user_posts %>
         <!--/area-->
       </div>
@@ -60,8 +60,8 @@
 
     // 上記の動きをページが読み込まれたらすぐに動かす
     $(window).on('load', function () {
-        $('.tab li:first-of-type').addClass("active"); //最初のliにactiveクラスを追加
-        $('.area:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
+        //$('.tab li:first-of-type').addClass("active"); //最初のliにactiveクラスを追加
+        //$('.area:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
     	var hashName = location.hash; //リンク元の指定されたURLのハッシュタグを取得
     	GethashID (hashName);//設定したタブの読み込み
     });

@@ -1,23 +1,23 @@
 <!--必要な情報　投稿内容=posts-->
-<div class = "row m-3">
+<div class="row m-3">
 
       <% posts.each do |f| %>
-        <div class ="position-relative card shadow-sm mb-1" style = "width:100%" >
+        <div class="position-relative card shadow-sm mb-1" style = "width:100%" >
           <div class="card-body m-3">
-            <div class = "row align-items-center">
+            <div class="row align-items-center">
                 <%= link_to '', post_path(f), class: 'position-absolute post-box-link' %>
-              <div class = "col-1">
+              <div class="col-1">
                 <%= link_to user_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
                   <%= image_tag f.user.get_user_image(300,300), class: 'img-fluid'%>
                 <% end %>
               </div>
 
-              <div class = "col-8">
+              <div class="col-8">
                 <%= link_to user_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
                   <%= f.user.name %>
                 <% end %>
                 </div>
-              <div class ="col-3">
+              <div class="col-3">
                 <% if user_signed_in? %>
                   <% if current_user != f.user %>
                     <% if current_user.following?(f.user) %>
@@ -30,11 +30,11 @@
               </div>
             </div>
 
-            <div class = "m-3 text-break">
+            <div class="m-3 text-break">
               <%= simple_format(f.body, sanitize: true, class: 'm-0') %>
             </div>
 
-            <div class = "m-3">
+            <div class="m-3">
               <% if f.post_image.attached? %>
                 <%= image_tag f.post_image, width:'40%' %>
               <% end %>
@@ -42,12 +42,12 @@
 
             </div>
 
-            <div class = "row m-3">
-              <div class = "offset-1 col-1">
+            <div class="row m-3">
+              <div class="offset-1 col-1">
                 <i class="fa-regular fa-comment"></i> <%= f.comments.count(:post_id) %>
               </div>
               <!--bookmark-->
-              <div class = "offset-1 col-1">
+              <div class="offset-1 col-1">
                 <% if user_signed_in? %>
                   <% if f.bookmarked_by?(current_user) %>
                     <%= link_to post_bookmark_path(f),method: :delete,class: 'position-relative post-box-link__profile' do %>
@@ -62,7 +62,7 @@
 
               </div>
 
-              <div class = "col-4">
+              <div class="col-4">
                 <p>投稿日時: <%= f.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
                 <% if f.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != f.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
                   <p>更新日時 : <%= f.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
@@ -70,7 +70,7 @@
               </div>
 
               <% if current_user == f.user %>
-              <div class = "col-2">
+              <div class="col-2">
                 <%= link_to "削除", post_path(f), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
 
               </div>

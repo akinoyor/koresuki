@@ -1,12 +1,12 @@
-<div class ="container">
-  <div class = "row m-3">
-    <div class = "text-center mt-3">
+<div class="container">
+  <div class="row m-3">
+    <div class="text-center mt-3">
       <h2>ログイン</h2>
     </div>
   </div>
 
-  <div class = "row m-3">
-    <div class = "text-right">
+  <div class="row m-3">
+    <div class="text-right">
       <%= form_with model: @user, url: user_session_path do |f| %>
       <div>
         <%= f.label "メールアドレス:" %>
@@ -26,12 +26,12 @@
       <% end %>
 
 
-      <div class = "actions text-center">
+      <div class="actions text-center">
         <%= f.submit "ログイン" %>
       </div>
       <% end %>
 
-      <div class = "text-center m-3">
+      <div class="text-center m-3">
         <p>新規登録は
         <%= link_to "こちら","/users/sign_up" %></p>
       </div>

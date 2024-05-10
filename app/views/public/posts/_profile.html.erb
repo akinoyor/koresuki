@@ -5,7 +5,7 @@
           <%= image_tag profile_user.get_user_image(100,100) %>
         <% end %>
         <%= link_to edit_user_registration_path do %>
-          <i class = "fa-solid fa-gear"></i>
+          <i class="fa-solid fa-gear"></i>
         <% end %>
         <%= link_to user_path(profile_user) do %>
           <%= simple_format(profile_user.name, sanitize: true, class: 'm-0') %>
@@ -27,7 +27,7 @@
 
 
         <% if profile_user == current_user %>
-          <div class ="m-3">
+          <div class="m-3">
            <%= form_with model: newpost do |f| %>
             <div class="form-group">
               <img id="new_post_image-preview" class="img-fluid"></img>
@@ -42,7 +42,7 @@
           </div>
         <% end %>
       <% else %>
-        <div class ="text-center mt-5">
+        <div class="text-center mt-5">
         <%= image_tag 'logo.png', width: '50%' %>
         </div>
       <% end %>

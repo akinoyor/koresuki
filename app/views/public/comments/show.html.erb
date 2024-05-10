@@ -1,28 +1,28 @@
-<div class = "containar">
-  <div class = "row">
+<div class="containar">
+  <div class="row">
 
-    <div class = "col-3">
+    <div class="col-3">
       <%= render "public/posts/profile", profile_user: @user, newpost: @newpost %>
     </div>
 
-    <div class = "col-9">
+    <div class="col-9">
 
-      <div class = "row mx-3 mt-3">
-        <div class ="position-relative card shadow-sm mb-1" style = "width:100%" >
+      <div class="row mx-3 mt-3">
+        <div class="position-relative card shadow-sm mb-1" style = "width:100%" >
           <div class="card-body m-3">
-            <div class = "row align-items-center">
-              <div class = "col-2">
+            <div class="row align-items-center">
+              <div class="col-2">
                 <%= link_to user_path(@comment.user_id), class: 'position-relative post-box-link__profile' do %>
                   <%= image_tag @comment.user.get_user_image(300,300), class: 'img-fluid'%>
                 <% end %>
               </div>
 
-              <div class = "col-7">
+              <div class="col-7">
                 <%= link_to user_path(@comment.user_id), class: 'position-relative post-box-link__profile' do %>
                   <%= @comment.user.name %>
                 <% end %>
                 </div>
-              <div class ="col-3">
+              <div class="col-3">
                 <% if user_signed_in? %>
                   <% if current_user != @comment.user %>
                     <% if current_user.following?(@comment.user) %>
@@ -35,11 +35,11 @@
               </div>
             </div>
 
-            <div class = "m-3 text-break">
+            <div class="m-3 text-break">
               <%= simple_format(@comment.body, sanitize: true, class: 'm-0') %>
             </div>
 
-            <div class = "m-3">
+            <div class="m-3">
               <% if @comment.comment_image.attached? %>
                 <%= image_tag @comment.comment_image, class: 'img-fluid' %>
               <% end %>
@@ -47,12 +47,12 @@
 
             </div>
 
-            <div class = "row m-3">
-              <div class = "offset-1 col-1">
+            <div class="row m-3">
+              <div class="offset-1 col-1">
                 <i class="fa-regular fa-comment"></i> <%= @comment.child_comments.count(:parent_comment_id) %>
               </div>
 
-              <div class = "offset-4 col-4">
+              <div class="offset-4 col-4">
                 <p>投稿日時: <%= @comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
                 <% if @comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != @comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
                 <p>更新日時 : <%= @comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
@@ -60,7 +60,7 @@
               </div>
 
               <% if current_user == @comment.user %>
-              <div class = "col-2">
+              <div class="col-2">
                 <%= link_to "削除", post_comment_path(@comment.post, @comment), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
               </div>
               <% end %>
@@ -71,16 +71,17 @@
 
 
 <!--ここからコメント投稿欄-->
-      <div class = "mx-3">
-        <div class ="position-relative card shadow-sm mb-3" style = "width:100%" >
-          <div class = "row m-3">
-            <div class = "col-2 p-3">
+      <% if user_signed_in? %>
+        <div class="mx-3">
+        <div class="position-relative card shadow-sm mb-3" style = "width:100%" >
+          <div class="row m-3">
+            <div class="col-2 p-3">
             <%= link_to user_path(@user), class: 'position-relative' do %>
             <%= image_tag @user.get_user_image(300,300), class: 'img-fluid' %>
             <% end %>
             </div>
 
-            <div class = "col-10 p-3">
+            <div class="col-10 p-3">
             <%= form_with model: @newcomment, url: post_comments_path(@comment.post_id, @comment), method: :post do |f| %>
             <%= f.hidden_field :parent_comment_id, value: @comment.id %>
               <div class="form-group">
@@ -121,23 +122,23 @@
 
 <!--ここからコメント欄-->
         <% @comment.child_comments.each do |child_comment| %>
-        <div class ="position-relative card shadow-sm" style = "width:100%" >
-          <div class = "row m-3">
+        <div class="position-relative card shadow-sm" style = "width:100%" >
+          <div class="row m-3">
              <%= link_to '', post_comment_path(child_comment.post, child_comment), class: 'position-absolute post-box-link' %>
-            <div class = "col-2 text-center">
+            <div class="col-2 text-center">
             <%= link_to user_path(child_comment.user_id), class: 'position-relative post-box-link__profile' do %>
             <%= image_tag child_comment.user.get_user_image(300,300), class: 'img-fluid' %>
             <% end %>
             </div>
 
-            <div class = "col-10">
-              <div class = "row">
-                <div class = "col-8">
+            <div class="col-10">
+              <div class="row">
+                <div class="col-8">
                 <%= link_to user_path(child_comment.user_id), class: 'position-relative post-box-link__profile' do %>
                 <%= child_comment.user.name %>
                 <% end %>
                 </div>
-                <div class ="col-3">
+                <div class="col-3">
                 <% if user_signed_in? %>
                   <% if current_user != child_comment.user %>
                     <% if current_user.following?(child_comment.user) %>
@@ -151,7 +152,7 @@
                 </div>
               </div>
 
-              <div class = "row text-break m-3">
+              <div class="row text-break m-3">
                 <%= simple_format(child_comment.body, sanitize: true, class: 'm-0') %>
               </div>
               <div>
@@ -160,8 +161,8 @@
               <% end %>
               </div>
 
-              <div class = "card-footer card-footer-org d-flex justify-content-between">
-                <div class = "offset-1 col-1">
+              <div class="card-footer card-footer-org d-flex justify-content-between">
+                <div class="offset-1 col-1">
                   <i class="fa-regular fa-comment"></i> <%= child_comment.child_comments.count(:parent_comment_id) %>
                 </div>
                   <p>投稿日時: <%= child_comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
@@ -179,6 +180,7 @@
         <% end %>
         </div>
       </div>
+      <% end %>
     </div>
   </div>
 </div>
