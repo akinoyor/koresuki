@@ -8,13 +8,13 @@
 
     <div class="col-9">
        <ul class="tab">
-        <li class="active"><a href="#posts">投稿検索</a></li>
-        <li><a href="#users">ユーザー検索</a></li>
+        <li class="<%= action_name == 'search_words' || action_name == 'search' ? 'active' : '' %>"><a href="#posts">投稿検索</a></li>
+        <li class="<%= action_name == 'search_names' ? 'active' : '' %>"><a href="#users">ユーザー検索</a></li>
       </ul>
 
-      <div id="posts" class="area is-active">
+      <div id="posts" class="area<%= action_name == 'search_words' || action_name == 'search' ? ' is-active' : '' %>">
         <div class="mt-3">
-          <%= form_tag(search_words_path(anchor: 'posts'), method: :get) do %>
+          <%= form_tag(search_words_path, method: :get) do %>
             <%= label_tag :keywords, '投稿検索ワード:' %>
             <%= text_field_tag :keywords, params[:keywords] %>
             <%= select_tag('type', options_for_select([%w[AND AND], %w[OR OR]], { :selected => params[:type] })) %>
@@ -37,9 +37,9 @@
         <!--/area-->
       </div>
 
-      <div id="users" class="area">
+      <div id="users" class="area<%= action_name == 'search_names' ? ' is-active' : '' %>">
         <div class="mt-3">
-          <%= form_tag(search_names_path(anchor: 'users'), method: :get) do %>
+          <%= form_tag(search_names_path, method: :get) do %>
             <%= label_tag :keywords, 'ユーザー検索ワード:' %>
             <%= text_field_tag :keywords, params[:keywords] %>
             <%= submit_tag '検索', class:"btn btn-primary" %>
@@ -89,13 +89,5 @@
       	var idName = $(this).attr('href'); //タブ内のリンク名を取得
       	GethashID (idName);//設定したタブの読み込みと
       	return false;//aタグを無効にする
-      });
-
-
-
-      // 上記の動きをページが読み込まれたらすぐに動かす
-      $(window).on('load', function () {
-      	var hashName = location.hash; //リンク元の指定されたURLのハッシュタグを取得
-      	GethashID (hashName);//設定したタブの読み込み
       });
     </script>

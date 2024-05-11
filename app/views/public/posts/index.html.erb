@@ -7,10 +7,77 @@
     </div>
 
     <div class="col-9">
-    <%= render "post",posts: @posts %>
+      <div class="wrapper">
 
+        <ul class="tab　list-group">
+          <li><a href="#all" class="list-group-item" >ALL</a></li>
+          <li><a href="#preset1" class="list-group-item">プリセット１</a></li>
+          <li><a href="#preset2">プリセット２</a></li>
+          <li><a href="#preset3">プリセット３</a></li>
+        </ul>
 
+        <div id="all" class="area">
+          <h2>全件表示</h2>
+          <%= render "post",posts: @posts %>
+        <!--/area-->
+        </div>
+
+       <div id="preset1" class="area">
+        <h2>プリセット１</h2>
+        <ul>
+
+        </ul>
+      <!--/area-->
+      </div>
+
+       <div id="preset2" class="area">
+        <h2>プリセット２</h2>
+
+      <!--/area-->
+      </div>
+
+     <div id="preset3" class="area">
+      <h2>プリセット３</h2>
+
+    <!--/area--></div>
+
+      </div>
     </div>
   </div>
-
 </div>
+
+<script>
+  //任意のタブにURLからリンクするための設定
+  function GethashID (hashIDName){
+    if(hashIDName){
+      //タブ設定
+      $('.tab li').find('a').each(function() { //タブ内のaタグ全てを取得
+        var idName = $(this).attr('href'); //タブ内のaタグのリンク名（例）#lunchの値を取得
+        if(idName == hashIDName){ //リンク元の指定されたURLのハッシュタグ（例）http://example.com/#lunch←この#の値とタブ内のリンク名（例）#lunchが同じかをチェック
+          var parentElm = $(this).parent(); //タブ内のaタグの親要素（li）を取得
+          $('.tab li').removeClass("active"); //タブ内のliについているactiveクラスを取り除き
+          $(parentElm).addClass("active"); //リンク元の指定されたURLのハッシュタグとタブ内のリンク名が同じであれば、liにactiveクラスを追加
+          //表示させるエリア設定
+          $(".area").removeClass("is-active"); //もともとついているis-activeクラスを取り除き
+          $(hashIDName).addClass("is-active"); //表示させたいエリアのタブリンク名をクリックしたら、表示エリアにis-activeクラスを追加
+        }
+      });
+    }
+  }
+
+  //タブをクリックしたら
+  $('.tab a').on('click', function() {
+    var idName = $(this).attr('href'); //タブ内のリンク名を取得
+    GethashID (idName);//設定したタブの読み込みと
+    return false;//aタグを無効にする
+  });
+
+
+  // 上記の動きをページが読み込まれたらすぐに動かす
+  $(window).on('load', function () {
+      $('.tab li:first-of-type').addClass("active"); //最初のliにactiveクラスを追加
+      $('.area:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
+    var hashName = location.hash; //リンク元の指定されたURLのハッシュタグを取得
+    GethashID (hashName);//設定したタブの読み込み
+  });
+</script>

@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 2024_05_04_014339) do
 
   create_table "preset_words", force: :cascade do |t|
     t.integer "preset_id", null: false
-    t.integer "number", null: false
+    t.string "name"
     t.string "body"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -94,7 +94,6 @@ ActiveRecord::Schema.define(version: 2024_05_04_014339) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "name", null: false
-    t.integer "number", default: 0, null: false
     t.string "profile"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

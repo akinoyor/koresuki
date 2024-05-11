@@ -66,7 +66,7 @@ class Public::PostsController < ApplicationController
     @keywords = params[:keywords].split(/[[:blank:]]+/)
     @type = params[:type]
     @posts_results = Post.none
-    @default_hash_name = "#posts"
+    # @default_hash_name = "#posts"
 
     if @keywords.empty?
       @posts_results = Post.all.order(updated_at: :desc)
