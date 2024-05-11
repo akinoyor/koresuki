@@ -66,11 +66,16 @@ class Public::PostsController < ApplicationController
     @keywords = params[:keywords].split(/[[:blank:]]+/)
     @type = params[:type]
     @posts_results = Post.none
-    # @default_hash_name = "#posts"
+    @users_results = User.none
 
     if @keywords.empty?
       @posts_results = Post.all.order(updated_at: :desc)
     else
+      @keywords.each_with_index do |keyword, i|
+        @users_results = User.search(keyword) if i == 0
+        @users_results = @users_results.merge(@users_results.search(keyword))
+      end
+      
       if @type == 'AND'
        @keywords.each_with_index do |keyword, i|
          @posts_results = Post.search(keyword) if i == 0
@@ -88,25 +93,6 @@ class Public::PostsController < ApplicationController
     render :search
   end
 
-  def search_names
-    @keywords = params[:keywords].split(/[[:blank:]]+/)
-    @users_results = User.none
-    @default_hash_name = "#users"
-
-    if @keywords.empty?
-      @users_results = User.all.order(updated_at: :desc)
-    else
-     @keywords.each_with_index do |keyword, i|
-       @users_results = User.search(keyword) if i == 0
-       @users_results = @users_results.merge(@users_results.search(keyword))
-     end
-    end
-    @newpost = Post.new
-    @user = current_user
-    # FIXME posts_results あとで消す
-    @posts_results = Post.all
-    render :search
-  end
 
   private
 

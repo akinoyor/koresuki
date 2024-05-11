@@ -35,10 +35,10 @@
             </div>
 
             <div>
-              <%= f.file_field :post_image, accept: "image/*", class: "w-100", id: 'post_image'%>
+              <%= f.file_field :image, accept: "image/*", class: "w-100", id: 'post_image'%>
 
-              <% if @post.post_image.attached? %>
-                <%= image_tag @post.post_image, width:'80%', id: 'post-image-preview' %>
+              <% if @post.image.attached? %>
+                <%= image_tag @post.image, width:'80%', id: 'post-image-preview' %>
               <% else %>
                 <div class="form-group">
                   <img id="post-image-preview" class="img-fluid"></img>
