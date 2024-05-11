@@ -8,14 +8,22 @@ class Public::CommentsController < ApplicationController
     comment.parent_comment_id = parent_comment_id
     comment.post_id = parent_post.id
     comment.save
-    redirect_to post_path(parent_post)
+    if comment.parent_comment_id == 0
+      redirect_to  post_path(comment.post_id)
+    else
+      redirect_to post_comment_path(comment.post_id,comment.parent_comment_id)
+    end
   end
 
   def destroy
     comment = Comment.find(params[:id])
     if comment.user.id == current_user.id
       comment.destroy
-      redirect_to  post_path(comment.post.id)
+      if comment.parent_comment_id == 0
+        redirect_to  post_path(comment.post_id)
+      else
+        redirect_to post_comment_path(comment.post_id,comment.parent_comment_id)
+      end
     end
   end
 
