@@ -1,6 +1,6 @@
 require "test_helper"
 
-class PresetWordTest < ActiveSupport::TestCase
+class Public::PresetControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

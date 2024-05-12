@@ -1,0 +1,8 @@
+ja:
+  preset/target:
+    all_user: "すべてのユーザー"
+    following_user: "フォローしているユーザー"
+
+  preset/option:
+    katu: "すべて含む"
+    oa: "いずれかを含む"

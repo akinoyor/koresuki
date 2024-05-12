@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     resources  :users,only:[:show] do
       resource  :follows, only: [:create, :destroy]
+      resource  :presets,  only: [:create, :destroy, :edit, :update]
     end
 
     get     '/user/bookmarks',        to: 'bookmarks#index',    as: 'bookmarks'
@@ -15,10 +16,10 @@ Rails.application.routes.draw do
     get     'posts/serch_words',       to: 'posts#search_words', as: 'search_words'
     get     'posts/search_names',      to: 'posts#search_names',  as: 'search_names'
     resources :posts, only:[:index, :show, :create, :edit, :update, :destroy] do
-      resources :comments,   only: [:create, :show, :destroy]
+      resources :comments,  only: [:create, :show, :destroy]
       resource  :bookmark,  only: [:create, :destroy]
     end
-    
+
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

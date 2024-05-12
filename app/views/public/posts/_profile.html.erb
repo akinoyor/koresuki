@@ -4,9 +4,13 @@
         <%= link_to user_path(profile_user) do %>
           <%= image_tag profile_user.get_user_image(100,100) %>
         <% end %>
-        <%= link_to edit_user_registration_path do %>
-          <i class="fa-solid fa-gear"></i>
+
+        <% if profile_user.email != 'guest@example.com' %>
+          <%= link_to edit_user_registration_path do %>
+            <i class="fa-solid fa-gear"></i>
+          <% end %>
         <% end %>
+
         <%= link_to user_path(profile_user) do %>
           <%= simple_format(profile_user.name, sanitize: true, class: 'm-0') %>
         <% end %>

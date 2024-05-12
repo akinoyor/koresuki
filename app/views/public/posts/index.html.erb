@@ -5,13 +5,32 @@
     <%= render "profile",profile_user: @user, newpost: @newpost %>
 
     </div>
+    <% if user_signed_in? %>
 
+      <%= form_with model: @newpreset, url: user_presets_path(@user), method: :post do |f| %>
+        <%= f.text_field :name %>
+        <%= f.text_area :words %>
+         <%= f.select :target, Preset.targets.keys %>
+        <%= f.select :option, Preset.options.keys %>
+        <%= f.submit "Create" %>
+      <% end %>
+
+      <% if @presets.any? %>
+      <div class="offset-1">
+        <%= @presets.each do |preset| %>
+          <p><%= preset.name %></p>
+          <p><%= preset.number %></p>
+          <p><%= preset.words %></p>
+          <p><%= preset.target %></p>
+          <p><%= preset.option %></p>
+        <% end %>
+      <% end %>
+      </div>
+    <% end %>
     <div class="col-9">
-      <div class="wrapper">
-
-        <ul class="tab">
-          <li><a href="#all" class="list-group-item" >ALL</a></li>
-          <li><a href="#preset1" class="list-group-item">プリセット１</a></li>
+        <ul class="tab list-unstyled">
+          <li  class="active"><a href="#all">ALL</a></li>
+          <li><a href="#preset1">プリセット１</a></li>
           <li><a href="#preset2">プリセット２</a></li>
           <li><a href="#preset3">プリセット３</a></li>
         </ul>
@@ -36,11 +55,9 @@
       <!--/area-->
       </div>
 
-     <div id="preset3" class="area">
-      <h2>プリセット３</h2>
-
-    <!--/area--></div>
-
+      <div id="preset3" class="area">
+        <h2>プリセット３</h2>
+        <!--/area-->
       </div>
     </div>
   </div>
@@ -70,14 +87,5 @@
     var idName = $(this).attr('href'); //タブ内のリンク名を取得
     GethashID (idName);//設定したタブの読み込みと
     return false;//aタグを無効にする
-  });
-
-
-  // 上記の動きをページが読み込まれたらすぐに動かす
-  $(window).on('load', function () {
-      $('.tab li:first-of-type').addClass("active"); //最初のliにactiveクラスを追加
-      $('.area:first-of-type').addClass("is-active"); //最初の.areaにis-activeクラスを追加
-    var hashName = location.hash; //リンク元の指定されたURLのハッシュタグを取得
-    GethashID (hashName);//設定したタブの読み込み
   });
 </script>

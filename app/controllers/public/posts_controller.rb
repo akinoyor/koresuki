@@ -17,7 +17,8 @@ class Public::PostsController < ApplicationController
     @newpost = Post.new
     @user = current_user
     @posts = Post.all.order(updated_at: :desc)
-
+    @newpreset = Preset.new
+    @presets = Preset.where(user_id: @user)
   end
 
   def show

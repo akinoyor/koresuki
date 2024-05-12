@@ -70,16 +70,10 @@ ActiveRecord::Schema.define(version: 2024_05_04_014339) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "preset_words", force: :cascade do |t|
-    t.integer "preset_id", null: false
-    t.string "name"
-    t.string "body"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "presets", force: :cascade do |t|
     t.integer "user_id", null: false
+    t.string "name"
+    t.string "words"
     t.integer "number", null: false
     t.integer "target", default: 0, null: false
     t.integer "option", default: 0, null: false
