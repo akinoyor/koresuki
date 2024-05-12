@@ -6,22 +6,22 @@
 
     <div class="col-9">
       <ul class="tab">
-        <li class="<%= params[:type] == 'posts'? 'active' : '' %>"><a href="#posts">投稿一覧</a></li>
-        <li class="<%= params[:type] == 'bookmarks'? 'active' : '' %>"><a href="#bookmarks">ブックマーク一覧</a></li>
-        <li class="<%= params[:type] == 'follows'? 'active' : '' %>"><a href="#follows">フォロー中</a></li>
+        <li class="<%= params[:page] == 'posts'? 'active' : '' %>"><a href="#posts">投稿一覧</a></li>
+        <li class="<%= params[:page] == 'bookmarks'? 'active' : '' %>"><a href="#bookmarks">ブックマーク一覧</a></li>
+        <li class="<%= params[:page] == 'follows'? 'active' : '' %>"><a href="#follows">フォロー中</a></li>
       </ul>
 
-      <div id="posts" class="area <%= params[:type] == 'posts'? 'is-active' : '' %>">
+      <div id="posts" class="area <%= params[:page] == 'posts'? 'is-active' : '' %>">
         <%= render "public/posts/post",posts: @user_posts %>
         <!--/area-->
       </div>
 
-      <div id="bookmarks" class="area <%= params[:type] == 'bookmarks'? 'is-active' : '' %>">
+      <div id="bookmarks" class="area <%= params[:page] == 'bookmarks'? 'is-active' : '' %>">
         <%= render "public/posts/post",posts: @bookmark_posts %>
         <!--/area-->
       </div>
 
-      <div id="follows" class="area <%= params[:type] == 'follows'? 'is-active' : '' %>">
+      <div id="follows" class="area <%= params[:page] == 'follows'? 'is-active' : '' %>">
         <%= render "users_index", users: @followed_users %>
         <!--/area-->
       </div>

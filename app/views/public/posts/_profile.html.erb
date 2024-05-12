@@ -17,10 +17,17 @@
         </div>
 
         <div class="form-group mt-3">
-          <p>フォロー:<%= profile_user.followings.count %> フォロワー:<%= profile_user.followers.count %></p>
+          <p>
+            <%= link_to user_path(profile_user, page:'follows') do %>
+              フォロー:<%= profile_user.followings.count %>
+            <% end %>
+            フォロワー:<%= profile_user.followers.count %>
+          </p>
         </div>
         <div class="form-group">
-          <p>ブックマーク: <%= profile_user.bookmarks.count %></p>
+          <%= link_to user_path(profile_user, page:'bookmarks') do %>
+            <p>ブックマーク: <%= profile_user.bookmarks.count %></p>
+          <% end %>
         </div>
 
         <%= profile_user.profile %>
