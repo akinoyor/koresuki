@@ -1,0 +1,58 @@
+<!--必要な情報　view_comments表示するコメント　-->
+<% view_comments.each do |post_comment| %>
+  <div class="position-relative card shadow-sm" style = "width:100%" >
+    <div class="row m-3">
+       <%= link_to '', post_comment_path(post_comment.post, post_comment), class: 'position-absolute post-box-link' %>
+      <div class="col-2 text-center">
+      <%= link_to user_path(post_comment.user_id), class: 'position-relative post-box-link__profile' do %>
+      <%= image_tag post_comment.user.get_user_image(300,300), class: 'img-fluid' %>
+      <% end %>
+      </div>
+
+      <div class="col-10">
+        <div class="row">
+          <div class="col-8">
+          <%= link_to user_path(post_comment.user_id), class: 'position-relative post-box-link__profile' do %>
+          <%= post_comment.user.name %>
+          <% end %>
+          </div>
+          <div class="col-3">
+          <% if user_signed_in? %>
+            <% if current_user != post_comment.user %>
+              <% if current_user.following?(post_comment.user) %>
+                <%= link_to "フォロー外す", user_follows_path(post_comment.user), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
+              <% else %>
+                <%= link_to "フォローする", user_follows_path(post_comment.user), method: :post, class: 'position-relative post-box-link__profile btn btn-success' %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+          </div>
+        </div>
+
+        <div class="row text-break m-3">
+          <%= simple_format(post_comment.body, sanitize: true, class: 'm-0') %>
+        </div>
+        <div>
+        <% if post_comment.image.attached? %>
+          <%= image_tag post_comment.image, width:'40%' %>
+        <% end %>
+        </div>
+
+        <div class="card-footer card-footer-org d-flex justify-content-between">
+          <div class="offset-1 col-1">
+          <i class="fa-regular fa-comment"></i> <%= post_comment.child_comments.count(:parent_comment_id) %>
+        </div>
+            <p>投稿日時: <%= post_comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
+            <% if post_comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != post_comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
+              <p>更新日時 : <%= post_comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
+            <% end %>
+
+          <% if current_user == post_comment.user %>
+              <%= link_to "削除", post_comment_path(post_comment.post, post_comment), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
