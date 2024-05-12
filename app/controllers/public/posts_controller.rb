@@ -75,7 +75,7 @@ class Public::PostsController < ApplicationController
         @users_results = User.search(keyword) if i == 0
         @users_results = @users_results.merge(@users_results.search(keyword))
       end
-      
+
       if @type == 'AND'
        @keywords.each_with_index do |keyword, i|
          @posts_results = Post.search(keyword) if i == 0
@@ -97,6 +97,6 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:body,:post_image)
+    params.require(:post).permit(:body,:image)
   end
 end

@@ -3,11 +3,10 @@ class Public::CommentsController < ApplicationController
   def create
     parent_post = Post.find(params[:post_id])
     parent_comment_id = params[:comment][:parent_comment_id].present? ? params[:comment][:parent_comment_id] : 0
-    puts "parent_comment_id: #{parent_comment_id}"
     comment = current_user.comments.new(comment_params)
     comment.parent_comment_id = parent_comment_id
     comment.post_id = parent_post.id
-    comment.save
+    comment.save!
     if comment.parent_comment_id == 0
       redirect_to  post_path(comment.post_id)
     else
@@ -40,6 +39,6 @@ class Public::CommentsController < ApplicationController
 
   private
   def comment_params
-    params.require(:comment).permit(:body,:comment_image,:parent_comment_id)
+    params.require(:comment).permit(:body,:image,:parent_comment_id)
   end
 end
