@@ -15,6 +15,15 @@ class Public::PresetsController < ApplicationController
     end
   end
 
+  def update
+    @preset = Preset.find(params[:id])
+    if @preset.update(preset_params)
+      redirect_to posts_path, notice: 'Preset was successfully updated.'
+    else
+      redirect_to posts_path
+    end
+  end
+
   private
 
   def preset_params

@@ -91,6 +91,8 @@ GEM
     enum_help (0.0.19)
       activesupport (>= 3.0.0)
     erubi (1.12.0)
+    exnum (0.3.0)
+      activerecord
     ffi (1.16.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
@@ -253,6 +255,7 @@ DEPENDENCIES
   devise
   devise-i18n
   enum_help
+  exnum
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   listen (~> 3.3)

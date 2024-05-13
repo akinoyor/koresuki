@@ -18,8 +18,46 @@ class Public::PostsController < ApplicationController
     @user = current_user
     @posts = Post.all.order(updated_at: :desc)
     @newpreset = Preset.new
-    @presets = Preset.where(user_id: @user)
-    @max = Preset.where(user_id: @user).maximum(:number)
+    @presets = Preset.where(user_id: @user) || none
+    @max = Preset.where(user_id: @user).maximum(:number) || 0
+    follows = Follow.where(follower_id: params[:id])
+    @followe = User.where(id: follows.pluck(:followed_id))
+
+    if @max > 0
+
+      @presets.each do |i|
+        @words = i.words.split(/[[:blank:]]+/)
+
+        if i.target = 0
+          target_posts = Post.all.order(updated_at: :desc)
+        else
+          # フォローしているユーザのポストのみ
+          target_posts = Post.all
+        end
+
+        if @words.empty?
+          results = target_posts.all.order(updated_at: :desc)
+        else
+          # 以下　アンド検索
+          if i.option = 0
+            @words.each_with_index do |word, i|
+              results = target_posts.search(word) if i == 0
+              results = results.merge(results.search(word))
+            end
+          # 以下オア検索
+          else
+            @words.each do |word|
+              results = Post.none
+              results = results.or(target_posts.search(word))
+            end
+          end
+        end
+
+
+        instance_variable_set("@results#{i.number}", results)
+      end
+    end
+
 
   end
 

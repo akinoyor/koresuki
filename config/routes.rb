@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     resources  :users,only:[:show] do
       resource  :follows, only: [:create, :destroy]
-      resource  :presets,  only: [:create, :destroy, :edit, :update]
+      resources  :presets,  only: [:create, :destroy, :edit, :update]
     end
 
     get     '/user/bookmarks',        to: 'bookmarks#index',    as: 'bookmarks'
