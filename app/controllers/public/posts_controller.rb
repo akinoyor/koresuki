@@ -19,6 +19,8 @@ class Public::PostsController < ApplicationController
     @posts = Post.all.order(updated_at: :desc)
     @newpreset = Preset.new
     @presets = Preset.where(user_id: @user)
+    @max = Preset.where(user_id: @user).maximum(:number)
+
   end
 
   def show
