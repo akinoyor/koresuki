@@ -20,6 +20,8 @@ class Public::PostsController < ApplicationController
     @newpreset = Preset.new
     @presets = Preset.where(user_id: @user) || none
     @max = Preset.where(user_id: @user).maximum(:number) || 0
+    
+    # FIXME仮置き↓フォローしているユーザー
     follows = Follow.where(follower_id: params[:id])
     @followe = User.where(id: follows.pluck(:followed_id))
 

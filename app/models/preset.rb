@@ -5,4 +5,5 @@ class Preset < ApplicationRecord
   belongs_to :user
   has_many :preset_words, dependent: :destroy
 
+
 end

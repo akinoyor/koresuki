@@ -42,6 +42,14 @@ header {
 	margin:0 2px;
 	padding:10px 20px;
 }
+
+// ギアのタブ表示
+.tab li i{
+	display: block;
+	background:#ddd;
+	margin:0 2px;
+	padding:10px 20px;
+}
 /*liにactiveクラスがついた時の形状*/
 .tab li.active a{
 	background:#fff;
@@ -72,6 +80,13 @@ header {
 	}
 }
 
+.preset-tab{
+	background-color:#ABC0C5;
+	display: block;/*表示*/
+  animation-name: displayAnime;/*ふわっと表示させるためのアニメーション*/
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+}
 // ここまでタブ関係
 
 .card-footer-org {

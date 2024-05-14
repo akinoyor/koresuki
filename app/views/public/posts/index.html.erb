@@ -16,9 +16,48 @@
           <% if @max < 3 %>
            <li><a href="#new">+新規登録</a></li>
           <% end %>
+          <li><i href="#gear" class="fa-solid fa-gear"></i></li>
 
         <% end %>
       </ul>
+
+      <div id="gear" class="area col-6">
+        <h2>プリセット編集</h2>
+        <% @presets.each do |preset| %>
+
+          <!--FIXME確認用　あとで消す↓-->
+          <p>target<%= preset.target %>option<%= preset.option %></p>
+
+
+          <%= form_with(model: [@user, preset], url: user_preset_path(@user,preset), method: "patch") do |form| %>
+            <div class="field">
+              <%= form.label :name %>
+              <%= form.text_field :name %>
+            </div>
+
+            <div class="field">
+              <%= form.label :words %>
+              <%= form.text_field :words %>
+            </div>
+
+
+            <div class="field">
+              <%= form.label :target %>
+              <%= form.select(:target, Preset.targets_i18n.invert) %>
+            </div>
+
+            <div class="field">
+              <%= form.label :option %>
+              <%= form.select(:option, Preset.options_i18n.invert) %>
+            </div>
+            <%= form.submit 'Update Preset' %>
+          <% end %>
+        <% end %>
+        <div class="text-right">
+          <i id="close" class="fa-regular fa-rectangle-xmark"></i>
+        </div>
+        <!--/area-->
+      </div>
 
 
       <div id="all" class="area is-active">
@@ -30,36 +69,7 @@
       <% if 0 < @max %>
         <div id="preset1" class="area">
           <h2>プリセット1</h2>
-          <% @presets.each do |preset| %>
 
-          <!--FIXME確認用　あとで消す↓-->
-          <p>target<%= preset.target %>option<%= preset.option %></p>
-
-
-  <%= form_with(model: [@user, preset], url: user_preset_path(@user,preset), method: "patch") do |form| %>
-      <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :words %>
-    <%= form.text_field :words %>
-  </div>
-
-
-  <div class="field">
-    <%= form.label :target %>
-    <%= form.select(:target, Preset.targets_i18n.invert) %>
-  </div>
-
-  <div class="field">
-    <%= form.label :option %>
-    <%= form.select(:option, Preset.options_i18n.invert) %>
-  </div>
-    <%= form.submit 'Update Preset' %>
-  <% end %>
-<% end %>
           <%= render "post",posts: @results1 %>
           <!--/area-->
         </div>
@@ -127,5 +137,14 @@
     var idName = $(this).attr('href'); //タブ内のリンク名を取得
     GethashID (idName);//設定したタブの読み込みと
     return false;//aタグを無効にする
+  });
+
+   $('.tab i').on('click', function() {
+     $(gear).addClass("preset-tab");
+    return false;//aタグを無効にする
+  });
+
+  $('#close').on('click', function(){
+    $(gear).removeClass("preset-tab");
   });
 </script>
