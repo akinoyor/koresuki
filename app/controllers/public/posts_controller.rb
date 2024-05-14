@@ -15,51 +15,73 @@ class Public::PostsController < ApplicationController
 
   def index
     @newpost = Post.new
-    @user = current_user
-    @posts = Post.all.order(updated_at: :desc)
+    @posts = Post.order(updated_at: :desc)
     @newpreset = Preset.new
-    @presets = Preset.where(user_id: @user) || none
-    @max = Preset.where(user_id: @user).maximum(:number) || 0
-    
-    # FIXME仮置き↓フォローしているユーザー
-    follows = Follow.where(follower_id: params[:id])
-    @followe = User.where(id: follows.pluck(:followed_id))
+    @presets = Preset.where(user_id: current_user) || []
+    if user_signed_in?
+      follow_users = User.where(id: Follow.where(follower_id: current_user.id).pluck(:followed_id))
 
-    if @max > 0
+      @presets.each do |preset|
+        words = preset.words.split(/[[:blank:]]+/)
 
-      @presets.each do |i|
-        @words = i.words.split(/[[:blank:]]+/)
-
-        if i.target = 0
-          target_posts = Post.all.order(updated_at: :desc)
+        # 以下同義
+        if preset.target == "following_user" # フォローしているユーザーのみ
+          posts = @posts.where(user_id: follow_users.ids)
         else
-          # フォローしているユーザのポストのみ
-          target_posts = Post.all
+          posts = @posts
         end
 
-        if @words.empty?
-          results = target_posts.all.order(updated_at: :desc)
-        else
-          # 以下　アンド検索
-          if i.option = 0
-            @words.each_with_index do |word, i|
-              results = target_posts.search(word) if i == 0
-              results = results.merge(results.search(word))
-            end
-          # 以下オア検索
-          else
-            @words.each do |word|
-              results = Post.none
-              results = results.or(target_posts.search(word))
-            end
+        results = Post.none # resultsに空のPostを用意する
+
+        if preset.option == "katu" # AND
+          words.each_with_index do |word, i|
+            results = posts.search(word) if i == 0
+            results = results.merge(posts.search(word))
+          end
+        else # OR
+          words.each do |word|
+            results = results.or(posts.search(word))
           end
         end
 
-
-        instance_variable_set("@results#{i.number}", results)
+        instance_variable_set("@results#{preset.id}", results)
       end
     end
 
+    # if @max > 0
+
+    #   @presets.each do |i|
+    #     @words = i.words.split(/[[:blank:]]+/)
+
+    #     if i.target == 0
+    #       target_posts = Post.all.order(updated_at: :desc)
+    #     else
+    #       # フォローしているユーザのポストのみ
+    #       target_posts = Post.all
+    #     end
+
+    #     if @words.empty?
+    #       results = target_posts.all.order(updated_at: :desc)
+    #     else
+    #       # 以下　アンド検索
+    #       if i.option == 0
+    #         @words.each_with_index do |word, i|
+    #           results = target_posts.search(word) if i == 0
+    #           results = results.merge(results.search(word))
+    #         end
+    #       # 以下オア検索
+    #       else
+    #         @words.each do |word|
+    #           results = Post.none
+    #           results = results.or(target_posts.search(word))
+    #         end
+    #       end
+    #     end
+
+
+    #     instance_variable_set("@results#{i.id}", results)
+    #   end
+    # end
 
   end
 

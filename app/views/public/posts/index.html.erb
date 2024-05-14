@@ -1,19 +1,17 @@
 <div class="containar">
   <div class="row">
     <div class="col-3">
-    <%= render "profile",profile_user: @user, newpost: @newpost %>
+    <%= render "profile",profile_user: current_user, newpost: @newpost %>
     </div>
 
-
-<%= @follow %>
     <div class="col-9">
       <ul class="tab list-unstyled">
         <li  class="active"><a href="#all">ALL</a></li>
         <% if user_signed_in? %>
-          <% @presets.each do |f| %>
-            <li><a href="#preset<%= f.number %>"><%= f.name %></a></li>
+          <% @presets.each do |preset| %>
+            <li><a href="#preset<%= preset.id %>"><%= preset.name %></a></li>
           <% end %>
-          <% if @max < 3 %>
+          <% if @presets.count < 3 %>
            <li><a href="#new">+新規登録</a></li>
           <% end %>
           <li><i href="#gear" class="fa-solid fa-gear"></i></li>
@@ -21,83 +19,55 @@
         <% end %>
       </ul>
 
-      <div id="gear" class="area col-6">
-        <h2>プリセット編集</h2>
-        <% @presets.each do |preset| %>
-
-          <!--FIXME確認用　あとで消す↓-->
-          <p>target<%= preset.target %>option<%= preset.option %></p>
-
-
-          <%= form_with(model: [@user, preset], url: user_preset_path(@user,preset), method: "patch") do |form| %>
-            <div class="field">
-              <%= form.label :name %>
-              <%= form.text_field :name %>
-            </div>
-
-            <div class="field">
-              <%= form.label :words %>
-              <%= form.text_field :words %>
-            </div>
-
-
-            <div class="field">
-              <%= form.label :target %>
-              <%= form.select(:target, Preset.targets_i18n.invert) %>
-            </div>
-
-            <div class="field">
-              <%= form.label :option %>
-              <%= form.select(:option, Preset.options_i18n.invert) %>
-            </div>
-            <%= form.submit 'Update Preset' %>
-          <% end %>
-        <% end %>
-        <div class="text-right">
-          <i id="close" class="fa-regular fa-rectangle-xmark"></i>
-        </div>
-        <!--/area-->
-      </div>
 
 
       <div id="all" class="area is-active">
         <h2>全件表示</h2>
-        <%= render "post",posts: @posts %>
-      <!--/area-->
+        <%= render "post", posts: @posts %>
       </div>
 
-      <% if 0 < @max %>
-        <div id="preset1" class="area">
-          <h2>プリセット1</h2>
+      <% if user_signed_in? %>
+      <% @presets.each do |preset| %>
+        <div id="preset<%= preset.id %>" class="area">
+          <div id="gear" class="area col-6">
+            <h2><%= preset.name %></h2>
+            <%= form_with(model: [current_user, preset], url: user_preset_path(current_user, preset), method: :patch) do |form| %>
+              <div class="field">
+                <%= form.label :name %>
+                <%= form.text_field :name %>
+              </div>
 
-          <%= render "post",posts: @results1 %>
-          <!--/area-->
+              <div class="field">
+                <%= form.label :words %>
+                <%= form.text_field :words %>
+              </div>
+
+
+              <div class="field">
+                <%= form.label :target %>
+                <%= form.select(:target, Preset.targets_for_select, {selected: preset.target}) %>
+              </div>
+
+              <div class="field">
+                <%= form.label :option %>
+                <%= form.select(:option, Preset.options_for_select, {selected: preset.option}) %>
+              </div>
+              <%= form.submit 'Update Preset' %>
+            <% end %>
+            <div class="text-right">
+              <i id="close" class="fa-regular fa-rectangle-xmark"></i>
+            </div>
+          </div>
+
+          <%= render "post", posts: instance_variable_get("@results#{preset.id}") %>
         </div>
-
-        <% if 1 < @max %>
-          <div id="preset2" class="area">
-          <h2>プリセット2</h2>
-          <%= render "post",posts: @results2 %>
-
-          <!--/area-->
-        </div>
-
-        <% if 2 < @max %>
-        <div id="preset3" class="area">
-          <h2>プリセット3</h2>
-          <%= render "post",posts: @results3 %>
-
-          <!--/area-->
-        </div>
-        <% end %>
-        <% end %>
-        <% end %>
+      <% end %>
 
 
 
         <div id="new" class="area">
           <h2>新規作成</h2>
-          <%= form_with model: @newpreset, url: user_presets_path(@user), method: :post do |f| %>
+          <%= form_with model: @newpreset, url: user_presets_path(current_user), method: :post do |f| %>
             <%= f.text_field :name %>
             <%= f.text_area :words %>
             <%= f.select :target, Preset.targets.keys %>
@@ -107,8 +77,7 @@
 
           <!--/area-->
         </div>
-
-
+        <% end %>
     </div>
   </div>
 </div>
@@ -139,6 +108,7 @@
     return false;//aタグを無効にする
   });
 
+  // プリセット編集タブ関連↓
    $('.tab i').on('click', function() {
      $(gear).addClass("preset-tab");
     return false;//aタグを無効にする
