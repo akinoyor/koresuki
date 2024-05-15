@@ -18,9 +18,9 @@ class Public::PresetsController < ApplicationController
   def update
     @preset = Preset.find(params[:id])
     if @preset.update(preset_params)
-      redirect_to posts_path, notice: 'Preset was successfully updated.'
+      redirect_to posts_path, notice: 'プリセットが更新されました。'
     else
-      redirect_to posts_path
+      redirect_to posts_path, alert: 'プリセットの更新ができませんでした。'
     end
   end
 

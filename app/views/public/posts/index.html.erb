@@ -32,6 +32,7 @@
           <div id="gear" class="area col-6">
             <h2><%= preset.name %></h2>
             <%= form_with(model: [current_user, preset], url: user_preset_path(current_user, preset), method: :patch) do |form| %>
+            <%= hidden_field_tag :page, preset.id %>
               <div class="field">
                 <%= form.label :name %>
                 <%= form.text_field :name %>
@@ -117,4 +118,23 @@
   $('.gear-close').on('click', function(){
     $(gear).removeClass("preset-tab");
   });
+
+// タイムライン更新機能
+  $(document).on('turbolinks:load', function() {
+    const action = function() {
+      window.location.href = '/';
+    }
+    const time =  15*1000;
+    let timer = setTimeout(action,time);
+  });
+
+  $(document).on('turbolinks:before-visit', function() {
+    clearTimeout(timer); // ページ遷移前にタイマーをクリア
+  });
+
+  // // ページを離れるときにタイマーを破棄
+  //   window.addEventListener('beforeunload', function(event) {
+  //     clearTimeout(timerId);
+  //   });
+
 </script>

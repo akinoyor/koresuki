@@ -23,8 +23,6 @@ class Public::PostsController < ApplicationController
 
       @presets.each do |preset|
         words = preset.words.split(/[[:blank:]]+/)
-
-        # 以下同義
         if preset.target == "following_user" # フォローしているユーザーのみ
           posts = @posts.where(user_id: follow_users.ids)
         else
@@ -47,42 +45,6 @@ class Public::PostsController < ApplicationController
         instance_variable_set("@results#{preset.id}", results)
       end
     end
-
-    # if @max > 0
-
-    #   @presets.each do |i|
-    #     @words = i.words.split(/[[:blank:]]+/)
-
-    #     if i.target == 0
-    #       target_posts = Post.all.order(updated_at: :desc)
-    #     else
-    #       # フォローしているユーザのポストのみ
-    #       target_posts = Post.all
-    #     end
-
-    #     if @words.empty?
-    #       results = target_posts.all.order(updated_at: :desc)
-    #     else
-    #       # 以下　アンド検索
-    #       if i.option == 0
-    #         @words.each_with_index do |word, i|
-    #           results = target_posts.search(word) if i == 0
-    #           results = results.merge(results.search(word))
-    #         end
-    #       # 以下オア検索
-    #       else
-    #         @words.each do |word|
-    #           results = Post.none
-    #           results = results.or(target_posts.search(word))
-    #         end
-    #       end
-    #     end
-
-
-    #     instance_variable_set("@results#{i.id}", results)
-    #   end
-    # end
-
   end
 
   def show
