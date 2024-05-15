@@ -14,7 +14,7 @@
           <% if @presets.count < 3 %>
            <li><a href="#new">+新規登録</a></li>
           <% end %>
-          <li><i href="#gear" class="fa-solid fa-gear"></i></li>
+          <li><i class="fa-solid fa-gear"></i></li>
 
         <% end %>
       </ul>
@@ -55,7 +55,7 @@
               <%= form.submit 'Update Preset' %>
             <% end %>
             <div class="text-right">
-              <i id="close" class="fa-regular fa-rectangle-xmark"></i>
+              <i class="gear-close fa-regular fa-rectangle-xmark"></i>
             </div>
           </div>
 
@@ -114,7 +114,7 @@
     return false;//aタグを無効にする
   });
 
-  $('#close').on('click', function(){
+  $('.gear-close').on('click', function(){
     $(gear).removeClass("preset-tab");
   });
 </script>
