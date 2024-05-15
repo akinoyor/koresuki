@@ -1,29 +1,29 @@
 <!--必要な情報　投稿内容=posts-->
 <div class="row m-3">
 
-      <% posts.each do |f| %>
+      <% posts.each do |post| %>
         <div class="position-relative card shadow-sm mb-1" style = "width:100%" >
           <div class="card-body m-3">
             <div class="row align-items-center">
-                <%= link_to '', post_path(f), class: 'position-absolute post-box-link' %>
+                <%= link_to '', post_path(post), class: 'position-absolute post-box-link' %>
               <div class="col-1">
-                <%= link_to user_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
-                  <%= image_tag f.user.get_user_image(300,300), class: 'img-fluid'%>
+                <%= link_to user_path(post.user_id), class: 'position-relative post-box-link__profile' do %>
+                  <%= image_tag post.user.get_user_image(300,300), class: 'img-fluid'%>
                 <% end %>
               </div>
 
               <div class="col-8">
-                <%= link_to user_path(f.user_id), class: 'position-relative post-box-link__profile' do %>
-                  <%= f.user.name %>
+                <%= link_to user_path(post.user_id), class: 'position-relative post-box-link__profile' do %>
+                  <%= post.user.name %>
                 <% end %>
                 </div>
               <div class="col-3">
                 <% if user_signed_in? %>
-                  <% if current_user != f.user %>
-                    <% if current_user.following?(f.user) %>
-                      <%= link_to "フォロー外す", user_follows_path(f.user), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
+                  <% if current_user != post.user %>
+                    <% if current_user.following?(post.user) %>
+                      <%= link_to "フォロー外す", user_follows_path(post.user), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
                     <% else %>
-                      <%= link_to "フォローする", user_follows_path(f.user), method: :post, class: 'position-relative post-box-link__profile btn btn-success' %>
+                      <%= link_to "フォローする", user_follows_path(post.user), method: :post, class: 'position-relative post-box-link__profile btn btn-success' %>
                     <% end %>
                   <% end %>
                 <% end %>
@@ -31,12 +31,12 @@
             </div>
 
             <div class="m-3 text-break">
-              <%= simple_format(f.body, sanitize: true, class: 'm-0') %>
+              <%= simple_format(post.body, sanitize: true, class: 'm-0') %>
             </div>
 
             <div class="m-3">
-              <% if f.image.attached? %>
-                <%= image_tag f.image, width:'40%' %>
+              <% if post.image.attached? %>
+                <%= image_tag post.image, width:'40%' %>
               <% end %>
             </div>
 
@@ -44,17 +44,17 @@
 
             <div class="row m-3">
               <div class="offset-1 col-1">
-                <i class="fa-regular fa-comment"></i> <%= f.comments.count(:post_id) %>
+                <i class="fa-regular fa-comment"></i> <%= post.comments.count(:post_id) %>
               </div>
               <!--bookmark-->
               <div class="offset-1 col-1">
                 <% if user_signed_in? %>
-                  <% if f.bookmarked_by?(current_user) %>
-                    <%= link_to post_bookmark_path(f),method: :delete,class: 'position-relative post-box-link__profile' do %>
+                  <% if post.bookmarked_by?(current_user) %>
+                    <%= link_to post_bookmark_path(post),method: :delete,class: 'position-relative post-box-link__profile' do %>
                       <i class="fa-solid fa-bookmark"></i>
                     <% end %>
                   <% else %>
-                    <%= link_to post_bookmark_path(f), method: :post,class: 'position-relative post-box-link__profile' do %>
+                    <%= link_to post_bookmark_path(post), method: :post,class: 'position-relative post-box-link__profile' do %>
                       <i class="fa-regular fa-bookmark position-relative post-box-link__profile"></i>
                     <% end %>
                   <% end %>
@@ -63,18 +63,21 @@
               </div>
 
               <div class="col-4">
-                <p>投稿日時: <%= f.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
-                <% if f.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != f.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
-                  <p>更新日時 : <%= f.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
+                <p>投稿日時: <%= post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
+                <% if post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
+                  <p>更新日時 : <%= post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
                 <% end %>
               </div>
 
-              <% if current_user == f.user %>
-              <div class="col-2">
-                <%= link_to "削除", post_path(f), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
 
-              </div>
+              <div class="col-2">
+              <% if admin_signed_in? %>
+                <%= link_to '削除', admin_post_path(post), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: { confirm: '本当に削除しますか？' } %>
+              <% elsif current_user == post.user %>
+                <%= link_to "削除", post_path(post), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
               <% end %>
+              </div>
+
 
             </div>
           </div>

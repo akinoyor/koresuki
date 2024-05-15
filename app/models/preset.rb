@@ -3,7 +3,6 @@ class Preset < ApplicationRecord
   exnum option: { katu: 0, oa: 1 }, _prefix: true
 
   belongs_to :user
-  has_many :preset_words, dependent: :destroy
 
 
 end

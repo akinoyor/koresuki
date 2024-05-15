@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_user!, only: [:edit]
 
   def create
     @post = Post.new(post_params)
@@ -79,7 +80,7 @@ class Public::PostsController < ApplicationController
     post = Post.find(params[:id])
     if post.user_id == current_user.id
       post.destroy
-      redirect_to  posts_path
+      redirect_to  posts_path, notice: '投稿を削除しました。'
     end
   end
 

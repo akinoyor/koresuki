@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
+  # 管理者の新規登録とパスワードスキップ↓
+  devise_for :admin, skip: [:registrations, :password], controllers: {
+    sessions: 'admin/sessions'
+  }
 
+  namespace :admin do
+    get 'dashboards', to: 'dashboards#index', as: 'dashboards'
+    resources :users,   only: [:destroy]
+    resources :posts,   only: [:destroy]
+    resources :comments,only: [:destroy]
+  end
+
+
+
+  # ↓ここからユーザー関係↓
   scope module: :public do
     devise_for :users
     devise_scope :user do

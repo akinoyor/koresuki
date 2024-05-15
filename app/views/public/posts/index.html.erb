@@ -119,22 +119,22 @@
     $(gear).removeClass("preset-tab");
   });
 
-// タイムライン更新機能
-  $(document).on('turbolinks:load', function() {
-    const action = function() {
-      window.location.href = '/';
-    }
-    const time =  15*1000;
-    let timer = setTimeout(action,time);
-  });
+// // タイムライン更新機能
+//   $(document).on('turbolinks:load', function() {
+//     const action = function() {
+//       window.location.href = '/';
+//     }
+//     const time =  10*1000;
+//     let timer = setTimeout(action,time);
+//   });
 
-  $(document).on('turbolinks:before-visit', function() {
-    clearTimeout(timer); // ページ遷移前にタイマーをクリア
-  });
+// document.addEventListener('turbolinks:before-visit', function() {
+//   clearTimeout(timer); // ページ遷移前にタイマーをクリア
+// });
 
-  // // ページを離れるときにタイマーを破棄
-  //   window.addEventListener('beforeunload', function(event) {
-  //     clearTimeout(timerId);
-  //   });
+//   // // ページを離れるときにタイマーを破棄 ターボリンク有なので↑のほう？
+//   //   window.addEventListener('beforeunload', function(event) {
+//   //     clearTimeout(timerId);
+//   //   });
 
 </script>

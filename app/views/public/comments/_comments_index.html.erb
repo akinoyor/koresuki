@@ -48,7 +48,9 @@
               <p>更新日時 : <%= post_comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
             <% end %>
 
-          <% if current_user == post_comment.user %>
+          <% if admin_signed_in? %>
+            <%= link_to '削除', admin_comment_path(post_comment), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: { confirm: '本当に削除しますか？' } %>
+          <% elsif current_user == post_comment.user %>
               <%= link_to "削除", post_comment_path(post_comment.post, post_comment), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
           <% end %>
         </div>

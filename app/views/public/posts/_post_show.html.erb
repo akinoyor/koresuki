@@ -69,9 +69,15 @@
                 <p>更新日時 : <%= post_show.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
               <% end %>
             </div>
+            <div class="col-2">
+              <% if admin_signed_in? %>
+                <% if controller_name == 'posts' %>
+                  <%= link_to '削除', admin_post_path(post_show), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: { confirm: '本当に削除しますか？' } %>
+                <% elsif controller_name == 'comments' %>
+                  <%= link_to '削除', admin_comment_path(post_show), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: { confirm: '本当に削除しますか？' } %>
+                <% end %>
 
-            <% if current_user == post_show.user %>
-              <div class="col-2">
+              <% elsif current_user == post_show.user %>
                 <% if controller_name == 'posts' %>
                   <%= link_to "削除", post_path(post_show), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
                   <% if action_name =='show' %>
@@ -80,8 +86,8 @@
                 <% elsif controller_name == 'comments' %>
                   <%= link_to "削除", post_comment_path(post_show), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
                 <% end %>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
