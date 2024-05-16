@@ -35,6 +35,7 @@ header {
 .tab{
 	display: flex;
 	flex-wrap: wrap;
+
 }
 .tab li a{
 	display: block;
@@ -53,6 +54,11 @@ header {
 /*liにactiveクラスがついた時の形状*/
 .tab li.active a{
 	background:#fff;
+	border: solid;
+	border-radius: 3px;
+	border-bottom: transparent;
+	border-color: #ddd;
+
 }
 
 
@@ -94,4 +100,6 @@ header {
 	background-color: #fff !important;
 }
 
-
+.preset-box{
+	width:300px;
+}

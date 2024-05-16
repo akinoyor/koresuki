@@ -22,7 +22,7 @@
 
       <div class="text-right">
         <%= f.label "メールアドレス : " %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", size:20 %>
       </div>
 
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -31,7 +31,7 @@
 
        <div class="text-right">
         <%= f.label "プロフィール : " %>
-        <%= f.text_area :profile, autofocus: true %>
+        <%= f.text_area :profile, autofocus: true, size: "22x5" %>
       </div>
 
       <div class="text-right">

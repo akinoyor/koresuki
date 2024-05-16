@@ -6,7 +6,11 @@ class Public::CommentsController < ApplicationController
     comment = current_user.comments.new(comment_params)
     comment.parent_comment_id = parent_comment_id
     comment.post_id = parent_post.id
-    comment.save!
+    if comment.save
+      flash[:notice] = "コメントを投稿しました。"
+    else
+      flash[:alert] = "コメントの投稿に失敗しました。"
+    end
     if comment.parent_comment_id == 0
       redirect_to  post_path(comment.post_id)
     else
@@ -17,7 +21,11 @@ class Public::CommentsController < ApplicationController
   def destroy
     comment = Comment.find(params[:id])
     if comment.user.id == current_user.id
-      comment.destroy
+      if comment.destroy
+        flash[:notice] = "コメントを削除しました。"
+      else
+        flash[:alert] = "コメントの削除に失敗しました。"
+      end
       if comment.parent_comment_id == 0
         redirect_to  post_path(comment.post_id)
       else

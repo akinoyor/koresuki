@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       resource  :follows, only: [:create, :destroy]
       resources  :presets,  only: [:create, :destroy, :edit, :update]
     end
-
+    get     '/partial_ajax(/:id)',         to: 'posts#partial_ajax'
     get     '/user/bookmarks',        to: 'bookmarks#index',    as: 'bookmarks'
     get     'posts/search',           to: 'posts#search',       as: 'search'
     get     'posts/serch_words',       to: 'posts#search_words', as: 'search_words'

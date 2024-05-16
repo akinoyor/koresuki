@@ -7,7 +7,7 @@
 
     <div class="col-9">
 
-      <%= link_to "<<戻る", @comment.parent_comment_id == 0 ? post_path(@comment.post_id) : post_comment_path(@comment.post_id,@comment.parent_comment_id) %>
+      <%= link_to "<<戻る", 'javascript:history.back()' %>
       <%= render "public/posts/post_show", post_show: @comment %>
 
 

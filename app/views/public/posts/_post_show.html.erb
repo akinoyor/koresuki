@@ -4,13 +4,13 @@
           <div class="card-body m-3">
             <div class="row align-items-center">
               <div class="col-2">
-                <%= link_to user_path(post_show.user_id), class: 'position-relative post-box-link__profile' do %>
+                <%= link_to user_path(post_show.user_id,page:"posts"), class: 'position-relative post-box-link__profile' do %>
                   <%= image_tag post_show.user.get_user_image(300,300), class: 'img-fluid'%>
                 <% end %>
               </div>
 
               <div class="col-7">
-                <%= link_to user_path(post_show.user_id), class: 'position-relative post-box-link__profile' do %>
+                <%= link_to user_path(post_show.user_id,page:"posts"), class: 'position-relative post-box-link__profile' do %>
                   <%= post_show.user.name %>
                 <% end %>
               </div>

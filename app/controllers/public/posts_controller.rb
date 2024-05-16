@@ -1,16 +1,14 @@
 class Public::PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:edit]
+  before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
+  # before_action :check_user, only: [:edit, :update, :destroy]
 
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     if @post.save
-      redirect_to posts_path
+      redirect_to posts_path, notice: '投稿しました。'
     else
-      @user = current_user
-      @newpost = Post.new
-      @posts = Post.all.order(udated_at: :desc)
-      render :index
+      redirect_to posts_path, alert: '投稿に失敗しました。'
     end
   end
 
@@ -46,6 +44,36 @@ class Public::PostsController < ApplicationController
         instance_variable_set("@results#{preset.id}", results)
       end
     end
+  end
+
+  def partial_ajax
+    @posts = Post.order(updated_at: :desc)
+    @preset = Preset.find_by(id: params[:id])
+    if user_signed_in? && !@preset.nil?
+      follow_users = User.where(id: Follow.where(follower_id: current_user.id).pluck(:followed_id))
+
+        words = @preset.words.split(/[[:blank:]]+/)
+        if @preset.target == "following_user" # フォローしているユーザーのみ
+          posts = @posts.where(user_id: follow_users.ids)
+        else
+          posts = @posts
+        end
+
+        results = Post.none # resultsに空のPostを用意する
+
+        if @preset.option == "katu" # AND
+          words.each_with_index do |word, i|
+            results = posts.search(word) if i == 0
+            results = results.merge(posts.search(word))
+          end
+        else # OR
+          words.each do |word|
+            results = results.or(posts.search(word))
+          end
+        end
+        @posts = results
+    end
+    render layout: false
   end
 
   def show
@@ -126,5 +154,12 @@ class Public::PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:body,:image)
+  end
+
+  def check_user
+    @post = Post.find(params[:id])
+    unless @post.user = current_user
+      redirect_to root_path
+    end
   end
 end

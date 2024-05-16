@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-9">
-      <ul class="tab list-unstyled">
+      <ul class="tab mt-3 list-unstyled">
         <li  class="active"><a href="#all">ALL</a></li>
         <% if user_signed_in? %>
           <% @presets.each do |preset| %>
@@ -23,60 +23,90 @@
 
       <div id="all" class="area is-active">
         <h2>全件表示</h2>
-        <%= render "post", posts: @posts %>
+        <div id="all-posts">
+          <%= render "post", posts: @posts %>
+        </div>
       </div>
 
       <% if user_signed_in? %>
       <% @presets.each do |preset| %>
         <div id="preset<%= preset.id %>" class="area">
           <div id="gear" class="area col-6">
-            <h2><%= preset.name %></h2>
-            <%= form_with(model: [current_user, preset], url: user_preset_path(current_user, preset), method: :patch) do |form| %>
-            <%= hidden_field_tag :page, preset.id %>
-              <div class="field">
-                <%= form.label :name %>
-                <%= form.text_field :name %>
-              </div>
+            <div class="pt-3 row justify-content-center">
+              <%= form_with(model: [current_user, preset], url: user_preset_path(current_user, preset), method: :patch) do |form| %>
+              <%= hidden_field_tag :page, preset.id %>
+                <div class="field text-right">
+                  <%= form.label "プリセット名：" %>
+                  <%= form.text_field :name, class:"preset-box" %>
+                </div>
 
-              <div class="field">
-                <%= form.label :words %>
-                <%= form.text_field :words %>
-              </div>
+                <div class="field text-right">
+                  <%= form.label "検索ワード：" %>
+                  <%= form.text_field :words, class:"preset-box" %>
+                </div>
 
 
-              <div class="field">
-                <%= form.label :target %>
-                <%= form.select(:target, Preset.targets_for_select, {selected: preset.target}) %>
-              </div>
+                <div class="field text-right">
+                  <%= form.label "対象のユーザー：" %>
+                  <%= form.select(:target, Preset.targets_for_select, {selected: preset.target}, class:"preset-box") %>
+                </div>
 
-              <div class="field">
-                <%= form.label :option %>
-                <%= form.select(:option, Preset.options_for_select, {selected: preset.option}) %>
-              </div>
-              <%= form.submit 'Update Preset' %>
-            <% end %>
-            <div class="text-right">
-              <i class="gear-close fa-regular fa-rectangle-xmark"></i>
+                <div class="field text-right">
+                  <%= form.label "検索条件：" %>
+                  <%= form.select(:option, Preset.options_for_select, {selected: preset.option}, class:"preset-box") %>
+                </div>
+
+                <div class="actions text-center m-3">
+                  <%= form.submit '条件変更' %>
+                  <div class="text-right">
+                    <i class="gear-close fa-regular fa-rectangle-xmark"></i>
+                  </div>
+                </div>
+              <% end %>
+
             </div>
           </div>
 
-          <%= render "post", posts: instance_variable_get("@results#{preset.id}") %>
+          <div id="preset-posts-<%= preset.id %>">
+            <%= render "post", posts: instance_variable_get("@results#{preset.id}") %>
+          </div>
         </div>
       <% end %>
 
 
 
-        <div id="new" class="area">
-          <h2>新規作成</h2>
-          <%= form_with model: @newpreset, url: user_presets_path(current_user), method: :post do |f| %>
-            <%= f.text_field :name %>
-            <%= f.text_area :words %>
-            <%= f.select :target, Preset.targets.keys %>
-            <%= f.select :option, Preset.options.keys %>
-          <%= f.submit "Create" %>
-          <% end %>
+        <div id="new" class="area col-6">
+          <div class="pt-3 row justify-content-center">
+          <%= form_with model: @newpreset, url: user_presets_path(current_user), method: :post do |newpreset| %>
+               <div class="field text-right">
+                  <%= newpreset.label "プリセット名：" %>
+                  <%= newpreset.text_field :name, class:"preset-box" %>
+                </div>
 
-          <!--/area-->
+                <div class="field text-right">
+                  <%= newpreset.label "検索ワード：" %>
+                  <%= newpreset.text_field :words, class:"preset-box" %>
+                </div>
+
+
+                <div class="field text-right">
+                  <%= newpreset.label "対象のユーザー：" %>
+                  <%= newpreset.select(:target, Preset.targets_for_select,{}, class:"preset-box") %>
+                </div>
+
+
+
+                <div class="field text-right">
+                  <%= newpreset.label "検索条件：" %>
+                  <%= newpreset.select(:option, Preset.options_for_select,{}, class:"preset-box") %>
+                </div>
+
+                <div class="actions text-center m-3">
+                  <%= newpreset.submit 'プリセット追加' %>
+                </div>
+              <% end %>
+
+            </div>
         </div>
         <% end %>
     </div>
@@ -119,7 +149,7 @@
     $(gear).removeClass("preset-tab");
   });
 
-// // タイムライン更新機能
+// タイムライン更新機能
 //   $(document).on('turbolinks:load', function() {
 //     const action = function() {
 //       window.location.href = '/';
@@ -128,13 +158,47 @@
 //     let timer = setTimeout(action,time);
 //   });
 
-// document.addEventListener('turbolinks:before-visit', function() {
-//   clearTimeout(timer); // ページ遷移前にタイマーをクリア
-// });
+// // document.addEventListener('turbolinks:before-visit', function() {
+// //   clearTimeout(timer); // ページ遷移前にタイマーをクリア
+// // });
 
-//   // // ページを離れるときにタイマーを破棄 ターボリンク有なので↑のほう？
-//   //   window.addEventListener('beforeunload', function(event) {
-//   //     clearTimeout(timerId);
-//   //   });
+// //   // // ページを離れるときにタイマーを破棄 ターボリンク有なので↑のほう？
+// //   //   window.addEventListener('beforeunload', function(event) {
+// //   //     clearTimeout(timerId);
+// //   //   });
+
+  setInterval(function () {
+    $.ajax('/partial_ajax')
+    .done( (data) => {
+      $('#all-posts').html(data);
+    })
+
+    <% @presets.each do |preset| %>
+      $.ajax('/partial_ajax/<%= preset.id %>')
+      .done( (data) => {
+        $('#preset-posts-<%= preset.id %>').html(data);
+      })
+    <% end %>
+  }, 10000)
+
+
+
+  // setTimeOut(function () {
+  //   console.log(st);
+  //   clearTimeout(st)
+  // }, 10000)
+
+  // const intervalID = setInterval(reloadPage, 1000);
+
+  // function reloadPage() {
+  //   window.location.href = '/posts';
+  // }
+
+
+  // setTimeout(function () {
+  //   console.log(intervalID);
+  //   clearTimeout(intervalID)
+  // }, 5000)
+
 
 </script>
