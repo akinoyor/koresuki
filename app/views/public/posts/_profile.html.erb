@@ -1,7 +1,8 @@
-    <!--必要情報　profile_user=表示するユーザー情報　newpost＝新規投稿用の枠-->
-    <div class="mt-3 text-center position-sticky sidebar card shadow-sm">
-      <div class="card-body">
-        <% if profile_user.present? %>
+  <!--必要情報　profile_user=表示するユーザー情報　newpost＝新規投稿用の枠-->
+  <div class="mt-3 text-center position-sticky sidebar">
+    <% if profile_user.present? %>
+      <div class="card shadow-sm">
+        <div class="card-body">
           <%= link_to user_path(profile_user,page:'posts') do %>
             <%= image_tag profile_user.get_user_image(100,100) %>
           <% end %>
@@ -54,13 +55,14 @@
               <% end %>
             </div>
           <% end %>
-        <% else %>
-          <div class="text-center mt-5">
-          <%= image_tag 'logo.png', width: '50%' %>
           </div>
-        <% end %>
       </div>
-    </div>
+    <% else %>
+      <div class="text-center mt-5">
+        <%= image_tag 'logo.png', width: '50%' %>
+      </div>
+    <% end %>
+  </div>
 
  <script>
   $('#new_post_image').on('change', function test(e) {

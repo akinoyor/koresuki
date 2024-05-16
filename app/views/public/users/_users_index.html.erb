@@ -14,8 +14,7 @@
       <div class="col-4">
         <% if admin_signed_in? %>
           <%= link_to '削除', admin_user_path(user), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: { confirm: '本当に削除しますか？' } %>
-        <% end %>
-        <% if user_signed_in? %>
+        <% elsif user_signed_in? %>
           <% if current_user != user %>
             <% if current_user.following?(user) %>
               <%= link_to "フォロー外す", user_follows_path(user), method: :delete,class: 'position-relative post-box-link__profile btn btn-info' %>
@@ -24,6 +23,7 @@
             <% end %>
           <% end %>
         <% end %>
+        
       </div>
 
     </div>

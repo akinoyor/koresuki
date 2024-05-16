@@ -1,6 +1,6 @@
 class Public::PostsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
-  # before_action :check_user, only: [:edit, :update, :destroy]
+  before_action :check_user, only: [:edit, :update, :destroy]
 
   def create
     @post = Post.new(post_params)
@@ -88,9 +88,6 @@ class Public::PostsController < ApplicationController
     @newpost = Post.new
     @user = current_user
     @post = Post.find(params[:id])
-    unless @post.user == current_user
-      redirect_to posts_path
-    end
   end
 
   def update
@@ -106,10 +103,8 @@ class Public::PostsController < ApplicationController
 
   def destroy
     post = Post.find(params[:id])
-    if post.user_id == current_user.id
-      post.destroy
-      redirect_to  posts_path, notice: '投稿を削除しました。'
-    end
+    post.destroy
+    redirect_to  posts_path, notice: '投稿を削除しました。'
   end
 
   def search
@@ -159,7 +154,7 @@ class Public::PostsController < ApplicationController
   def check_user
     @post = Post.find(params[:id])
     unless @post.user = current_user
-      redirect_to root_path
+      redirect_to posts_path
     end
   end
 end

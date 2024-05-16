@@ -150,23 +150,6 @@
   });
 
 // タイムライン更新機能
-//   $(document).on('turbolinks:load', function() {
-//     const action = function() {
-//       window.location.href = '/';
-//     }
-//     const time =  10*1000;
-//     let timer = setTimeout(action,time);
-//   });
-
-// // document.addEventListener('turbolinks:before-visit', function() {
-// //   clearTimeout(timer); // ページ遷移前にタイマーをクリア
-// // });
-
-// //   // // ページを離れるときにタイマーを破棄 ターボリンク有なので↑のほう？
-// //   //   window.addEventListener('beforeunload', function(event) {
-// //   //     clearTimeout(timerId);
-// //   //   });
-
   setInterval(function () {
     $.ajax('/partial_ajax')
     .done( (data) => {
@@ -179,26 +162,6 @@
         $('#preset-posts-<%= preset.id %>').html(data);
       })
     <% end %>
-  }, 10000)
-
-
-
-  // setTimeOut(function () {
-  //   console.log(st);
-  //   clearTimeout(st)
-  // }, 10000)
-
-  // const intervalID = setInterval(reloadPage, 1000);
-
-  // function reloadPage() {
-  //   window.location.href = '/posts';
-  // }
-
-
-  // setTimeout(function () {
-  //   console.log(intervalID);
-  //   clearTimeout(intervalID)
-  // }, 5000)
-
+  }, 300*1000)
 
 </script>

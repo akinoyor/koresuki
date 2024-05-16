@@ -1,7 +1,5 @@
 class Public::BookmarksController < ApplicationController
-  def index
-  end
-
+  before_action :authenticate_user!, only: [:create, :destroy]
   def create
     bookmark = Bookmark.new(user_id: current_user.id, post_id: params[:post_id])
     if bookmark.save

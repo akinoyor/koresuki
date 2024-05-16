@@ -1,4 +1,6 @@
 class Public::PresetsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :check_user
 
   def create
     @user = current_user
@@ -28,5 +30,12 @@ class Public::PresetsController < ApplicationController
 
   def preset_params
     params.require(:preset).permit(:name,:words,:number,:target,:option)
+  end
+
+  def check_user
+    @preset = Preset.find(params[:id])
+    unless @preset.user_id = current_user.id
+      redirect_to posts_path, alert: '本人のみ編集可能です。'
+    end
   end
 end
