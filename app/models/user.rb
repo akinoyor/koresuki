@@ -47,7 +47,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true ,length: {in: 2..20 }
   validates :password, presence: true, on: :create
-  validates :profile, length: { maximum: 100 }
+  validates :profile, length: { maximum: 50 }
 
   def self.search(keyword)
     where('name LIKE ?', "%#{keyword}%")

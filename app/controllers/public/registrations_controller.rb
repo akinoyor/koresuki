@@ -3,6 +3,7 @@
 class Public::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
+  before_action :gest_user_check, only: [:edit, :update]
 
   # GET /resource/sign_up
   # def new
@@ -58,9 +59,9 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  def after_inactive_sign_up_path_for(resource)
+    posts_path
+  end
 
 
   # 以下現在のパスワード確認なしでする際に使用
@@ -68,7 +69,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
   #   resource.update_without_password(params)
   # end
 
-  def after_sign_up_path_for(_resource)
+  def after_sign_up_path_for(resource)
     posts_path
   end
 
@@ -76,4 +77,12 @@ class Public::RegistrationsController < Devise::RegistrationsController
     posts_path
   end
 
+  private
+
+  def gest_user_check
+    if current_user.email == 'guest@example.com'
+      redirect_to posts_path
+      flash[:alert] = 'ゲストユーザーはアクセスできません。'
+    end
+  end
 end

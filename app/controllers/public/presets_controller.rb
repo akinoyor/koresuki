@@ -1,6 +1,6 @@
 class Public::PresetsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_user
+  before_action :check_user,only: [:update]
 
   def create
     @user = current_user
@@ -8,9 +8,9 @@ class Public::PresetsController < ApplicationController
       @preset = @user.presets.build(preset_params)
       @preset.number = @user.presets.maximum(:number).to_i + 1 # ユーザーごとの最後の番号+1を割り当てる
       if @preset.save
-        redirect_to posts_path, notice: 'Preset was successfully created.'
+        redirect_to posts_path, notice: 'プリセットが追加されました。'
       else
-        render :new
+        redirect_to posts_path, notice: 'プリセットの追加に失敗しました。'
       end
     else
       redirect_to posts_path, alert: 'You cannot create more than 3 presets.'

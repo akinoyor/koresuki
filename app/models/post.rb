@@ -3,7 +3,7 @@ class Post < ApplicationRecord
   belongs_to :user
   has_many :bookmarks,  dependent: :destroy
   has_many :comments,   dependent: :destroy
-
+validates :body, length: { maximum: 50 }
 validates :image, presence: true, if: -> { body.blank? }
 validates :body, presence: true, if: -> { image.blank? }
 

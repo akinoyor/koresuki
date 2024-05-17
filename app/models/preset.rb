@@ -4,5 +4,6 @@ class Preset < ApplicationRecord
 
   belongs_to :user
 
-
+validates :name, presence: true ,length: {in: 1..10 }
+validates :words, length: { maximum: 20 }
 end

@@ -97,6 +97,9 @@ class Public::PostsController < ApplicationController
       redirect_to post_path(@post.id)
     else
       @post = @post
+      @newpost = Post.new
+      @user = current_user
+      flash[:notice] = "投稿の更新ができませんでした。"
       render :edit
     end
   end
@@ -153,8 +156,8 @@ class Public::PostsController < ApplicationController
 
   def check_user
     @post = Post.find(params[:id])
-    unless @post.user = current_user
-      redirect_to posts_path
+    unless @post.user == current_user
+      redirect_to posts_path,alert: '投稿者のみ編集可能です。'
     end
   end
 end

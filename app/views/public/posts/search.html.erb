@@ -53,7 +53,7 @@
             <%# @resultsにデータが入っていれば検索結果を表示する %>
 
         <% if @keywords.nil? || @keywords.empty? %>
-          <h2>検索ワードを入力してください</h2>
+          <h2>検索ワードを入力してください。</h2>
         <% else %>
           <% if @users_results.present? %>
             <h2><%= @keywords %> を含む検索結果 ( <%= @type %> )</h2>

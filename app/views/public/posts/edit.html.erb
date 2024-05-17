@@ -51,11 +51,8 @@
                 <i class="fa-regular fa-comment"></i> <%= @post.comments.count(:post_id) %>
               </div>
 
-              <div class="offset-1 col-1">
-                <i class="fa-regular fa-bookmark position-relative"></i>
-              </div>
 
-              <div class="col-4">
+              <div class="offset-2 col-4">
                 <p>投稿日時: <%= @post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
                   <% if @post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != @post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
                 <p>更新日時 : <%= @post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
