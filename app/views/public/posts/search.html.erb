@@ -1,9 +1,7 @@
 <div class="containar">
   <div class="row">
     <div class="col-3">
-
-    <%= render "profile",profile_user: @user, newpost: @newpost %>
-
+      <%= render "profile",profile_user: @user, newpost: @newpost %>
     </div>
 
     <div class="col-9">
@@ -22,8 +20,7 @@
             <%= submit_tag '検索', class:"btn btn-primary" %>
           <% end %>
         </div>
-            <%# @resultsにデータが入っていれば検索結果を表示する %>
-
+  <!--投稿の検索結果表示-->
         <% if @keywords.nil? || @keywords.empty? %>
           <h2>全件表示</h2>
           <%= render "post",posts: @posts_results %>
@@ -35,8 +32,6 @@
             <h2>該当の検索結果がありません。</h2>
           <% end %>
         <% end %>
-
-
         <!--/area-->
       </div>
 
@@ -50,8 +45,7 @@
             <%= submit_tag '検索', class:"btn btn-primary" %>
           <% end %>
         </div>
-            <%# @resultsにデータが入っていれば検索結果を表示する %>
-
+  <!--ユーザーの検索結果表示-->
         <% if @keywords.nil? || @keywords.empty? %>
           <h2>検索ワードを入力してください。</h2>
         <% else %>
@@ -62,11 +56,8 @@
             <h2>該当の検索結果がありません。</h2>
           <% end %>
         <% end %>
-
-
         <!--/area-->
       </div>
-
     </div>
   </div>
 </div>

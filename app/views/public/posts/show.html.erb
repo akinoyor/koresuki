@@ -6,10 +6,8 @@
     </div>
 
     <div class="col-9">
-
       <%= link_to "<<戻る", 'javascript:history.back()' %>
       <%= render "post_show", post_show: @post %>
-
 <!--ここからコメント投稿欄-->
       <%= render "public/comments/comment_new",newcomment: @newcomment, user: @user, parent_post: @post, parent_id: @post.id %>
 <!--ここからコメント欄-->

@@ -1,16 +1,12 @@
 <div class="containar">
   <div class="row">
-
     <div class="col-3">
       <%= render "public/posts/profile", profile_user: @user, newpost: @newpost %>
     </div>
 
     <div class="col-9">
-
       <%= link_to "<<戻る", 'javascript:history.back()' %>
       <%= render "public/posts/post_show", post_show: @comment %>
-
-
 <!--ここからコメント投稿欄-->
       <%= render "comment_new", newcomment: @newcomment, user: @user, parent_post: @comment, parent_id: @comment.post_id %>
 <!--ここからコメント欄-->

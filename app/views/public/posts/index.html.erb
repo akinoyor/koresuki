@@ -1,7 +1,7 @@
 <div class="containar">
   <div class="row">
     <div class="col-3">
-    <%= render "profile",profile_user: current_user, newpost: @newpost %>
+      <%= render "profile",profile_user: current_user, newpost: @newpost %>
     </div>
 
     <div class="col-9">
@@ -29,86 +29,81 @@
       </div>
 
       <% if user_signed_in? %>
-      <% @presets.each do |preset| %>
-        <div id="preset<%= preset.id %>" class="area">
-          <div id="gear" class="area col-6">
-            <div class="pt-3 row justify-content-center">
-              <%= form_with(model: [current_user, preset], url: user_preset_path(current_user, preset), method: :patch) do |form| %>
-              <%= hidden_field_tag :page, preset.id %>
-                <div class="field text-right">
-                  <%= form.label "プリセット名：" %>
-                  <%= form.text_field :name, class:"preset-box", placeholder: "1～10文字まで" %>
-                </div>
-
-                <div class="field text-right">
-                  <%= form.label "検索ワード：" %>
-                  <%= form.text_field :words, class:"preset-box", placeholder: "20文字まで" %>
-                </div>
-
-
-                <div class="field text-right">
-                  <%= form.label "対象のユーザー：" %>
-                  <%= form.select(:target, Preset.targets_for_select, {selected: preset.target}, class:"preset-box") %>
-                </div>
-
-                <div class="field text-right">
-                  <%= form.label "検索条件：" %>
-                  <%= form.select(:option, Preset.options_for_select, {selected: preset.option}, class:"preset-box") %>
-                </div>
-
-                <div class="actions text-center m-3">
-                  <%= form.submit '条件変更' %>
-                  <div class="text-right">
-                    <i class="gear-close fa-regular fa-rectangle-xmark"></i>
+        <% @presets.each do |preset| %>
+          <div id="preset<%= preset.id %>" class="area">
+            <div id="gear" class="area col-6">
+              <div class="pt-3 row justify-content-center">
+                <%= form_with(model: [current_user, preset], url: user_preset_path(current_user, preset), method: :patch) do |form| %>
+                <%= hidden_field_tag :page, preset.id %>
+                  <div class="field text-right">
+                    <%= form.label "プリセット名：" %>
+                    <%= form.text_field :name, class:"preset-box", placeholder: "1～10文字まで" %>
                   </div>
-                </div>
-              <% end %>
 
+                  <div class="field text-right">
+                    <%= form.label "検索ワード：" %>
+                    <%= form.text_field :words, class:"preset-box", placeholder: "20文字まで" %>
+                  </div>
+
+
+                  <div class="field text-right">
+                    <%= form.label "対象のユーザー：" %>
+                    <%= form.select(:target, Preset.targets_for_select, {selected: preset.target}, class:"preset-box") %>
+                  </div>
+
+                  <div class="field text-right">
+                    <%= form.label "検索条件：" %>
+                    <%= form.select(:option, Preset.options_for_select, {selected: preset.option}, class:"preset-box") %>
+                  </div>
+
+                  <div class="actions text-center m-3">
+                    <%= form.submit '条件変更' %>
+                    <div class="text-right">
+                      <i class="gear-close fa-regular fa-rectangle-xmark"></i>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <div id="preset-posts-<%= preset.id %>">
+              <%= render "post", posts: instance_variable_get("@results#{preset.id}") %>
             </div>
           </div>
-
-          <div id="preset-posts-<%= preset.id %>">
-            <%= render "post", posts: instance_variable_get("@results#{preset.id}") %>
-          </div>
-        </div>
-      <% end %>
+        <% end %>
 
 
         <!--プリセット新規登録タブ↓-->
         <div id="new" class="area col-6">
           <div class="pt-3 row justify-content-center">
-          <%= form_with model: @newpreset, url: user_presets_path(current_user), method: :post do |newpreset| %>
-               <div class="field text-right">
-                  <%= newpreset.label "プリセット名：" %>
-                  <%= newpreset.text_field :name, class:"preset-box", placeholder: "1～10文字まで" %>
-                </div>
+            <%= form_with model: @newpreset, url: user_presets_path(current_user), method: :post do |newpreset| %>
+              <div class="field text-right">
+                <%= newpreset.label "プリセット名：" %>
+                <%= newpreset.text_field :name, class:"preset-box", placeholder: "1～10文字まで" %>
+              </div>
 
-                <div class="field text-right">
-                  <%= newpreset.label "検索ワード：" %>
-                  <%= newpreset.text_field :words, class:"preset-box",placeholder: "20字以内" %>
-                </div>
+              <div class="field text-right">
+                <%= newpreset.label "検索ワード：" %>
+                <%= newpreset.text_field :words, class:"preset-box",placeholder: "20字以内" %>
+              </div>
 
+              <div class="field text-right">
+                <%= newpreset.label "対象のユーザー：" %>
+                <%= newpreset.select(:target, Preset.targets_for_select,{}, class:"preset-box") %>
+              </div>
 
-                <div class="field text-right">
-                  <%= newpreset.label "対象のユーザー：" %>
-                  <%= newpreset.select(:target, Preset.targets_for_select,{}, class:"preset-box") %>
-                </div>
+              <div class="field text-right">
+                <%= newpreset.label "検索条件：" %>
+                <%= newpreset.select(:option, Preset.options_for_select,{}, class:"preset-box") %>
+              </div>
 
-
-
-                <div class="field text-right">
-                  <%= newpreset.label "検索条件：" %>
-                  <%= newpreset.select(:option, Preset.options_for_select,{}, class:"preset-box") %>
-                </div>
-
-                <div class="actions text-center m-3">
-                  <%= newpreset.submit 'プリセット追加' %>
-                </div>
-              <% end %>
-
-            </div>
+              <div class="actions text-center m-3">
+                <%= newpreset.submit 'プリセット追加' %>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

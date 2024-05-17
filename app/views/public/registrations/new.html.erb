@@ -11,7 +11,6 @@
     <div class="text-right">
       <%= form_with model: @user, url: user_registration_path do |f| %>
 
-
       <div>
         <%= f.label "ユーザー名:" %>
         <%= f.text_field :name %>
@@ -24,7 +23,7 @@
       <div>
         <%= f.label "パスワード" %>
         <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> 文字以上):</em>
+          <em>(<%= @minimum_password_length %> 文字以上):</em>
         <% end %>
         <%= f.password_field :password, autocomplete: "new-password" %>
       </div>

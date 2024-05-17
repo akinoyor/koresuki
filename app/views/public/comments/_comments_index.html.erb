@@ -4,17 +4,17 @@
     <div class="row m-3">
        <%= link_to '', post_comment_path(post_comment.post, post_comment), class: 'position-absolute post-box-link' %>
       <div class="col-2 text-center">
-      <%= link_to user_path(post_comment.user_id), class: 'position-relative post-box-link__profile' do %>
-      <%= image_tag post_comment.user.get_user_image(300,300), class: 'img-fluid' %>
-      <% end %>
+        <%= link_to user_path(post_comment.user_id), class: 'position-relative post-box-link__profile' do %>
+          <%= image_tag post_comment.user.get_user_image(300,300), class: 'img-fluid' %>
+        <% end %>
       </div>
 
       <div class="col-10">
         <div class="row">
           <div class="col-8">
-          <%= link_to user_path(post_comment.user_id), class: 'position-relative post-box-link__profile' do %>
-          <%= post_comment.user.name %>
-          <% end %>
+            <%= link_to user_path(post_comment.user_id), class: 'position-relative post-box-link__profile' do %>
+              <%= post_comment.user.name %>
+            <% end %>
           </div>
           <div class="col-3">
           <% if user_signed_in? %>
@@ -26,7 +26,6 @@
               <% end %>
             <% end %>
           <% end %>
-
           </div>
         </div>
 
@@ -34,9 +33,9 @@
           <%= simple_format(post_comment.body, sanitize: true, class: 'm-0') %>
         </div>
         <div>
-        <% if post_comment.image.attached? %>
-          <%= image_tag post_comment.image, width:'40%' %>
-        <% end %>
+          <% if post_comment.image.attached? %>
+            <%= image_tag post_comment.image, width:'40%' %>
+          <% end %>
         </div>
 
         <div class="card-footer card-footer-org d-flex justify-content-between">
