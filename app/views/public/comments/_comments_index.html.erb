@@ -42,10 +42,7 @@
           <div class="offset-1 col-1">
           <i class="fa-regular fa-comment"></i> <%= post_comment.child_comments.count(:parent_comment_id) %>
         </div>
-            <p>投稿日時: <%= post_comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
-            <% if post_comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != post_comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
-              <p>更新日時 : <%= post_comment.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
-            <% end %>
+            <p>投稿日時: <%= post_comment.created_at_jp %></p>
 
           <% if admin_signed_in? %>
             <%= link_to '削除', admin_comment_path(post_comment), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: { confirm: '本当に削除しますか？' } %>

@@ -61,9 +61,9 @@
         </div>
 
         <div class="col-4">
-          <p>投稿日時: <%= post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
-          <% if post.created_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') != post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %>
-            <p>更新日時 : <%= post.updated_at.in_time_zone('Asia/Tokyo').strftime('%Y年%m月%d日 %H時%M分') %></p>
+          <p>投稿日時: <%= post.created_at_jp %></p>
+          <% if post.created_at_jp != post.updated_at_jp %>
+            <p>更新日時 : <%= post.updated_at_jp %></p>
           <% end %>
         </div>
 
