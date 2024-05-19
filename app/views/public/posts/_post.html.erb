@@ -44,7 +44,7 @@
 
             <div class="row m-3">
               <div class="offset-1 col-1">
-                <i class="fa-regular fa-comment"></i> <%= post.comments.count(:post_id) %>
+                <i class="fa-regular fa-comment"></i> <%= post.child_comments.count(:post_id) %>
               </div>
               <!--bookmark-->
               <div class="offset-1 col-1">
