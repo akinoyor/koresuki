@@ -18,8 +18,13 @@
 - 集中的にその情報を調べたい時
 
 ## 設計書
-<!--テーマを設定・提出する時点では不要です-->
-​
+[ER図](https://drive.google.com/file/d/1Fm-3vSdJhYPuC7kFwH0saUVzCuHw3sXK/view?usp=drive_link)
+[ワイヤーフレーム](https://drive.google.com/file/d/1b_qqBa5ErEN0mjpatbXz7oGmx-bDrrjQ/view?usp=drive_link)
+[UI-flow](https://drive.google.com/file/d/1AKSUiyVLe4NYf1qOtv0jBbJc3Q8f8poT/view?usp=sharing)
+[テーブル定義書](https://docs.google.com/spreadsheets/d/1uBVGc3h9_rVOvFoU9LmlhBssj8tHfieV4oyUA1OQS5s/edit?usp=sharing)
+[詳細設計書](https://docs.google.com/spreadsheets/d/1LnAcb_T4sr0MKlrrfESlgnSMBrU0iP4IsRcMsZznpAk/edit?usp=sharing)
+[テスト仕様書](https://docs.google.com/spreadsheets/d/1zgnRS0agdS_vRlYaSg4tLFy45S4IJXFS_A0g8mFrlQA/edit?usp=sharing)
+
 ## 開発環境
 - OS：Linux(CentOS)
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
@@ -29,3 +34,4 @@
 ​
 ## 使用素材
 - Font Awesome : https://fontawesome.com
+- Unsplash:https://unsplash.com/ja
