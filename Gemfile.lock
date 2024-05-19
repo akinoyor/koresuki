@@ -89,6 +89,10 @@ GEM
     devise-i18n (1.12.0)
       devise (>= 4.9.0)
     devise-i18n-views (0.3.7)
+    dotenv (3.1.2)
+    dotenv-rails (3.1.2)
+      dotenv (= 3.1.2)
+      railties (>= 6.1)
     erubi (1.12.0)
     exnum (0.3.0)
       activerecord
@@ -121,6 +125,7 @@ GEM
     mini_mime (1.1.5)
     minitest (5.22.3)
     msgpack (1.7.2)
+    mysql2 (0.5.6)
     net-imap (0.4.10)
       date
       net-protocol
@@ -135,8 +140,7 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     public_suffix (5.0.5)
-    puma (5.6.8)
-      nio4r (~> 2.0)
+    puma (3.12.6)
     racc (1.7.3)
     rack (2.2.9)
     rack-mini-profiler (2.3.4)
@@ -254,11 +258,16 @@ DEPENDENCIES
   devise
   devise-i18n
   devise-i18n-views
+  dotenv-rails
   exnum
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   listen (~> 3.3)
-  puma (~> 5.0)
+  mysql2
+  net-imap
+  net-pop
+  net-smtp
+  puma (~> 3.11)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.7, >= 6.1.7.7)
   rails-i18n

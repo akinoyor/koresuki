@@ -64,9 +64,9 @@
             </div>
 
             <div class="col-4">
-              <p>投稿日時: <%= post_show.created_at_jp %></p>
-              <% if post_show.created_at_jp != post_show.updated_at_jp %>
-                <p>更新日時 : <%= post_show.updated_at_jp %></p>
+              <p>投稿日時: <%= formatted_date_jp(post_show.created_at) %></p>
+              <% if formatted_date_jp(post_show.created_at) != formatted_date_jp(post_show.updated_at) %>
+                <p>更新日時 : <%= formatted_date_jp(post_show.updated_at) %></p>
               <% end %>
             </div>
             <div class="col-2">

@@ -42,7 +42,7 @@
           <div class="offset-1 col-1">
           <i class="fa-regular fa-comment"></i> <%= post_comment.child_comments.count(:parent_comment_id) %>
         </div>
-            <p>投稿日時: <%= post_comment.created_at_jp %></p>
+            <p>投稿日時: <%= formatted_date_jp(post_comment.created_at) %></p>
 
           <% if admin_signed_in? %>
             <%= link_to '削除', admin_comment_path(post_comment), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: { confirm: '本当に削除しますか？' } %>

@@ -77,6 +77,10 @@ class Public::RegistrationsController < Devise::RegistrationsController
     posts_path
   end
 
+  def signed_in_root_path(resource_or_scope)
+    posts_path
+  end
+
   private
 
   def gest_user_check
