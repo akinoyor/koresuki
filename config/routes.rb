@@ -33,8 +33,10 @@ Rails.application.routes.draw do
       resources :comments,  only: [:create, :show, :destroy]
       resource  :bookmark,  only: [:create, :destroy]
     end
-
   end
+
+  get   '*not_found' => 'application#routing_error'
+  post  '*not_found' => 'application#routing_error'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
