@@ -18,6 +18,8 @@ module Koresuki
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.railties_order = [ActiveStorage::Engine, :main_app, :all]
+    # ActiveStorageがエラーページのルーティングの影響で動かなくなるため
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
     config.i18n.default_locale = :ja
   end

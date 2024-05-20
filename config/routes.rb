@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       resources :comments,  only: [:create, :show, :destroy]
       resource  :bookmark,  only: [:create, :destroy]
     end
+
   end
 
   get   '*not_found' => 'application#routing_error'
