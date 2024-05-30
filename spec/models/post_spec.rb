@@ -5,9 +5,7 @@ require 'support/shared_examples/validations'
 
 RSpec.describe 'Postモデルのテスト', type: :model do
     describe 'バリデーションのテスト' do
-        let(:user) { FactoryBot.create(:user) }
-        let(:post) { create(:post, user_id: user.id)}
-        
+        let(:post) { FactoryBot.create(:post)}
         it_behaves_like 'ポスト・コメントのバリデーション'
     end
 

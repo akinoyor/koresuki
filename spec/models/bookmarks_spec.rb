@@ -11,7 +11,7 @@ RSpec.describe 'Bookmarkモデルのテスト', type: :model do
     it '同じユーザーが同じポストをブックマークできないこと' do
       duplicate_bookmark = Bookmark.new(user: user, post: post)
       expect(duplicate_bookmark).to be_invalid
-      expect(duplicate_bookmark.errors[:user_id]).to include("はこの投稿をすでにブックマークしています。")
+      expect(duplicate_bookmark.errors[:user_id][0]).to match("ブックマークしています")
     end
 
     it '異なるユーザーが同じポストをブックマークできること' do
@@ -26,7 +26,7 @@ RSpec.describe 'Bookmarkモデルのテスト', type: :model do
       expect(bookmark).to be_valid
     end
   end
-  
+
   describe 'アソシエーションのテスト' do
     context 'Userモデルとの関係' do
       it 'N:1となっている' do

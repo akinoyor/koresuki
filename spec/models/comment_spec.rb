@@ -5,10 +5,6 @@ require 'support/shared_examples/validations'
 
 RSpec.describe 'Commentモデルのテスト', type: :model do
   describe 'バリデーションのテスト' do
-    let(:user) { FactoryBot.create(:user)}
-    let(:post) { FactoryBot.create(:post)}
-    
-    
     context '投稿が親コメントの時' do
       let(:post){ FactoryBot.create(:comment)}
       it_behaves_like 'ポスト・コメントのバリデーション'
