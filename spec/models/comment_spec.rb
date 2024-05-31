@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'support/shared_examples/validations'
 
-RSpec.describe 'Commentモデルのテスト', type: :model do
+RSpec.describe Comment, 'モデルのテスト', type: :model do
   describe 'バリデーションのテスト' do
     context '投稿が親コメントの時' do
       let(:post){ FactoryBot.create(:comment)}

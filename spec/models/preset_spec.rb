@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Presetモデルのテスト', type: :model do
+RSpec.describe Preset, 'モデルのテスト', type: :model do
   describe 'バリデーションのテスト' do
     let!(:preset){ FactoryBot.create(:preset) }
     context 'プリセット名' do
@@ -23,7 +23,7 @@ RSpec.describe 'Presetモデルのテスト', type: :model do
         preset.words = Faker::Lorem.characters(number:21)
         expect(preset).to be_invalid
         expect(preset.errors[:words][0]).to match("20")
-        preset.words =Faker::Lorem.characters(number:20)
+        preset.words = Faker::Lorem.characters(number:20)
         expect(preset).to be_valid
       end
     end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Followモデルのテスト', type: :model do
+RSpec.describe Follow, 'モデルのテスト', type: :model do
   describe 'バリデーションのテスト' do
     let!(:follower){ FactoryBot.create(:user)}
     let!(:followed){ FactoryBot.create(:user)}

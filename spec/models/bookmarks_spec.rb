@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Bookmarkモデルのテスト', type: :model do
+RSpec.describe Bookmark, 'モデルのテスト', type: :model do
   describe 'バリデーションのテスト' do
     let(:user) { FactoryBot.create(:user) }
     let(:post) { FactoryBot.create(:post) }

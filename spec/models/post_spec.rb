@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'support/shared_examples/validations'
 
-RSpec.describe 'Postモデルのテスト', type: :model do
+RSpec.describe Post, 'モデルのテスト', type: :model do
     describe 'バリデーションのテスト' do
         let(:post) { FactoryBot.create(:post)}
         it_behaves_like 'ポスト・コメントのバリデーション'

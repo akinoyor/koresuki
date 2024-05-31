@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Userモデルのテスト', type: :model do
+RSpec.describe User, 'モデルのテスト', type: :model do
   describe 'バリデーションのテスト' do
     let(:user){ FactoryBot.create(:user)}
     context '名前' do

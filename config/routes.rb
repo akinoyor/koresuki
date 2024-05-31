@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get     '/posts/search_names',    to: 'posts#search_names', as: 'search_names'
     resources :posts, only:[:index, :show, :create, :edit, :update, :destroy] do
       resources :comments,  only: [:create, :show, :destroy]
-      resource  :bookmark,  only: [:create, :destroy]
+      resource  :bookmarks,  only: [:create, :destroy]
     end
 
   end
