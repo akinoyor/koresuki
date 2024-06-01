@@ -19,7 +19,7 @@ class Public::CommentsController < ApplicationController
     if comment.save
       flash[:notice] = "コメントを投稿しました。"
     else
-      flash[:alert] = "コメントの投稿に失敗しました。"
+      flash[:notice] = "コメントの投稿に失敗しました。"
     end
     if comment.parent_comment_id == 0
       redirect_to  post_path(comment.post_id)

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+# FIXME あとで消す　devise関係なくても
 require 'rails_helper'
 
 RSpec.describe Public::RegistrationsController, type: :request do
