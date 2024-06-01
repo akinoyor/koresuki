@@ -9,9 +9,6 @@ RSpec.describe Public::UsersController, type: :controller do
       before do
         get :show, params:{ id: user.id }
       end
-      it '正常なレスポンスであるか' do
-        expect(response).to be_successful
-      end
       it 'レスポンスコードが200である' do
         expect(response).to have_http_status(:ok)
       end
