@@ -13,3 +13,4 @@ RSpec.describe Public::RegistrationsController, type: :controller do
     end
   end
 end
+# うまくいかなかったので　requestsで作成
