@@ -2,6 +2,14 @@ class Public::CommentsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
   before_action :check_user, only: [:destroy]
 
+  def show
+    @newpost = Post.new
+    @user = current_user
+    @newcomment = Comment.new
+    @newcomment.parent_comment_id = params[:id]
+    @comment = Comment.find(params[:id])
+  end
+
   def create
     parent_post = Post.find(params[:post_id])
     parent_comment_id = params[:comment][:parent_comment_id].present? ? params[:comment][:parent_comment_id] : 0
@@ -33,17 +41,6 @@ class Public::CommentsController < ApplicationController
       redirect_to post_comment_path(comment.post_id,comment.parent_comment_id)
     end
   end
-
-
-  def show
-    @newpost = Post.new
-    @user = current_user
-    @newcomment = Comment.new
-    @newcomment.parent_comment_id = params[:id]
-    @comment = Comment.find(params[:id])
-  end
-
-
 
   private
   def comment_params
