@@ -33,7 +33,7 @@ class Public::CommentsController < ApplicationController
     if comment.destroy
       flash[:notice] = "コメントを削除しました。"
     else
-      flash[:alert] = "コメントの削除に失敗しました。"
+      flash[:notice] = "コメントの削除に失敗しました。"
     end
     if comment.parent_comment_id == 0
       redirect_to  post_path(comment.post_id)
