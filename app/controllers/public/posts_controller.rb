@@ -8,7 +8,7 @@ class Public::PostsController < ApplicationController
     if @post.save
       redirect_to posts_path, notice: '投稿しました。'
     else
-      redirect_to posts_path, alert: '投稿に失敗しました。'
+      redirect_to posts_path, notice: '投稿に失敗しました。'
     end
   end
 
