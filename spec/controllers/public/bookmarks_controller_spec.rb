@@ -114,7 +114,7 @@ RSpec.describe Public::BookmarksController, type: :controller do
       end
       context 'ログインをしていない時' do
         before do
-          post :create, params:{ post_id: post_record.id }
+          delete :destroy, params:{ post_id: post_record.id }
         end
         it 'レスポンスコードが302である' do
           expect(response).to have_http_status(302)
