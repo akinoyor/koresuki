@@ -85,7 +85,13 @@ RSpec.describe Public::CommentsController, type: :controller do
       before do
         sign_in user
         allow_any_instance_of(Comment).to receive(:save).and_return(false)
+      end
 
+      it 'レスポンスコードが200である' do
+        expect(response).to have_http_status(200)
+      end
+      it 'Commentが作成されない' do
+        expect(Comment.where(user_id: user.id, post_id: post_record.id, body: comment.body)).not_to exist
       end
       it '"コメントの投稿に失敗しました"のフラッシュメッセージが出る' do
         post :create, params: { post_id: post_record.id, comment: {body: comment.body }}
@@ -156,6 +162,12 @@ RSpec.describe Public::CommentsController, type: :controller do
         sign_in user
         allow_any_instance_of(Comment).to receive(:destroy).and_return(false)
         delete :destroy, params: { post_id: post_record.id, id: comment.id }
+      end
+      it 'レスポンスコードが302である' do
+        expect(response).to have_http_status(302)
+      end
+      it 'Commentが削除されない' do
+        expect(Comment.where(id: comment.id)).to exist
       end
       it '"コメントの削除に失敗しました"のフラッシュメッセージが出る' do
         expect(flash[:notice]).to match("コメントの削除に失敗しました")

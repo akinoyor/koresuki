@@ -54,6 +54,7 @@ RSpec.describe Public::FollowsController, type: :controller do
     let!(:another_user1){ FactoryBot.create(:user) }
     let!(:another_user2){ FactoryBot.create(:user) }
     let!(:follow){ FactoryBot.create(:follow, follower_id: user.id, followed_id: another_user1.id )}
+    let!(:another_follow){ FactoryBot.create(:follow, follower_id: user.id, followed_id: another_user2.id )}
     let!(:referer_url1){"http://test.host/posts"}
     let!(:referer_url2){"http://test.host/"}
 
@@ -75,7 +76,7 @@ RSpec.describe Public::FollowsController, type: :controller do
         it '直前のURLにリダイレクトを行う' do
           expect(response).to redirect_to(referer_url1)
           request.env["HTTP_REFERER"] = referer_url2
-          post :create, params:{ user_id: another_user2.id }
+          delete :destroy, params:{ user_id: another_user2.id }
           expect(response).not_to redirect_to(referer_url1)
         end
       end
@@ -87,7 +88,7 @@ RSpec.describe Public::FollowsController, type: :controller do
         it 'レスポンスコードが302である' do
           expect(response).to have_http_status(302)
         end
-        it 'Bookmarkが削除されない' do
+        it 'Followが削除されない' do
           expect(Follow.where(id: follow.id)).to exist
         end
         it 'ログイン画面に遷移する' do
