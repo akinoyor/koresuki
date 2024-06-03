@@ -13,7 +13,7 @@ class Public::PresetsController < ApplicationController
         redirect_to posts_path, notice: 'プリセットの追加に失敗しました。'
       end
     else
-      redirect_to posts_path, alert: 'You cannot create more than 3 presets.'
+      redirect_to posts_path, notice: 'プリセット作成上限数は3個です。'
     end
   end
 
