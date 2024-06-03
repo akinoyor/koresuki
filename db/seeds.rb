@@ -12,7 +12,12 @@ admin_email = ENV['ADMIN_EMAIL']
 admin_password = ENV['ADMIN_PASSWORD']
 Admin.find_or_create_by!(email: admin_email) do |admin|
   admin.password = admin_password
-  end
+end
+
+User.find_or_create_by!(email: 'visitor@example.com') do |user|
+      user.password = "PFvisitor"
+      user.name = "Visitor"
+end
 
 gest = User.find_or_create_by!(email: 'guest@example.com') do |user|
       user.password = SecureRandom.urlsafe_base64

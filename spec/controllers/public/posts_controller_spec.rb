@@ -60,8 +60,7 @@ RSpec.describe Public::PostsController, type: :controller do
   end
 
   describe 'GET #index' do
-  # 検索機能はあとで
-  before do
+    before do
     get :index
   end
     it 'レスポンスコードが200である' do
@@ -95,7 +94,7 @@ RSpec.describe Public::PostsController, type: :controller do
       get :index
     end
 
-    it 'Post ALL' do
+    it 'Post ALLのデータ' do
       expect(assigns :posts).to match_array([ post_dog1, post_dog2, post_cat1, post_cat2, post_dog_cat1, post_dog_cat2, post_record1, post_record2 ])
     end
     it '新規投稿用のデータ' do
@@ -104,7 +103,7 @@ RSpec.describe Public::PostsController, type: :controller do
     it '新規Preset用のデータ' do
       expect(assigns :newpreset).to be_a_new(Preset)
       end
-      
+
     context 'ログインしていない時' do
       it 'Presetのデータ' do
         expect(assigns :presets).not_to exist
@@ -119,6 +118,7 @@ RSpec.describe Public::PostsController, type: :controller do
         expect(assigns :presets).to match_array([ preset1, preset2 ])
         expect(assigns :presets).not_to include( another_preset )
       end
+      # 検索結果から
     end
   end
 end
