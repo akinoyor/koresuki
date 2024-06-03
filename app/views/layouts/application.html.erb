@@ -33,7 +33,7 @@
                 </li>
                 <li class="nav-item">
                   <%= link_to "検索", search_path, class: 'nav-link text-dark' %>
-  
+
                 </li>
                 <li class="nav-item">
                   <%= link_to 'ユーザー一覧', admin_dashboards_path, class: 'nav-link text-dark' %>
@@ -41,14 +41,14 @@
                 <li class="nav-item">
                   <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' %>
                 </li>
-  
+
               <% elsif user_signed_in? %>
                 <li class="nav-item">
                   <%= link_to "HOME", posts_path, class: 'nav-link text-dark' %>
                 </li>
                 <li class="nav-item">
                   <%= link_to "検索", search_path, class: 'nav-link text-dark' %>
-  
+
                 </li>
                 <li class="nav-item">
                   <%= link_to 'マイページ', user_path(current_user, page:'posts'), class: 'nav-link text-dark' %>
@@ -56,15 +56,15 @@
                 <li class="nav-item">
                   <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-dark' %>
                 </li>
-  
+
               <% else %>
-  
+
                 <li class="nav-item">
                   <%= link_to "HOME", posts_path, class: 'nav-link text-dark' %>
                 </li>
                 <li class="nav-item">
                   <%= link_to "検索", search_path, class: 'nav-link text-dark' %>
-  
+
                 </li>
                 <li class="nav-item">
                   <%= link_to "新規登録", new_user_registration_path, class: 'nav-link text-dark' %>
@@ -85,6 +85,6 @@
       <%= flash[:notice] %>
       <%= flash[:alert] %>
     </div>
-  <%= yield %>
+    <%= yield %>
   </body>
 </html>

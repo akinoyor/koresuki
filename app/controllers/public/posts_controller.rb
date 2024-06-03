@@ -29,7 +29,6 @@ class Public::PostsController < ApplicationController
         end
 
         results = Post.none # resultsに空のPostを用意する
-
         if preset.option == "katu" # AND
           words.each_with_index do |word, i|
             results = posts.search(word) if i == 0
@@ -40,7 +39,6 @@ class Public::PostsController < ApplicationController
             results = results.or(posts.search(word))
           end
         end
-
         instance_variable_set("@results#{preset.id}", results)
       end
     end
@@ -52,26 +50,25 @@ class Public::PostsController < ApplicationController
     if user_signed_in? && !@preset.nil?
       follow_users = User.where(id: Follow.where(follower_id: current_user.id).pluck(:followed_id))
 
-        words = @preset.words.split(/[[:blank:]]+/)
-        if @preset.target == "following_user" # フォローしているユーザーのみ
-          posts = @posts.where(user_id: follow_users.ids)
-        else
-          posts = @posts
-        end
+      words = @preset.words.split(/[[:blank:]]+/)
+      if @preset.target == "following_user" # フォローしているユーザーのみ
+        posts = @posts.where(user_id: follow_users.ids)
+      else
+        posts = @posts
+      end
 
-        results = Post.none # resultsに空のPostを用意する
-
-        if @preset.option == "katu" # AND
-          words.each_with_index do |word, i|
-            results = posts.search(word) if i == 0
-            results = results.merge(posts.search(word))
-          end
-        else # OR
-          words.each do |word|
-            results = results.or(posts.search(word))
-          end
+      results = Post.none # resultsに空のPostを用意する
+      if @preset.option == "katu" # AND
+        words.each_with_index do |word, i|
+          results = posts.search(word) if i == 0
+          results = results.merge(posts.search(word))
         end
-        @posts = results
+      else # OR
+        words.each do |word|
+          results = results.or(posts.search(word))
+        end
+      end
+      @posts = results
     end
     render layout: false
   end
