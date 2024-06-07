@@ -16,6 +16,7 @@ class Public::PostsController < ApplicationController
   end
 
   def index
+    @user = current_user
     @newpost = Post.new
     @posts = Post.order(updated_at: :desc)
     @newpreset = Preset.new
@@ -31,7 +32,7 @@ class Public::PostsController < ApplicationController
           posts = @posts
         end
 
-        results = Post.none # resultsに空のPostを用意する
+        results = Post.none 
         if preset.option == "katu" # AND
           words.each_with_index do |word, i|
             results = posts.search(word) if i == 0

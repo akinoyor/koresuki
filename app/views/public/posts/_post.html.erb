@@ -43,15 +43,9 @@
         <!--bookmark-->
         <div class="offset-1 col-1">
           <% if user_signed_in? %>
-            <% if post.bookmarked_by?(current_user) %>
-              <%= link_to post_bookmarks_path(post),method: :delete,class: 'position-relative post-box-link__profile' do %>
-                <i class="fa-solid fa-bookmark"></i>
-              <% end %>
-            <% else %>
-              <%= link_to post_bookmarks_path(post), method: :post,class: 'position-relative post-box-link__profile' do %>
-                <i class="fa-regular fa-bookmark"></i>
-              <% end %>
-            <% end %>
+            <div id="bookmark_btn_<%= post.id %>">
+              <%= render partial: "/public/bookmarks/bookmark", locals: { post: post } %>
+            </div>
           <% end %>
         </div>
         <div class="col-4">

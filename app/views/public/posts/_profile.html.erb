@@ -31,10 +31,8 @@
               フォロワー:<%= profile_user.followers.count %>
             </p>
           </div>
-          <div class="form-group">
-            <%= link_to user_path(profile_user, page:'bookmarks') do %>
-              <p>ブックマーク<i class="fa-solid fa-bookmark"></i>: <%= profile_user.bookmarks.count %></p>
-            <% end %>
+          <div class="form-group" id="bookmark_counter">
+            <%= render partial: "/public/bookmarks/bookmark_counter", locals: { user: profile_user } %>
           </div>
 
 
