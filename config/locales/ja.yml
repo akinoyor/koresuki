@@ -1,5 +1,12 @@
 ja:
   activerecord:
+    attributes:
+      preset:
+        name: "プリセット名"
+        words: "検索ワード"
+      post:
+        body: "内容"
+        image: "画像"
     enum:
       preset:
         target:

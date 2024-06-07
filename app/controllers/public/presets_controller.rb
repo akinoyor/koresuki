@@ -10,7 +10,10 @@ class Public::PresetsController < ApplicationController
       if @preset.save
         redirect_to posts_path, notice: 'プリセットが追加されました。'
       else
-        redirect_to posts_path, notice: 'プリセットの追加に失敗しました。'
+        error_messages = @preset.errors.full_messages.join('</br>')
+        flash[:alert] = "#{error_messages}".html_safe
+        flash[:notice] = "プリセットの追加に失敗しました"
+        redirect_back(fallback_location: posts_path)
       end
     else
       redirect_to posts_path, notice: 'プリセット作成上限数は3個です。'
@@ -22,7 +25,10 @@ class Public::PresetsController < ApplicationController
     if @preset.update(preset_params)
       redirect_to posts_path, notice: 'プリセットが更新されました。'
     else
-      redirect_to posts_path, alert: 'プリセットの更新ができませんでした。'
+      error_messages = @preset.errors.full_messages.join('</br>')
+      flash[:alert] = "#{error_messages}".html_safe
+      flash[:notice] = "プリセットの更新ができませんでした"
+      redirect_back(fallback_location: posts_path)
     end
   end
 
@@ -35,7 +41,7 @@ class Public::PresetsController < ApplicationController
   def check_user
     @preset = Preset.find(params[:id])
     unless @preset.user_id = current_user.id
-      redirect_to posts_path, alert: '本人のみ編集可能です。'
+      redirect_to posts_path, notice: '本人のみ編集可能です。'
     end
   end
 end

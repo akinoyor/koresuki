@@ -82,8 +82,8 @@
       </nav>
     </header>
     <div>
-      <%= flash[:notice] %>
-      <%= flash[:alert] %>
+      <%= flash[:notice] %></br>
+      <%= raw(flash[:alert]) %>
     </div>
     <%= yield %>
   </body>

@@ -8,7 +8,10 @@ class Public::PostsController < ApplicationController
     if @post.save
       redirect_to posts_path, notice: '投稿しました。'
     else
-      redirect_to posts_path, notice: '投稿に失敗しました。'
+      error_messages = @post.errors.full_messages.join('</br>')
+      flash[:alert] = "#{error_messages}".html_safe
+      flash[:notice] = "'投稿に失敗しました。"
+      redirect_to request.referer, params:{post_record: post_params}
     end
   end
 
