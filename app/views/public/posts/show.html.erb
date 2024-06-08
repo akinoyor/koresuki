@@ -9,9 +9,12 @@
       <%= link_to "<<戻る", 'javascript:history.back()' %>
       <%= render "post_show", post_show: @post %>
 <!--ここからコメント投稿欄-->
-      <%= render "public/comments/comment_new",newcomment: @newcomment, user: @user, parent_post: @post, parent_id: @post.id %>
+      <div id="comment_new">
+        <%= render "public/comments/comment_new",newcomment: @newcomment, user: @user, parent_post: @post, parent_id: @post.id %>
+      </div>
 <!--ここからコメント欄-->
-      <%= render "public/comments/comments_index", view_comments: @post.child_comments %>
+      <div id="comments_index">
+        <%= render "public/comments/comments_index", view_comments: @post.child_comments %>
       </div>
     </div>
   </div>

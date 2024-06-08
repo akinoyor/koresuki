@@ -8,9 +8,13 @@
       <%= link_to "<<戻る", 'javascript:history.back()' %>
       <%= render "public/posts/post_show", post_show: @comment %>
 <!--ここからコメント投稿欄-->
-      <%= render "comment_new", newcomment: @newcomment, user: @user, parent_post: @comment, parent_id: @comment.post_id %>
+      <div id="comment_new">
+        <%= render "comment_new", newcomment: @newcomment, user: @user, parent_post: @comment, parent_id: @comment.post_id %>
+      </div>
 <!--ここからコメント欄-->
-      <%= render "comments_index", view_comments: @comment.child_comments %>
+      <div id="comments_index">
+        <%= render "comments_index", view_comments: @comment.child_comments %>
+      </div>
       </div>
     </div>
   </div>

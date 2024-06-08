@@ -18,14 +18,28 @@ class Public::CommentsController < ApplicationController
     comment.post_id = parent_post.id
     if comment.save
       flash[:notice] = "コメントを投稿しました。"
+      flash[:alert] = nil
+      @newcomment = Comment.new
+      @user = current_user
+      if comment.parent_comment_id == 0
+        @parent_record = Post.find(comment.post_id)
+        render 'post_comments_review.js.erb'
+      else
+        @parent_record = Comment.find(comment.parent_comment_id)
+        render 'comments_review.js.erb'
+      end
+
     else
       flash[:notice] = "コメントの投稿に失敗しました。"
+      error_messages = comment.errors.full_messages.join('</br>')
+      flash[:alert] = "#{error_messages}".html_safe
+      render 'layouts/flashs'
     end
-    if comment.parent_comment_id == 0
-      redirect_to  post_path(comment.post_id)
-    else
-      redirect_to post_comment_path(comment.post_id,comment.parent_comment_id)
-    end
+    # if comment.parent_comment_id == 0
+    #   redirect_to  post_path(comment.post_id)
+    # else
+    #   redirect_to post_comment_path(comment.post_id,comment.parent_comment_id)
+    # end
   end
 
   def destroy
@@ -43,11 +57,12 @@ class Public::CommentsController < ApplicationController
   end
 
   private
+
   def comment_params
     params.require(:comment).permit(:body,:image,:parent_comment_id)
   end
 
-   def check_user
+  def check_user
     @comment = Comment.find(params[:id])
     unless @comment.user = current_user
       redirect_to posts_path

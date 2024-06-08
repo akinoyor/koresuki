@@ -9,8 +9,8 @@
           <% end %>
         </div>
         <div class="col-10 p-3">
-          <%= form_with model: newcomment, url: post_comments_path(parent_id), method: :post do |f| %>
-            <% if controller_name == 'comments' %>
+          <%= form_with model: newcomment, url: post_comments_path(parent_id), method: :post, local: false do |f| %>
+            <% if parent_post.has_attribute?(:parent_comment_id) %>
               <%= f.hidden_field :parent_comment_id, value: parent_post.id %>
             <% end %>
             <div class="form-group">

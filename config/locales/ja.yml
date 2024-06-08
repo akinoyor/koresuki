@@ -7,6 +7,9 @@ ja:
       post:
         body: "内容"
         image: "画像"
+      comment:
+        body: "内容"
+        image: "画像"
     enum:
       preset:
         target:

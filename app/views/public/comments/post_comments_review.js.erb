@@ -1,0 +1,3 @@
+$("#flash_messages").html("<%= j(render partial: 'layouts/flash_messages') %>");
+$("#comment_new").html("<%= j(render partial: 'public/comments/comment_new', locals: { newcomment: @newcomment, user: @user, parent_post: @parent_record, parent_id: @parent_record.id }) %>");
+$("#comments_index").html("<%= j(render partial: 'public/comments/comments_index', locals: { view_comments: @parent_record.child_comments }) %>");
