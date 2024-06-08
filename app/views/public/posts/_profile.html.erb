@@ -38,7 +38,7 @@
 
           <% if profile_user == current_user %>
             <div class="m-3">
-             <%= form_with model: newpost do |f| %>
+             <%= form_with(model: newpost, local: false) do |f| %>
               <div class="input-group mt-4">
                 <%= f.text_area :body, class: "form-control", placeholder: "内容をここに（50字以内）" %>
               </div>

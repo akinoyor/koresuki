@@ -4,14 +4,11 @@ class Public::BookmarksController < ApplicationController
     bookmark = Bookmark.new(user_id: current_user.id, post_id: params[:post_id])
     if bookmark.save
       @post_record = Post.find(bookmark.post_id)
-       respond_to do |format|
-        format.html { redirect_to request.referer, notice: "ブックマークしました。" }
-        format.js   # create.js.erb を呼び出す
-      end
+      flash[:notice] = "ブックマークしました。"
+      render 'create.js.erb'
     else
       flash[:notice] = "ブックマークできませんでした。"
       redirect_to request.referer
-
     end
   end
 
@@ -19,10 +16,8 @@ class Public::BookmarksController < ApplicationController
     bookmark = Bookmark.find_by(post_id: params[:post_id])
     @post_record = Post.find(bookmark.post_id)
     if bookmark.destroy
-      respond_to do |format|
-        format.html { redirect_to request.referer, notice: "ブックマークを解除しました。" }
-        format.js   # destroy.js.erb を呼び出す
-      end
+      flash[:notice] = "ブックマークを解除しました。"
+      render 'destroy.js.erb'
     else
       flash[:notice] = "ブックマークの解除に失敗しました。"
       redirect_to request.referer

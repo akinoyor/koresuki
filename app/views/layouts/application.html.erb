@@ -81,10 +81,9 @@
         </div>
       </nav>
     </header>
-    <div>
-      <%= flash[:notice] %></br>
-      <%= raw(flash[:alert]) %>
-    </div>
+    <a id="flash_messages">
+      <%= render partial: '/layouts/flash_messages' %>
+    </a>
     <%= yield %>
   </body>
 </html>

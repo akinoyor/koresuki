@@ -33,7 +33,7 @@
           <div id="preset<%= preset.id %>" class="area">
             <div id="gear" class="area col-6">
               <div class="pt-3 row justify-content-center">
-                <%= form_with(model: [current_user, preset], url: user_preset_path(current_user, preset), method: :patch) do |form| %>
+                <%= form_with(model: [current_user, preset], url: user_preset_path(current_user, preset), method: :patch, local: false) do |form| %>
                 <%= hidden_field_tag :page, preset.id %>
                   <div class="field text-right">
                     <%= form.label "プリセット名：" %>
@@ -76,7 +76,7 @@
         <!--プリセット新規登録タブ↓-->
         <div id="new" class="area col-6">
           <div class="pt-3 row justify-content-center">
-            <%= form_with model: @newpreset, url: user_presets_path(current_user), method: :post do |newpreset| %>
+            <%= form_with model: @newpreset, url: user_presets_path(current_user), method: :post, local: false do |newpreset| %>
               <div class="field text-right">
                 <%= newpreset.label "プリセット名：" %>
                 <%= newpreset.text_field :name, class:"preset-box", placeholder: "1～10文字まで" %>

@@ -11,7 +11,7 @@ class Public::PostsController < ApplicationController
       error_messages = @post.errors.full_messages.join('</br>')
       flash[:alert] = "#{error_messages}".html_safe
       flash[:notice] = "'投稿に失敗しました。"
-      redirect_to request.referer, params:{post_record: post_params}
+      render 'layouts/flashs'
     end
   end
 
@@ -32,7 +32,7 @@ class Public::PostsController < ApplicationController
           posts = @posts
         end
 
-        results = Post.none 
+        results = Post.none
         if preset.option == "katu" # AND
           words.each_with_index do |word, i|
             results = posts.search(word) if i == 0
