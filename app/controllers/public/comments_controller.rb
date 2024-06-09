@@ -17,8 +17,7 @@ class Public::CommentsController < ApplicationController
     comment.parent_comment_id = parent_comment_id
     comment.post_id = parent_post.id
     if comment.save
-      flash[:notice] = "コメントを投稿しました。"
-      flash[:alert] = nil
+      flash.now[:notice] = "コメントを投稿しました。"
       @newcomment = Comment.new
       @user = current_user
       if comment.parent_comment_id == 0
@@ -30,9 +29,9 @@ class Public::CommentsController < ApplicationController
       end
 
     else
-      flash[:notice] = "コメントの投稿に失敗しました。"
+      flash.now[:notice] = "コメントの投稿に失敗しました。"
       error_messages = comment.errors.full_messages.join('</br>')
-      flash[:alert] = "#{error_messages}".html_safe
+      flash.now[:alert] = "#{error_messages}".html_safe
       render 'layouts/flashs'
     end
     # if comment.parent_comment_id == 0

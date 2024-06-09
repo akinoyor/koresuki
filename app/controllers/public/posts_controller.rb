@@ -9,8 +9,8 @@ class Public::PostsController < ApplicationController
       redirect_to posts_path, notice: '投稿しました。'
     else
       error_messages = @post.errors.full_messages.join('</br>')
-      flash[:alert] = "#{error_messages}".html_safe
-      flash[:notice] = "'投稿に失敗しました。"
+      flash.now[:alert] = "#{error_messages}".html_safe
+      flash.now[:notice] = "'投稿に失敗しました。"
       render 'layouts/flashs'
     end
   end

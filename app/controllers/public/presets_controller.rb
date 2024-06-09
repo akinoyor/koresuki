@@ -11,12 +11,12 @@ class Public::PresetsController < ApplicationController
         redirect_to posts_path, notice: 'プリセットが追加されました。'
       else
         error_messages = @preset.errors.full_messages.join('</br>')
-        flash[:alert] = "#{error_messages}".html_safe
-        flash[:notice] = "プリセットの追加に失敗しました"
+        flash.now[:alert] = "#{error_messages}".html_safe
+        flash.now[:notice] = "プリセットの追加に失敗しました"
         render 'layouts/flashs'
       end
     else
-      flash[:notice] = "プリセット作成上限数は3個です。"
+      flash.now[:notice] = "プリセット作成上限数は3個です。"
       render 'layouts/flashs'
     end
   end
@@ -27,8 +27,8 @@ class Public::PresetsController < ApplicationController
       redirect_to posts_path, notice: 'プリセットが更新されました。'
     else
       error_messages = @preset.errors.full_messages.join('</br>')
-      flash[:alert] = "#{error_messages}".html_safe
-      flash[:notice] = "プリセットの更新ができませんでした"
+      flash.now[:alert] = "#{error_messages}".html_safe
+      flash.now[:notice] = "プリセットの更新ができませんでした"
       render 'layouts/flashs'
     end
   end
