@@ -19,4 +19,12 @@ validates :body, presence: true, if: -> { image.blank? }
     comments.where(parent_comment_id: 0)
   end
 
+  def class_name
+    self.fullname.split('::').last
+  end
+
+  def fullname
+    self.class.to_s
+  end
+
 end

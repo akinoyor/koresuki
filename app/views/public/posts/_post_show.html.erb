@@ -50,7 +50,7 @@
                 <% if controller_name == 'posts' && action_name =='show' %>
                   <% if user_signed_in? %>
                     <div id="bookmark_btn_<%= post_show.id %>">
-                      <%= render partial: "/public/bookmarks/bookmark", locals: { post: post_show } %>
+                      <%= render partial: "/public/bookmarks/bookmark", locals: { post: post_show, user: user } %>
                     </div>
                   <% end %>
                 <% end %>

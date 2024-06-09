@@ -44,7 +44,7 @@
         <div class="offset-1 col-1">
           <% if user_signed_in? %>
             <div id="bookmark_btn_<%= post.id %>">
-              <%= render partial: "/public/bookmarks/bookmark", locals: { post: post } %>
+              <%= render partial: "/public/bookmarks/bookmark", locals: { post: post, user: user } %>
             </div>
           <% end %>
         </div>

@@ -11,4 +11,11 @@ class Comment < ApplicationRecord
   validates :image, presence: true, if: -> { body.blank? }
   validates :body, presence: true, if: -> { image.blank? }
 
+  def class_name
+    self.fullname.split('::').last
+  end
+  
+  def fullname
+    self.class.to_s
+  end
 end

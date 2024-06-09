@@ -12,7 +12,7 @@
       </ul>
 
       <div id="posts" class="area <%= params[:page] == 'posts'? 'is-active' : '' %>">
-        <%= render "public/posts/post",posts: @user_posts %>
+        <%= render "public/posts/post",posts: @user_posts, user: @user %>
         <!--/area-->
       </div>
 
