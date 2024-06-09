@@ -65,13 +65,12 @@
                 <% end %>
               </div>
             </div>
-
+            <!--プリセット使用時の投稿一覧-->
             <div id="preset-posts-<%= preset.id %>">
-              <%= render "post", posts: instance_variable_get("@results#{preset.id}") %>
+              <%= render "post", posts: instance_variable_get("@results#{preset.id}"), user: @user %>
             </div>
           </div>
         <% end %>
-
 
         <!--プリセット新規登録タブ↓-->
         <div id="new" class="area col-6">

@@ -1,3 +1,4 @@
+<!--プロフィールに表示されているユーザー=profile_user-->
 <%= link_to user_path(profile_user, page:'bookmarks') do %>
   <p>ブックマーク<i class="fa-solid fa-bookmark"></i>: <%= profile_user.bookmarks.count %></p>
 <% end %>

@@ -23,11 +23,11 @@
   <!--投稿の検索結果表示-->
         <% if @keywords.nil? || @keywords.empty? %>
           <h2>全件表示</h2>
-          <%= render "post",posts: @posts_results %>
+          <%= render "post",posts: @posts_results, user: @user %>
         <% else %>
           <% if @posts_results.present? %>
             <h2><%= @keywords %> を含む検索結果 ( <%= @type %> )</h2>
-            <%= render "post",posts: @posts_results %>
+            <%= render "post",posts: @posts_results, user: @user %>
           <% else %>
             <h2>該当の検索結果がありません。</h2>
           <% end %>
