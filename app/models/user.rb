@@ -10,7 +10,7 @@ class User < ApplicationRecord
       file_path = Rails.root.join('app/assets/images/noimage.png')
       user_image.attach(io: File.open(file_path), filename: 'default-image.png', content_type: 'image/png')
     end
-    user_image.variant(resize_to_limit: [width,height]).processed
+    user_image.variant(resize_to_fill: [width,height]).processed
   end
 
   has_many :presets, dependent: :destroy

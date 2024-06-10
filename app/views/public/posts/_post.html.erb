@@ -5,7 +5,7 @@
       <div class="card-body m-3">
         <div class="row align-items-center">
             <%= link_to '', post_path(post), class: 'position-absolute post-box-link' %>
-          <div class="col-1">
+          <div class="col-4 col-lg-2">
             <%= link_to user_path(post.user_id, page:"posts"), class: 'position-relative post-box-link__profile' do %>
               <%= image_tag post.user.get_user_image(300,300), class: 'img-fluid'%>
             <% end %>
@@ -15,7 +15,7 @@
               <%= post.user.name %>
             <% end %>
           </div>
-          <div class="col-3">
+          <div class="col-2 xl-off">
             <% if user_signed_in? %>
               <% if current_user != post.user %>
                 <% if current_user.following?(post.user) %>
@@ -30,9 +30,9 @@
         <div class="m-3 text-break">
           <%= simple_format(post.body, sanitize: true, class: 'm-0') %>
         </div>
-        <div class="m-3">
+        <div class="m-3 col-xl-5">
           <% if post.image.attached? %>
-            <%= image_tag post.image, width:'40%' %>
+            <%= image_tag post.image, width:'100%' %>
           <% end %>
         </div>
       </div>

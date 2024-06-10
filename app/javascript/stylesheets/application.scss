@@ -104,17 +104,17 @@ header {
 	width:300px;
 }
 
-.md-icon {
+.xl-icon {
 	display: none;
 }
-.md-icon-profile-off {
+.xl-icon-profile-off {
 		display: none;
 	}
-@media screen and (max-width:768px){
-	.md-off {
+@media screen and (max-width:1200px){
+	.xl-off {
 		display: none;
 	}
-	.md-icon {
+	.xl-icon {
 		display: flex;
 		margin-left: auto;
 		margin-right: 10px;
@@ -124,7 +124,7 @@ header {
 		border-radius:50%;
 		padding: 10px;
 	}
-	.md-icon-profile-on {
+	.xl-icon-profile-on {
 		display: block;/*表示*/
 	 	animation-name: displayAnime;/*ふわっと表示させるためのアニメーション*/
 	 	animation-duration: 2s;

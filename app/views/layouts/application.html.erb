@@ -17,11 +17,11 @@
   <body>
 
     <header class="shadow-sm position-fixed w-100">
-      <nav class="navbar navbar-expand-lg bg-white navbar-light w-100">
+      <nav class="navbar navbar-expand-xl bg-white navbar-light w-100">
         <div class="container">
           <a class="navbar-brand" href="/"><%= image_tag 'logo.png', :size => "100x50" %></a>
           <% if user_signed_in? %>
-            <div class="md-icon">
+            <div class="xl-icon">
               <%= image_tag current_user.get_user_image(100,100), class: "cicle-icon", id: "header-icon" %>
             </div>
           <% end %>
@@ -85,7 +85,7 @@
         </div>
       </nav>
     </header>
-    <div id="user-profile" class="md-icon-profile-off">
+    <div id="user-profile" class="xl-icon-profile-off">
       <%= render "/public/posts/profile", profile_user: current_user, newpost: @newpost %>
     </div>
     <a id="flash_messages">
@@ -101,10 +101,10 @@
   var UserProfile = document.getElementById("user-profile");
 
   toggleIcon.addEventListener("click", function() {
-    if (UserProfile.classList.contains("md-icon-profile-on")) {
-      UserProfile.classList.remove("md-icon-profile-on");
+    if (UserProfile.classList.contains("xl-icon-profile-on")) {
+      UserProfile.classList.remove("xl-icon-profile-on");
     } else {
-      UserProfile.classList.add("md-icon-profile-on");
+      UserProfile.classList.add("xl-icon-profile-on");
     }
   });
 });

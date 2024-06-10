@@ -1,11 +1,11 @@
 <div class="containar">
   <div class="row">
 
-    <div class="md-off col-lg-3">
+    <div class="xl-off col-xl-3">
       <%= render "profile", profile_user: @user, newpost: @newpost %>
     </div>
 
-    <div class="col-12 col-lg-9">
+    <div class="col-12 col-xl-9">
       <%= link_to "<<戻る", 'javascript:history.back()' %>
       <%= render "post_show", post_show: @post, user: @user %>
 <!--ここからコメント投稿欄-->
