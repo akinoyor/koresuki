@@ -49,6 +49,7 @@ class Public::PostsController < ApplicationController
   end
 
   def partial_ajax
+    @user = current_user
     @posts = Post.order(updated_at: :desc)
     @preset = Preset.find_by(id: params[:id])
     if user_signed_in? && !@preset.nil?
