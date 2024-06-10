@@ -18,9 +18,7 @@
 
         <% end %>
       </ul>
-
-
-
+      
       <div id="all" class="area is-active">
         <h2>全件表示</h2>
         <div id="all-posts">
@@ -149,6 +147,15 @@
     .done( (data) => {
       $('#all-posts').html(data);
     })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+                    // 通信失敗時の処理
+                    alert('ファイルの取得に失敗しました。');
+                    console.log("ajax通信に失敗しました");
+                    console.log("jqXHR          : " + jqXHR.status); // HTTPステータスが取得
+                    console.log("textStatus     : " + textStatus);    // タイムアウト、パースエラー
+                    console.log("errorThrown    : " + errorThrown.message); // 例外情報
+                    console.log("URL            : " + url);
+            })
 
     <% @presets.each do |preset| %>
       $.ajax('/partial_ajax/<%= preset.id %>')

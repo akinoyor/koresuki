@@ -12,12 +12,12 @@
       </ul>
 
       <div id="posts" class="area <%= params[:page] == 'posts'? 'is-active' : '' %>">
-        <%= render "public/posts/post",posts: @user_posts, user: @user %>
+        <%= render "public/posts/post", posts: @user_posts, user: @user %>
         <!--/area-->
       </div>
 
       <div id="bookmarks" class="area <%= params[:page] == 'bookmarks'? 'is-active' : '' %>">
-        <%= render "public/posts/post",posts: @bookmark_posts %>
+        <%= render "public/posts/post", posts: @bookmark_posts, user: @user %>
         <!--/area-->
       </div>
 
