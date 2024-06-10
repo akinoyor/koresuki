@@ -18,7 +18,7 @@
 
         <% end %>
       </ul>
-      
+
       <div id="all" class="area is-active">
         <h2>全件表示</h2>
         <div id="all-posts">
@@ -149,7 +149,7 @@
     })
     .fail(function (jqXHR, textStatus, errorThrown) {
                     // 通信失敗時の処理
-                    alert('ファイルの取得に失敗しました。');
+                    alert('タイムラインの更新に失敗しました。');
                     console.log("ajax通信に失敗しました");
                     console.log("jqXHR          : " + jqXHR.status); // HTTPステータスが取得
                     console.log("textStatus     : " + textStatus);    // タイムアウト、パースエラー
