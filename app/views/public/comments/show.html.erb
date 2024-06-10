@@ -9,7 +9,7 @@
       <%= render "public/posts/post_show", post_show: @comment %>
 <!--ここからコメント投稿欄-->
       <div id="comment_new">
-        <%= render "comment_new", newcomment: @newcomment, user: @user, parent_post: @comment, parent_id: @comment.post_id %>
+        <%= render "comment_new", newcomment: @newcomment, user: @user, parent_post: @comment, origin_post_id: @comment.post_id %>
       </div>
 <!--ここからコメント欄-->
       <div id="comments_index">

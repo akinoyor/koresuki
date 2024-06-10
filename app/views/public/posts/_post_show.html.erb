@@ -41,13 +41,13 @@
           </div>
 
           <div class="row m-3">
-            <div class="offset-1 col-1">
-              <i class="fa-regular fa-comment"></i> <%= post_show.child_comments.count(:post_id) %>
+            <div class="offset-1 col-1" id="child_comments_counter">
+              <%= render partial: "/public/posts/post_child_comments_counter", locals: { post_record: post_show } %>
             </div>
 
             <div class="offset-1 col-1">
               <div class="offset-1 col-1">
-                <% if controller_name == 'posts' && action_name =='show' %>
+                <% if post_show.class_name == 'Post' && action_name =='show' %>
                   <% if user_signed_in? %>
                     <div id="bookmark_btn_<%= post_show.id %>">
                       <%= render partial: "/public/bookmarks/bookmark", locals: { post: post_show, user: user } %>
@@ -65,19 +65,19 @@
             </div>
             <div class="col-2">
               <% if admin_signed_in? %>
-                <% if controller_name == 'posts' %>
+                <% if post_show.class_name == 'Post' %>
                   <%= link_to '削除', admin_post_path(post_show), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: { confirm: '本当に削除しますか？' } %>
-                <% elsif controller_name == 'comments' %>
+                <% elsif post_show.class_name == 'Comment' %>
                   <%= link_to '削除', admin_comment_path(post_show), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: { confirm: '本当に削除しますか？' } %>
                 <% end %>
 
               <% elsif current_user == post_show.user %>
-                <% if controller_name == 'posts' %>
+                <% if post_show.class_name == 'Post' %>
                   <%= link_to "削除", post_path(post_show), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
                   <% if action_name =='show' %>
                     <%= link_to "変更", edit_post_path(post_show),class: 'position-relative btn btn-info' %>
                   <% end %>
-                <% elsif controller_name == 'comments' %>
+                <% elsif post_show.class_name == 'Comment' %>
                   <%= link_to "削除", post_comment_path(post_show), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
                 <% end %>
               <% end %>

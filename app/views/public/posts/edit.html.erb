@@ -45,7 +45,6 @@
                   <i class="fa-regular fa-comment"></i> <%= @post.comments.count(:post_id) %>
                 </div>
 
-
                 <div class="offset-2 col-4">
                   <p>投稿日時: <%= formatted_date_jp(@post.created_at) %></p>
                     <% if formatted_date_jp(@post.created_at) != formatted_date_jp(@post.updated_at) %>

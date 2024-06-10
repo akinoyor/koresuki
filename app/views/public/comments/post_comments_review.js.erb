@@ -1,3 +1,4 @@
 $("#flash_messages").html("<%= j(render partial: 'layouts/flash_messages') %>");
-$("#comment_new").html("<%= j(render partial: 'public/comments/comment_new', locals: { newcomment: @newcomment, user: @user, parent_post: @parent_record, parent_id: @parent_record.id }) %>");
+$("#comment_new").html("<%= j(render partial: 'public/comments/comment_new', locals: { newcomment: @newcomment, user: @user, parent_post: @parent_record, origin_post_id: @parent_record.id }) %>");
 $("#comments_index").html("<%= j(render partial: 'public/comments/comments_index', locals: { view_comments: @parent_record.child_comments }) %>");
+$("#child_comments_counter").html("<%= j(render partial: "/public/posts/post_child_comments_counter", locals: { post_record: @parent_record }) %>");

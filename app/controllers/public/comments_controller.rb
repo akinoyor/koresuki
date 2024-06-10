@@ -11,18 +11,20 @@ class Public::CommentsController < ApplicationController
   end
 
   def create
-    parent_post = Post.find(params[:post_id])
+    origin_post = Post.find(params[:post_id])
     parent_comment_id = params[:comment][:parent_comment_id].present? ? params[:comment][:parent_comment_id] : 0
     comment = current_user.comments.new(comment_params)
     comment.parent_comment_id = parent_comment_id
-    comment.post_id = parent_post.id
+    comment.post_id = origin_post.id
     if comment.save
       flash.now[:notice] = "コメントを投稿しました。"
       @newcomment = Comment.new
       @user = current_user
+      # 親投稿がPostの時↓
       if comment.parent_comment_id == 0
         @parent_record = Post.find(comment.post_id)
         render 'post_comments_review.js.erb'
+      # 親投稿がコメントの時↓
       else
         @parent_record = Comment.find(comment.parent_comment_id)
         render 'comments_review.js.erb'

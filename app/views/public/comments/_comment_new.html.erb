@@ -1,4 +1,4 @@
-<!--必要情報　newcomment　コメント新規投稿枠　user投稿するユーザー情報　　parent_post親投稿 parent_id　親ポストのID-->
+<!--必要情報　newcomment　コメント新規投稿枠　user投稿するユーザー情報　　parent_post親投稿 origin_post_id　親ポストのID-->
 <div class="mx-3">
   <% if user_signed_in? %>
     <div class="position-relative card shadow-sm mb-3" style = "width:100%" >
@@ -9,7 +9,7 @@
           <% end %>
         </div>
         <div class="col-10 p-3">
-          <%= form_with model: newcomment, url: post_comments_path(parent_id), method: :post, local: false do |f| %>
+          <%= form_with model: newcomment, url: post_comments_path(origin_post_id, parent_post_id: parent_post.id), method: :post, local: false do |f| %>
             <% if parent_post.class_name == "Comment" %>
               <%= f.hidden_field :parent_comment_id, value: parent_post.id %>
             <% end %>
