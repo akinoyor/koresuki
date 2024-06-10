@@ -17,7 +17,6 @@ class Public::PostsController < ApplicationController
 
   def index
     @user = current_user
-    @newpost = Post.new
     @posts = Post.order(updated_at: :desc)
     @newpreset = Preset.new
     @presets = Preset.where(user_id: current_user) || []
@@ -79,7 +78,6 @@ class Public::PostsController < ApplicationController
   end
 
   def show
-     @newpost = Post.new
      @user = current_user
      @newcomment = Comment.new
      @post = Post.find(params[:id])
@@ -87,7 +85,6 @@ class Public::PostsController < ApplicationController
   end
 
   def edit
-    @newpost = Post.new
     @user = current_user
     @post = Post.find(params[:id])
   end
@@ -99,7 +96,6 @@ class Public::PostsController < ApplicationController
       redirect_to post_path(@post.id)
     else
       @post = @post
-      @newpost = Post.new
       @user = current_user
       flash[:notice] = "投稿の更新ができませんでした。"
       render :edit
@@ -113,7 +109,6 @@ class Public::PostsController < ApplicationController
   end
 
   def search
-    @newpost = Post.new
     @user = current_user
     @posts_results = Post.all.order(updated_at: :desc)
   end
@@ -144,7 +139,6 @@ class Public::PostsController < ApplicationController
         end
       end
     end
-    @newpost = Post.new
     @user = current_user
     render :search
   end

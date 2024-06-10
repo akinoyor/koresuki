@@ -89,9 +89,9 @@ header {
 .preset-tab{
 	background-color:#ddd;
 	display: block;/*表示*/
-  animation-name: displayAnime;/*ふわっと表示させるためのアニメーション*/
-  animation-duration: 2s;
-  animation-fill-mode: forwards;
+ 	animation-name: displayAnime;/*ふわっと表示させるためのアニメーション*/
+ 	animation-duration: 2s;
+  	animation-fill-mode: forwards;
 }
 // ここまでタブ関係
 
@@ -102,4 +102,39 @@ header {
 
 .preset-box{
 	width:300px;
+}
+
+.md-icon {
+	display: none;
+}
+.md-icon-profile-off {
+		display: none;
+	}
+@media screen and (max-width:768px){
+	.md-off {
+		display: none;
+	}
+	.md-icon {
+		display: flex;
+		margin-left: auto;
+		margin-right: 10px;
+	}
+	.cicle-icon {
+		height: 75px;
+		border-radius:50%;
+		padding: 10px;
+	}
+	.md-icon-profile-on {
+		display: block;/*表示*/
+	 	animation-name: displayAnime;/*ふわっと表示させるためのアニメーション*/
+	 	animation-duration: 2s;
+	  	animation-fill-mode: forwards;
+	}
+	.navbar {
+		padding: 0;
+	}
+	.user-profile {
+		display: none;
+	}
+
 }

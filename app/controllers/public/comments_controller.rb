@@ -3,7 +3,6 @@ class Public::CommentsController < ApplicationController
   before_action :check_user, only: [:destroy]
 
   def show
-    @newpost = Post.new
     @user = current_user
     @newcomment = Comment.new
     @newcomment.parent_comment_id = params[:id]

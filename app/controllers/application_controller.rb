@@ -1,5 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_admin!, if: :admin_controller?
+  before_action :set_new_post
+  def set_new_post
+    @newpost = Post.new
+  end
+
   unless Rails.env.development?
     rescue_from Exception,                      with: :_render_500
     rescue_from ActiveRecord::RecordNotFound,   with: :_render_404

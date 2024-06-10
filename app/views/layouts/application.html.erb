@@ -2,7 +2,6 @@
 <html>
   <head>
     <title>これすき</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -21,6 +20,11 @@
       <nav class="navbar navbar-expand-lg bg-white navbar-light w-100">
         <div class="container">
           <a class="navbar-brand" href="/"><%= image_tag 'logo.png', :size => "100x50" %></a>
+          <% if user_signed_in? %>
+            <div class="md-icon">
+              <%= image_tag current_user.get_user_image(100,100), class: "cicle-icon", id: "header-icon" %>
+            </div>
+          <% end %>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
                         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -81,9 +85,27 @@
         </div>
       </nav>
     </header>
+    <div id="user-profile" class="md-icon-profile-off">
+      <%= render "/public/posts/profile", profile_user: current_user, newpost: @newpost %>
+    </div>
     <a id="flash_messages">
       <%= render partial: '/layouts/flash_messages' %>
     </a>
     <%= yield %>
   </body>
 </html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+  var toggleIcon = document.getElementById("header-icon");
+  var UserProfile = document.getElementById("user-profile");
+
+  toggleIcon.addEventListener("click", function() {
+    if (UserProfile.classList.contains("md-icon-profile-on")) {
+      UserProfile.classList.remove("md-icon-profile-on");
+    } else {
+      UserProfile.classList.add("md-icon-profile-on");
+    }
+  });
+});
+</script>

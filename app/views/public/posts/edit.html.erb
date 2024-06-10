@@ -1,10 +1,10 @@
 <div class="containar">
   <div class="row">
-    <div class="col-3">
+    <div class="md-off col-lg-3">
       <%= render "profile",profile_user: @user, newpost: @newpost %>
     </div>
 
-    <div class="col-9">
+    <div class="col-12 col-lg-9">
       <div class="m-3">
         <%= form_with model: @post do |edit_post| %>
           <div class="position-relative card shadow-sm">
