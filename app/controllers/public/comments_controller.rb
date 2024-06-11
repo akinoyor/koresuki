@@ -22,18 +22,18 @@ class Public::CommentsController < ApplicationController
       # 親投稿がPostの時↓
       if comment.parent_comment_id == 0
         @parent_record = Post.find(comment.post_id)
-        render 'post_comments_review.js.erb'
+        render "post_comments_review.js.erb"
       # 親投稿がコメントの時↓
       else
         @parent_record = Comment.find(comment.parent_comment_id)
-        render 'comments_review.js.erb'
+        render "comments_review.js.erb"
       end
 
     else
       flash.now[:notice] = "コメントの投稿に失敗しました。"
-      error_messages = comment.errors.full_messages.join('</br>')
+      error_messages = comment.errors.full_messages.join("</br>")
       flash.now[:alert] = "#{error_messages}".html_safe
-      render 'layouts/flashs'
+      render "layouts/flashs"
     end
     # if comment.parent_comment_id == 0
     #   redirect_to  post_path(comment.post_id)
@@ -50,22 +50,21 @@ class Public::CommentsController < ApplicationController
       flash[:notice] = "コメントの削除に失敗しました。"
     end
     if comment.parent_comment_id == 0
-      redirect_to  post_path(comment.post_id)
+      redirect_to post_path(comment.post_id)
     else
-      redirect_to post_comment_path(comment.post_id,comment.parent_comment_id)
+      redirect_to post_comment_path(comment.post_id, comment.parent_comment_id)
     end
   end
 
   private
-
-  def comment_params
-    params.require(:comment).permit(:body,:image,:parent_comment_id)
-  end
-
-  def check_user
-    @comment = Comment.find(params[:id])
-    unless @comment.user = current_user
-      redirect_to posts_path
+    def comment_params
+      params.require(:comment).permit(:body, :image, :parent_comment_id)
     end
-  end
+
+    def check_user
+      @comment = Comment.find(params[:id])
+      unless @comment.user = current_user
+        redirect_to posts_path
+      end
+    end
 end

@@ -5,7 +5,7 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.7
+  TargetRubyVersion: 3.1
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
   DisabledByDefault: true
@@ -147,7 +147,7 @@ Style/ExplicitBlockArgument:
   Enabled: true
 
 Style/FrozenStringLiteralComment:
-  Enabled: true
+  Enabled: false
   EnforcedStyle: always
   Exclude:
     - 'actionview/test/**/*.builder'
