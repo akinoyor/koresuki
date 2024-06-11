@@ -19,15 +19,15 @@ header {
 }
 
 .post-box-link {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
+ 	top: 0;
+ 	left: 0;
+ 	width: 100%;
+ 	height: 100%;
+ 	z-index: 9999;
 }
 
 .post-box-link__profile {
-  z-index: 10000;
+  	z-index: 10000;
 }
 
 // ここからタブ関係
@@ -108,9 +108,17 @@ header {
 	display: none;
 }
 .xl-icon-profile-off {
-		display: none;
+	display: none;
 	}
+.xl-on {
+	display: none;
+}
+
 @media screen and (max-width:1200px){
+	.xl-on {
+		display: flex;
+	}
+
 	.xl-off {
 		display: none;
 	}
@@ -119,22 +127,34 @@ header {
 		margin-left: auto;
 		margin-right: 10px;
 	}
+
 	.cicle-icon {
 		height: 75px;
 		border-radius:50%;
 		padding: 10px;
 	}
+
 	.xl-icon-profile-on {
 		display: block;/*表示*/
 	 	animation-name: displayAnime;/*ふわっと表示させるためのアニメーション*/
 	 	animation-duration: 2s;
 	  	animation-fill-mode: forwards;
 	}
+
 	.navbar {
 		padding: 0;
 	}
+
 	.user-profile {
 		display: none;
+	}
+
+	.followed {
+		color: #34E82E;
+	}
+	.xl-time{
+		margin-left: auto;
+		margin-right: 20px;
 	}
 
 }

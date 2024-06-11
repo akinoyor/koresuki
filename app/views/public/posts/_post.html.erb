@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="row m-3">
-        <div class="offset-1 col-1">
+        <div class="col-2" style="margin-left: auto">
           <i class="fa-regular fa-comment"></i> <%= post.child_comments.count(:post_id) %>
         </div>
         <!--bookmark-->
@@ -48,19 +48,37 @@
             </div>
           <% end %>
         </div>
-        <div class="col-4">
+        <div class="xl-on offset-1 col-1">
+          <% if user_signed_in? %>
+              <% if current_user != post.user %>
+                <% if current_user.following?(post.user) %>
+                  <%= link_to user_follows_path(post.user), method: :delete, class: 'position-relative post-box-link__profile' do %>
+                    <i class="fa-solid fa-user-plus followed"></i>
+                  <% end %>
+                <% else %>
+                  <%= link_to user_follows_path(post.user), method: :post, class: 'position-relative post-box-link__profile' do %>
+                    <i class="fa-solid fa-user-plus"></i>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+        </div>
+        <div class="col-4 xl-off">
           <p>投稿日時: <%= formatted_date_jp(post.created_at) %></p>
           <% if formatted_date_jp(post.created_at) != formatted_date_jp(post.updated_at) %>
             <p>更新日時 : <%= formatted_date_jp(post.updated_at) %></p>
           <% end %>
         </div>
-        <div class="col-2">
+        <div class="col-xl-2 col-4">
           <% if admin_signed_in? %>
             <%= link_to '削除', admin_post_path(post), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: { confirm: '本当に削除しますか？' } %>
           <% elsif current_user == post.user %>
             <%= link_to "削除", post_path(post), method: :delete,class: 'position-relative post-box-link__profile btn btn-danger', data: {confirm: "削除しますか？"} %>
           <% end %>
         </div>
+      </div>
+      <div class="row xl-on xl-time">
+        <p><%= simplified_date_jp(post.updated_at) %></p>
       </div>
     </div>
   <% end %>
