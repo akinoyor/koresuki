@@ -35,11 +35,6 @@ class Public::CommentsController < ApplicationController
       flash.now[:alert] = "#{error_messages}".html_safe
       render "layouts/flashs"
     end
-    # if comment.parent_comment_id == 0
-    #   redirect_to  post_path(comment.post_id)
-    # else
-    #   redirect_to post_comment_path(comment.post_id,comment.parent_comment_id)
-    # end
   end
 
   def destroy
