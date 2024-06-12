@@ -6,12 +6,12 @@ class Public::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     if @post.save
-      redirect_to posts_path, notice: '投稿しました。'
+      redirect_to posts_path, notice: "投稿しました。"
     else
-      error_messages = @post.errors.full_messages.join('</br>')
+      error_messages = @post.errors.full_messages.join("</br>")
       flash.now[:alert] = "#{error_messages}".html_safe
       flash.now[:notice] = "'投稿に失敗しました。"
-      render 'layouts/flashs'
+      render "layouts/flashs"
     end
   end
 
@@ -78,10 +78,9 @@ class Public::PostsController < ApplicationController
   end
 
   def show
-     @user = current_user
-     @newcomment = Comment.new
-     @post = Post.find(params[:id])
-
+    @user = current_user
+    @newcomment = Comment.new
+    @post = Post.find(params[:id])
   end
 
   def edit
@@ -105,7 +104,7 @@ class Public::PostsController < ApplicationController
   def destroy
     post = Post.find(params[:id])
     post.destroy
-    redirect_to  posts_path, notice: '投稿を削除しました。'
+    redirect_to posts_path, notice: "投稿を削除しました。"
   end
 
   def search
@@ -127,14 +126,13 @@ class Public::PostsController < ApplicationController
         @users_results = @users_results.merge(@users_results.search(keyword))
       end
 
-      if @type == 'AND'
-       @keywords.each_with_index do |keyword, i|
-         @posts_results = Post.search(keyword) if i == 0
-         @posts_results = @posts_results.merge(@posts_results.search(keyword))
-       end
+      if @type == "AND"
+        @keywords.each_with_index do |keyword, i|
+        @posts_results = Post.search(keyword) if i == 0
+        @posts_results = @posts_results.merge(@posts_results.search(keyword))
+      end
       else
         @keywords.each do |keyword|
-
           @posts_results = @posts_results.or(Post.search(keyword))
         end
       end
@@ -143,17 +141,15 @@ class Public::PostsController < ApplicationController
     render :search
   end
 
-
   private
-
-  def post_params
-    params.require(:post).permit(:body,:image)
-  end
-
-  def check_user
-    @post = Post.find(params[:id])
-    unless @post.user == current_user
-      redirect_to posts_path,alert: '投稿者のみ編集可能です。'
+    def post_params
+      params.require(:post).permit(:body, :image)
     end
-  end
+
+    def check_user
+      @post = Post.find(params[:id])
+      unless @post.user == current_user
+        redirect_to posts_path, alert: "投稿者のみ編集可能です。"
+      end
+    end
 end

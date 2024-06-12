@@ -16,29 +16,27 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def admin_controller?
-    self.class.module_parent_name == 'Admin'
-  end
-
-  def _render_404(e = nil)
-    logger.info "Rendering 404 with excaption: #{e.message}" if e
-
-    if request.format.to_sym == :json
-      render json: { error: "404 Not Found" }, status: :not_found
-    else
-      render template: 'errors/404', status: :not_found
+    def admin_controller?
+      self.class.module_parent_name == "Admin"
     end
-  end
 
-  def _render_500(e = nil)
-    logger.error "Rendering 500 with excaption: #{e.message}" if e
+    def _render_404(e = nil)
+      logger.info "Rendering 404 with excaption: #{e.message}" if e
 
-    if request.format.to_sym == :json
-      render json: { error: "500 Internal Server Error" }, status: :internal_server_error
-    else
-      render template: 'errors/500', status: :internal_server_error
+      if request.format.to_sym == :json
+        render json: { error: "404 Not Found" }, status: :not_found
+      else
+        render template: "errors/404", status: :not_found
+      end
     end
-  end
 
+    def _render_500(e = nil)
+      logger.error "Rendering 500 with excaption: #{e.message}" if e
+
+      if request.format.to_sym == :json
+        render json: { error: "500 Internal Server Error" }, status: :internal_server_error
+      else
+        render template: "errors/500", status: :internal_server_error
+      end
+    end
 end

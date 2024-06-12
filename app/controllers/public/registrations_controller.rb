@@ -82,11 +82,10 @@ class Public::RegistrationsController < Devise::RegistrationsController
   end
 
   private
-
-  def gest_user_check
-    if current_user.email == 'guest@example.com'
-      redirect_to posts_path
-      flash[:alert] = 'ゲストユーザーはアクセスできません。'
+    def gest_user_check
+      if current_user.email == "guest@example.com"
+        redirect_to posts_path
+        flash[:alert] = "ゲストユーザーはアクセスできません。"
+      end
     end
-  end
 end

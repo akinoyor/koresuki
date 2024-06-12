@@ -27,13 +27,13 @@ class Public::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
   def guest_sign_in
-    user = User.find_or_create_by!(email: 'guest@example.com') do |user|
+    user = User.find_or_create_by!(email: "guest@example.com") do |user|
       user.password = SecureRandom.urlsafe_base64
       user.name = "ゲスト"
-      user.profile ="ゲストユーザーです"
+      user.profile = "ゲストユーザーです"
     end
     sign_in user
-    redirect_to posts_path, notice: 'ゲストユーザーとしてログインしました。'
+    redirect_to posts_path, notice: "ゲストユーザーとしてログインしました。"
   end
 
   def after_sign_in_path_for(resource)
@@ -43,5 +43,4 @@ class Public::SessionsController < Devise::SessionsController
   def after_sign_out_path_for(resource)
     posts_path
   end
-
 end
