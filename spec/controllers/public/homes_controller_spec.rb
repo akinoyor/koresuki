@@ -16,7 +16,7 @@ RSpec.describe Public::HomesController, type: :controller do
   end
   describe 'rootへのアクセス' do
     it 'rootへのアクセスでTOP画面へ飛ぶ' do
-      expect(get: '/').to route_to(controller: 'public/homes', action: 'top')
+     expect(get: '/').to route_to(controller: 'public/homes', action: 'top')
    end
   end
 end

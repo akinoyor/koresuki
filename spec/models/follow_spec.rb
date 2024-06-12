@@ -4,9 +4,9 @@ require 'rails_helper'
 
 RSpec.describe Follow, 'モデルのテスト', type: :model do
   describe 'バリデーションのテスト' do
-    let!(:follower){ FactoryBot.create(:user)}
-    let!(:followed){ FactoryBot.create(:user)}
-    let!(:follow){ FactoryBot.create(:follow, follower: follower, followed: followed)}
+    let!(:follower) { FactoryBot.create(:user) }
+    let!(:followed) { FactoryBot.create(:user) }
+    let!(:follow) { FactoryBot.create(:follow, follower: follower, followed: followed) }
 
 
     it '同じユーザーに重複してフォローできないこと' do

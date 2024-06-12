@@ -6,11 +6,11 @@ require 'support/shared_examples/validations'
 RSpec.describe Comment, 'モデルのテスト', type: :model do
   describe 'バリデーションのテスト' do
     context '投稿が親コメントの時' do
-      let(:post){ FactoryBot.create(:comment)}
+      let(:post) { FactoryBot.create(:comment) }
       it_behaves_like 'ポスト・コメントのバリデーション'
     end
     context '投稿が子コメントの時' do
-      let(:post){ FactoryBot.create(:comment, :with_parent)}
+      let(:post) { FactoryBot.create(:comment, :with_parent) }
       it_behaves_like 'ポスト・コメントのバリデーション'
     end
   end
@@ -21,7 +21,7 @@ RSpec.describe Comment, 'モデルのテスト', type: :model do
         expect(Comment.reflect_on_association(:user).macro).to eq :belongs_to
       end
     end
-    context 'Postモデルとの関係'do
+    context 'Postモデルとの関係' do
       it 'N:1となっている' do
         expect(Comment.reflect_on_association(:post).macro).to eq :belongs_to
       end
@@ -34,6 +34,5 @@ RSpec.describe Comment, 'モデルのテスト', type: :model do
         expect(Comment.reflect_on_association(:parent_comment).macro).to eq :belongs_to
       end
     end
-
   end
 end

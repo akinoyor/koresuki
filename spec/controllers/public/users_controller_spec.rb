@@ -5,9 +5,9 @@ require 'rails_helper'
 RSpec.describe Public::UsersController, type: :controller do
   describe 'GET #show' do
     context '該当するユーザーがいるとき' do
-      let!(:user){ FactoryBot.create(:user) }
+      let!(:user) { FactoryBot.create(:user) }
       before do
-        get :show, params:{ id: user.id }
+        get :show, params: { id: user.id }
       end
       it 'レスポンスコードが200である' do
         expect(response).to have_http_status(:ok)
@@ -18,7 +18,7 @@ RSpec.describe Public::UsersController, type: :controller do
     end
     context '該当するユーザーがいないとき' do
       before do
-        get :show, params:{ id: 1 }
+        get :show, params: { id: 1 }
       end
       it 'レスポンスコードが404である' do
         expect(response).to have_http_status(404)
@@ -27,21 +27,21 @@ RSpec.describe Public::UsersController, type: :controller do
   end
   describe 'GET #show　戻り値チェック' do
     # users
-    let!(:user){ FactoryBot.create(:user) }
-    let!(:another_user1){ FactoryBot.create(:user) }
-    let!(:another_user2){ FactoryBot.create(:user) }
+    let!(:user) { FactoryBot.create(:user) }
+    let!(:another_user1) { FactoryBot.create(:user) }
+    let!(:another_user2) { FactoryBot.create(:user) }
     # posts
-    let!(:self_post){ FactoryBot.create(:post, user: user)}
-    let!(:another_post){ FactoryBot.create(:post, user: another_user1)}
+    let!(:self_post) { FactoryBot.create(:post, user:) }
+    let!(:another_post) { FactoryBot.create(:post, user: another_user1) }
     # bookmarks
-    let!(:self_bommkmark){ FactoryBot.create(:bookmark, user: user, post: another_post) }
-    let!(:another_bommkmark){ FactoryBot.create(:bookmark, user: another_user1, post: self_post) }
+    let!(:self_bommkmark) { FactoryBot.create(:bookmark, user_id: user.id, post: another_post) }
+    let!(:another_bommkmark) { FactoryBot.create(:bookmark, user: another_user1, post: self_post) }
     # follows
-    let!(:follow){ FactoryBot.create(:follow, follower: user, followed: another_user1) }
-    let!(:followed){ FactoryBot.create(:follow, follower: another_user2, followed: user) }
-    
+    let!(:follow) { FactoryBot.create(:follow, follower: user, followed: another_user1) }
+    let!(:followed) { FactoryBot.create(:follow, follower: another_user2, followed: user) }
+
     before do
-      get :show,params:{ id: user.id }
+      get :show, params: { id: user.id }
     end
     it 'ユーザー投稿一覧' do
       expect(assigns :user_posts).to include self_post

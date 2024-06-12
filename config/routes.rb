@@ -6,34 +6,30 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get 'dashboards', to: 'dashboards#index', as: 'dashboards'
-    resources :users,   only: [:destroy]
-    resources :posts,   only: [:destroy]
-    resources :comments,only: [:destroy]
+    resources :users,    only: [:destroy]
+    resources :posts,    only: [:destroy]
+    resources :comments, only: [:destroy]
   end
-
-
-
   # ↓ここからユーザー関係↓
   scope module: :public do
     devise_for :users
     devise_scope :user do
-    post  '/users/guest_sign_in', to: 'sessions#guest_sign_in', as: 'guest_sign_in'
+      post '/users/guest_sign_in', to: 'sessions#guest_sign_in', as: 'guest_sign_in'
     end
     root to: 'homes#top'
-    resources  :users,only:[:show] do
+    resources  :users, only: [:show] do
       resource  :follows, only: [:create, :destroy]
-      resources  :presets,  only: [:create, :destroy, :edit, :update]
+      resources :presets, only: [:create, :destroy, :edit, :update]
     end
     get     '/partial_ajax(/:id)',    to: 'posts#partial_ajax'
     get     '/user/bookmarks',        to: 'bookmarks#index',    as: 'bookmarks'
     get     '/posts/search',          to: 'posts#search',       as: 'search'
     get     '/posts/serch_words',     to: 'posts#search_words', as: 'search_words'
     get     '/posts/search_names',    to: 'posts#search_names', as: 'search_names'
-    resources :posts, only:[:index, :show, :create, :edit, :update, :destroy] do
+    resources :posts, only: [:index, :show, :create, :edit, :update, :destroy] do
       resources :comments,  only: [:create, :show, :destroy]
-      resource  :bookmarks,  only: [:create, :destroy]
+      resource  :bookmarks, only: [:create, :destroy]
     end
-
   end
 
   get   '*not_found' => 'application#routing_error'

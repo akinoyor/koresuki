@@ -131,8 +131,8 @@
   });
 
   // プリセット編集タブ関連↓
-   $('.tab i').on('click', function() {
-     $(gear).addClass("preset-tab");
+  $('.tab i').on('click', function() {
+    $(gear).addClass("preset-tab");
     return false;//aタグを無効にする
   });
 
@@ -147,14 +147,14 @@
       $('#all-posts').html(data);
     })
     .fail(function (jqXHR, textStatus, errorThrown) {
-                    // 通信失敗時の処理
-                    alert('タイムラインの更新に失敗しました。');
-                    console.log("ajax通信に失敗しました");
-                    console.log("jqXHR          : " + jqXHR.status); // HTTPステータスが取得
-                    console.log("textStatus     : " + textStatus);    // タイムアウト、パースエラー
-                    console.log("errorThrown    : " + errorThrown.message); // 例外情報
-                    console.log("URL            : " + url);
-            })
+      // 通信失敗時の処理
+      alert('タイムラインの更新に失敗しました。');
+      console.log("ajax通信に失敗しました");
+      console.log("jqXHR          : " + jqXHR.status); // HTTPステータスが取得
+      console.log("textStatus     : " + textStatus);    // タイムアウト、パースエラー
+      console.log("errorThrown    : " + errorThrown.message); // 例外情報
+      console.log("URL            : " + url);
+    })
 
     <% @presets.each do |preset| %>
       $.ajax('/partial_ajax/<%= preset.id %>')
