@@ -12,7 +12,7 @@ class Post < ApplicationRecord
   end
 
   def self.search(keyword)
-    where("body LIKE ?", "%#{keyword}%")
+    where('body LIKE ?', "%#{keyword}%")
   end
 
   def child_comments

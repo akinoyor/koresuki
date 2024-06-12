@@ -1,3 +1,5 @@
-$("#bookmark_btn_<%= @post_record.id %>").html("<%= j(render partial: '/public/bookmarks/bookmark', locals: { post: @post_record, user: @user}) %>");
+$("#bookmark_btn_<%= @post_record.id %>").html("<%= j(render partial: '/public/bookmarks/bookmark', locals: { post: @post_record, user: @user} ) %>");
 $("#flash_messages").html("<%= j(render partial: 'layouts/flash_messages') %>");
-$("#bookmark_counter").html("<%= j(render partial: "/public/bookmarks/bookmark_counter", locals: { profile_user: @user }) %>");
+console.log("Updating bookmark counter");
+$("#bookmark_counter").html("<%= j(render partial: '/public/bookmarks/bookmark_counter', locals: { profile_user: @user } ) %>");
+console.log("Updated bookmark counter");

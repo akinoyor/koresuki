@@ -28,7 +28,7 @@
       <% if user_signed_in? %>
         <% @presets.each do |preset| %>
           <div id="preset<%= preset.id %>" class="area">
-            <div id="gear" class="area col-6">
+            <div id="gear" class="area col-7">
               <div class="pt-3 row justify-content-center">
                 <%= form_with(model: [current_user, preset], url: user_preset_path(current_user, preset), method: :patch, local: false) do |form| %>
                 <%= hidden_field_tag :page, preset.id %>
@@ -70,7 +70,7 @@
         <% end %>
 
         <!--プリセット新規登録タブ↓-->
-        <div id="new" class="area col-6">
+        <div id="new" class="area col-7">
           <div class="pt-3 row justify-content-center">
             <%= form_with model: @newpreset, url: user_presets_path(current_user), method: :post, local: false do |newpreset| %>
               <div class="field text-right">
@@ -162,6 +162,6 @@
         $('#preset-posts-<%= preset.id %>').html(data);
       })
     <% end %>
-  }, 300*1000);
+  }, 15*1000);
 
 </script>

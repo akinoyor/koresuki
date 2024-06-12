@@ -6,7 +6,7 @@ class Public::BookmarksController < ApplicationController
     if bookmark.save
       @post_record = Post.find(bookmark.post_id)
       flash.now[:notice] = "ブックマークしました。"
-      render "create.js.erb"
+      render 'create.js.erb'
     else
       flash[:notice] = "ブックマークできませんでした。"
       redirect_to request.referer
@@ -19,7 +19,7 @@ class Public::BookmarksController < ApplicationController
     @user = User.find(params[:user_id])
     if bookmark.destroy
       flash.now[:notice] = "ブックマークを解除しました。"
-      render "destroy.js.erb"
+      render 'destroy.js.erb'
     else
       flash[:notice] = "ブックマークの解除に失敗しました。"
       redirect_to request.referer
