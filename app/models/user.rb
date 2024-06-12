@@ -7,10 +7,10 @@ class User < ApplicationRecord
   has_one_attached :user_image
   def get_user_image(width, height)
     unless user_image.attached?
-      file_path = Rails.root.join('app/assets/images/noimage.png')
-      user_image.attach(io: File.open(file_path), filename: 'default-image.png', content_type: 'image/png')
+      file_path = Rails.root.join("app/assets/images/noimage.png")
+      user_image.attach(io: File.open(file_path), filename: "default-image.png", content_type: "image/png")
     end
-    user_image.variant(resize_to_fill: [width,height]).processed
+    user_image.variant(resize_to_fill: [width, height]).processed
   end
 
   has_many :presets, dependent: :destroy
@@ -18,7 +18,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :bookmarks, dependent: :destroy
 
-   # フォローしている関連付け
+  # フォローしている関連付け
   has_many :active_relationships, class_name: "Follow", foreign_key: "follower_id", dependent: :destroy
 
   # フォローされている関連付け
@@ -45,12 +45,11 @@ class User < ApplicationRecord
     followings.include?(user)
   end
 
-  validates :name, presence: true ,length: {in: 2..20 }
+  validates :name, presence: true, length: { in: 2..20 }
   validates :password, presence: true, on: :create
   validates :profile, length: { maximum: 50 }
 
   def self.search(keyword)
-    where('name LIKE ?', "%#{keyword}%")
+    where("name LIKE ?", "%#{keyword}%")
   end
-
 end
