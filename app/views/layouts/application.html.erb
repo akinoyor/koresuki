@@ -92,20 +92,20 @@
       <%= render partial: '/layouts/flash_messages' %>
     </a>
     <%= yield %>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var toggleIcon = document.getElementById("header-icon");
+        var UserProfile = document.getElementById("user-profile");
+      
+        toggleIcon.addEventListener("click", function() {
+          if (UserProfile.classList.contains("xl-icon-profile-on")) {
+            UserProfile.classList.remove("xl-icon-profile-on");
+          } else {
+            UserProfile.classList.add("xl-icon-profile-on");
+          }
+        });
+      });
+    </script>
   </body>
 </html>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-  var toggleIcon = document.getElementById("header-icon");
-  var UserProfile = document.getElementById("user-profile");
-
-  toggleIcon.addEventListener("click", function() {
-    if (UserProfile.classList.contains("xl-icon-profile-on")) {
-      UserProfile.classList.remove("xl-icon-profile-on");
-    } else {
-      UserProfile.classList.add("xl-icon-profile-on");
-    }
-  });
-});
-</script>

@@ -25,28 +25,19 @@ RSpec.describe Public::PostsController, type: :controller do
       end
     end
     context 'ログインしている・投稿が失敗した時' do
-      let!(:referer_url1) { "http://test.host/posts" }
-      let!(:referer_url2) { "http://test.host/" }
       before do
         sign_in user
-        request.env["HTTP_REFERER"] = referer_url1
         allow_any_instance_of(Post).to receive(:save).and_return(false)
-        post :create, params: { post: { body: post_record.body } }
+        post :create, params: { post: { body: post_record.body } }, xhr: true
       end
-      it 'レスポンスコードが302である' do
-        expect(response).to have_http_status(302)
+      it 'レスポンスコードが200である' do
+        expect(response).to have_http_status(200)
       end
       it 'Postが作成されない' do
         expect(Post.where(body: post_record.body)).not_to exist
       end
       it '"投稿に失敗しました"とフラッシュメッセージが出る' do
         expect(flash[:notice]).to match("投稿に失敗しました")
-      end
-      it '直前のURLにリダイレクトを行う' do
-        expect(response).to redirect_to(referer_url1)
-        request.env["HTTP_REFERER"] = referer_url2
-        post :create, params: { post: { body: post_record.body } }
-        expect(response).not_to redirect_to(referer_url1)
       end
     end
     context 'ログインしていない時' do

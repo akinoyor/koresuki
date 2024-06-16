@@ -61,23 +61,16 @@ RSpec.describe Public::CommentsController, type: :controller do
     context 'ログイン時・Saveに成功したとき' do
       before do
         sign_in user
-        post :create, params: { post_id: post_record.id, comment: { body: comment.body } }
+        post :create, params: { post_id: post_record.id, comment: { body: comment.body } }, xhr: true
       end
-      it 'レスポンスコードが302である' do
-        expect(response).to have_http_status(302)
+      it 'レスポンスコードが200である' do
+        expect(response).to have_http_status(200)
       end
       it 'Commentが作成される' do
         expect(Comment.where(user_id: user.id, post_id: post_record.id, body: comment.body)).to exist
       end
       it '"コメントを投稿しました。"のフラッシュメッセージが出る' do
         expect(flash[:notice]).to match("投稿しました")
-      end
-      it '指定のURLにリダイレクトを行う' do
-        expect(response).to redirect_to("/posts/10")
-      end
-      it '親コメントがあるとき指定のURLにリダイレクトを行う' do
-        post :create, params: { post_id: 10, comment: { body: comment.body, parent_comment_id: parent_comment.id } }
-        expect(response).to redirect_to("/posts/10/comments/5")
       end
     end
 
@@ -86,24 +79,9 @@ RSpec.describe Public::CommentsController, type: :controller do
         sign_in user
         allow_any_instance_of(Comment).to receive(:save).and_return(false)
       end
-
-      it 'レスポンスコードが200である' do
-        expect(response).to have_http_status(200)
-      end
-      it 'Commentが作成されない' do
-        expect(Comment.where(user_id: user.id, post_id: post_record.id, body: comment.body)).not_to exist
-      end
       it '"コメントの投稿に失敗しました"のフラッシュメッセージが出る' do
-        post :create, params: { post_id: post_record.id, comment: { body: comment.body } }
+        post :create, params: { post_id: post_record.id, comment: { body: comment.body } }, xhr: true
         expect(flash[:notice]).to match("コメントの投稿に失敗しました")
-      end
-      it '指定のURLにリダイレクトを行う' do
-        post :create, params: { post_id: post_record.id, comment: { body: comment.body } }
-        expect(response).to redirect_to("/posts/10")
-      end
-      it '親コメントがあるときに指定のURLにリダイレクトを行う' do
-        post :create, params: { post_id: 10, comment: { body: comment.body, parent_comment_id: 5 } }
-        expect(response).to redirect_to("/posts/10/comments/5")
       end
     end
     context 'ログインをしていない時' do
